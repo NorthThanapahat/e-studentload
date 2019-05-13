@@ -1,1 +1,383 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@media print {
+  .breadcrumb {
+    display: none !important;
+  }
+}
+
+@font-face {
+  font-family: 'Prompt-Regular';
+  src: url('../src/assets/font/Prompt-Regular.otf');
+}
+
+@font-face {
+  font-family: 'Prompt-Bold';
+  src: url('../src/assets/font/Prompt-Bold.otf');
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Prompt-Regular';
+}
+
+.line {
+  border-radius: 15px;
+  height: 3px;
+  width: 250px;
+}
+
+
+/* display */
+.display-table{
+  display: table;
+}
+
+.display-table-row{
+  display: table-row;
+}
+/* font */
+
+.font-normal {
+  font-family: 'Prompt-Regular';
+}
+
+.font-bold {
+  font-family: 'Prompt-Bold';
+}
+
+/* position */
+.bottom-right{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.relative {
+  position: relative;
+}
+
+.ab {
+  position: absolute;
+}
+
+.z-index-top {
+  z-index: 99;
+}
+
+.top-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.top-0{
+  top:0;
+}
+/* size */
+
+.full-body {
+  height: 100%;
+  width: 100%;
+}
+
+.wt-100 {
+  width: 100px;
+}
+
+.wt-150 {
+  width: 150px;
+}
+
+.wt-200 {
+  width: 200px;
+}
+
+.ht-100 {
+  height: 80px;
+}
+
+.ht-200 {
+  height: 200px;
+}
+
+.mh-450{
+  min-height: 450px;
+}
+.full-vh {
+  height: 100vh;
+}
+
+.ht-full {
+  height: 100%;
+}
+
+/* margin padding */
+
+.margin-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.margin{
+  margin:10px;
+}
+.padding {
+  padding: 10px;
+}
+
+.margin-top-5 {
+  margin-top: 5px;
+}
+.margin-top--10{
+  margin-top:-55px !important;
+}
+.no-margin-padding {
+  margin: 0;
+  padding: 0;
+}
+.no-margin{
+  margin:0;
+}
+
+.no-margin-bottom{
+  margin-bottom: 0;
+}
+.no-padding{
+  padding: 0;
+}
+
+.margin-top-5p{
+  margin-top: 5%;
+}
+.margin-top-10p {
+  margin-top: 10%;
+}
+
+.margin-top-15p {
+  margin-top: 15%;
+}
+.margin-top-20p{
+  margin-top:20%;
+}
+.margin-top-50p {
+  margin-top: 50%;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-top-30 {
+  margin-top: 30px;
+}
+
+.margin-left {
+  margin-left: 10px;
+}
+
+.margin-left-20{
+  margin-left: 20px;
+
+}
+
+.margin-left-15p{
+  margin-left:15%;
+}
+.margin-right-5 {
+  margin-right: 5px;
+}
+
+.margin-bottom-10{
+  margin-bottom: 10px;
+}
+.margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.padding-left-10{
+  padding-left: 10px;
+}
+.margin-side {
+  margin: 10px 15px 15px 10px;
+}
+
+.padding-side {
+  padding: 10px 25px 10px 25px;
+}
+
+/* align */
+
+.verticle-middle {
+  vertical-align: middle;
+}
+
+/* border */
+
+.line-verticle {
+  height: 50px;
+  width: 1px;
+  background: #a4a8b3;
+}
+.border-15 {
+  border-radius: 15px !important;
+}
+.border-radius{
+  border: 2px solid #0400ac;
+  border-radius: 15px;
+}
+.border-bottom {
+  border-bottom: 15px solid #001a66 !important;
+}
+
+.border-bottom-1{
+  border-bottom: 1px solid #001a66 !important;
+}
+.border-bottom-3{
+  border-bottom: 3px solid #001a66 !important;
+}
+.form-control-plaintext {
+  border-bottom: 1px solid #333;
+}
+
+.border-rec {
+  border: 1px solid #001a66;
+  border-radius: 10px;
+}
+.border-right{
+  border-right: 1px solid #001a66 !important;
+}
+/* box shadow */
+
+.box-shadow-bottom {
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* font-style */
+
+.underline {
+  text-decoration: underline;
+  text-decoration-color: #001a66;
+}
+
+/* font-size */
+
+.font-size-12 {
+  font-size: 12px;
+}
+.font-size-15 {
+  font-size: 15px;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+.font-size-25 {
+  font-size: 25px;
+}
+
+.font-size-48 {
+  font-size: 48px;
+}
+.font-size-60 {
+  font-size: 60px;
+}
+/* font-color */
+.text-green{
+  color: rgb(7, 221, 185);
+}
+.text-gray {
+  color: #a4a8b3;
+}
+
+.text-bule-violet {
+  color: #001a66;
+}
+
+.text-bule-violet-light {
+  color: #0400ac;
+}
+
+/* background */
+
+.bule-violet {
+  background: #001a66;
+}
+
+.bule-violet-light {
+  background: #0400ac;
+}
+.bule-violet-light-white {
+  background: #7675ad;
+}
+.bule-violet-light-less {
+  background: #e8e8f7;
+}
+.bg-light{
+  background: #dee1e6 !important;
+}
+
+.bg-violet-less{
+  background: #b19edf;
+}
+
+.bg-white{
+  background:#fff !important;
+}
+
+.bg-blue-dark{
+  background: #223074;
+}
+/* button */
+
+
+
+.btn-radius {
+  border-radius: 25px;
+}
+
+.link {
+  cursor: pointer;
+}
+
+
+.item{
+  height:200px;
+  background: #d3d6df;
+  border-radius: 25px;
+}
+
+/* custom */
+.close{
+  margin-right: 20px;
+  position: relative;
+  right: 20px;
+  color: white;
+  z-index: 999;
+}
+
+.close:hover{
+  opacity: 1;
+  color: white;
+}
+.modal-xlg {
+  max-width: 950px;
+  margin: auto;
+}
+.modal-80p {
+  width: 80%;
+  margin: auto;
+}
+
+.table .thead-dark th {
+  color: #fff;
+  background-color: #212529;
+  border-color: #32383e;
+}

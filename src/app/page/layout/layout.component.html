@@ -1,0 +1,41 @@
+<app-header></app-header>
+<div class="relative">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav navbar-center margin-auto">
+        <li (click)="Page('home')" [ngClass]="{'active': click == 'home'}" [routerLink]="[ '/home']" class="nav-item link">
+          <a class="nav-link">หน้าแรก</a>
+        </li>
+        <li class="nav-item link" [routerLink]="[ '/person']" (click)="Page('person')" [ngClass]="{'active': click == 'person'}" >
+          <a class="nav-link" >ข้อมูลบุคคล</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"href="#" [ngClass]="{'active': click == 'department'}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                ข้อมูลหน่วยงาน
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/department']">ข้อมูลหน่วยงาน</a>
+              <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/side']">ข้อมูลฝ่ายงาน</a>
+              <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/group']">ข้อมูลกลุ่มงาน</a>
+            </div>
+          </li>
+       
+        <li class="nav-item">
+          <a class="nav-link" >Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" >ตั้งค่า</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- <div class="col-4 bg-white ab z-index-top top-0 no-margin-padding">
+    <div class="full-body border-right">
+        <i class="far fa-user-circle font-size-60 text-bule-violet"></i>
+    </div>
+  </div> -->
+</div>
+<section>
+  <router-outlet></router-outlet>
+</section>

@@ -1,0 +1,93 @@
+<div class="container col-12 no-margin-padding relative">
+  <div class="full-body">
+    <div class="ab z-index-top top-right padding font-size-12">
+      <a href="">ไทย</a>
+      <span class="margin-left">|</span>
+      <a class="margin-left" href="">Eng</a>
+    </div>
+    <div class="col-6 full-img no-margin-padding float-left">
+      <img class="full-vh" src="../../../assets/image/login-01.jpg" alt="" />
+    </div>
+    <div class="float-left margin-top-10p">
+      <div class="verticle-middle ht-100 text-gray">
+        <div class="float-left">
+          <img class="wt-100" src="../../../assets/image/logo.png" alt="" />
+        </div>
+        <div class="float-left margin-top-5">
+          <div class="float-left line-verticle margin-left"></div>
+          <div class="float-left margin-top-10 margin-left ht-full">
+            กองทุนกู้ยืมเพื่อการศึกษา
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="border-rec padding padding-side col-7">
+        <div class="font-size-25 text-bule-violet">
+          <div class="font-bold">เข้าสู่ระบบ</div>
+          <div class="font-bold">ยืนยันตัวตนแบบรวมศูนย์</div>
+          <div>Single Sign on (SSO)</div>
+        </div>
+        <div class="margin-top-20">
+          <div class="form-group row">
+            <label for="staticEmail" class="col-form-label"><i
+                class="fas fa-user-circle text-bule-violet font-size-20"></i></label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control-plaintext" id="staticEmail"
+                placeholder="ชื่อผู้เข้าใช้งานหรืออีเมล" />
+            </div>
+          </div>
+          <div class="form-group row text-bule-violet margin-top-30">
+            <label for="staticEmail" class="col-form-label  font-size-20">
+              <i class="fas fa-unlock-alt"></i>
+            </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control-plaintext" id="staticEmail" placeholder="รหัสผ่าน" />
+            </div>
+            <div class="col-12 margin-top-10">
+              <div class="float-left col-6">
+                <input type="checkbox" class="margin-right-5 float-left" />
+                <div class="font-size-12">จดจำข้อมูลของฉัน</div>
+              </div>
+              <div class="btn float-right font-size-12 underline" data-toggle="modal" data-target="#exampleModalCenter">
+                ลืมรหัสผ่าน</div>
+            </div>
+            <div class="col-12">
+              <button (click)="Login()" class="btn bule-violet text-white btn-radius col-6 offset-3 margin-top-20">
+                เข้าสู่ระบบ
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <aside class="col-sm-12">
+            <div class="card">
+              <article class="card-body">
+                <div class="modal-header text-center">
+                  <h4 class="card-title text-left mb-4 mt-1">กรุณากรอกอีเมล์หรือเบอร์โทรศัพท์</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <hr>
+                <input name="email" class="form-control" placeholder="" type="text">
+                <div class="col-12  margin-top-10 text-center">
+                  <button data-dismiss="modal" type="submit" class="col-3 btn btn-primary "> ส่ง </button>
+                  <button data-dismiss="modal" type="submit" class="col-3 margin-left btn btn-danger"> ยกเลิก </button>
+
+                </div>
+
+              </article>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
