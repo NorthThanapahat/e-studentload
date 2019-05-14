@@ -1,0 +1,136 @@
+<div class="full-body ">
+  <div class="col-sm-2 no-padding side-menu bule-violet text-center">
+    <div class="full-body text-white margin-bottom-10">
+      <i class="far fa-user-circle fa-5x  padding"></i>
+      <div class="col-12 ">
+        <span class="border-bottom-3-white"> Nara Taya</span>
+      </div>
+      <div class="d-flex w-100 bg-white text-bule-violet-light link padding justify-content-center margin-top-30"
+        data-toggle="collapse" href="#collapseSideMenu" role="button" aria-expanded="false"
+        aria-controls="collapseSideMenu">
+        <div class="float-left">
+          <b>Dashboard</b>
+        </div>
+        <i class="fas fa-chevron-down float-left margin-left margin-top-5"></i>
+      </div>
+      <div class="collapse show" id="collapseSideMenu">
+        <div class="d-flex w-100  bg-white text-bule-violet-light link padding justify-content-center margin-top-5">
+          <div class="float-left">
+            <b>สถิติผู้ใช้งาน</b>
+          </div>
+        </div>
+        <div class="d-flex w-100  bg-violet-less text-white link padding justify-content-center margin-top-5">
+          <div class="float-left">
+            <b>การใช้งานระบบ</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-10 float-right margin-top-20 padding">
+    <div class="col-sm-10 float-left">
+      <div class="bg-danger row col-sm-12 text-center text-white padding justify-content-center">
+        <h5>การเข้าใช้งานระบบ</h5>
+      </div>
+      <div class="padding margin-top-20 ">
+        <div class="col-sm-6 float-left">
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">จากวันที่</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control bg-toolight">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 float-left">
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">ถึงวันที่</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control bg-toolight">
+            </div>
+          </div>
+        </div>
+      </div>
+      <chart class="margin-top-20" style="height: 350px;" [type]="typeChart" [data]="dataChart"
+        [options]="optionsChart"></chart>
+
+      <div class="container margin-top-30">
+        <table class="table table-bordered text-center">
+          <thead class="bg-toolight">
+            <tr>
+              <th scope="col">Date time</th>
+              <th scope="col">Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">Password</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody class="bg-toolight">
+            <tr>
+              <td>2016 07 12 13:30:17</td>
+              <td>สมศักดิ์ สารดี</td>
+              <td>user01</td>
+              <td>******</td>
+              <td>user01@gmail.com</td>
+            </tr>
+            <tr>
+              <td>2016 07 12 13:30:17</td>
+              <td>วิษนา กระตี่</td>
+              <td>user02</td>
+              <td>******</td>
+              <td>user02@gmail.com</td>
+            </tr>
+            <tr>
+              <td>2016 07 12 13:30:17</td>
+              <td>สมหมาย สารดี</td>
+              <td>user03</td>
+              <td>******</td>
+              <td>user03@gmail.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="col-sm-2 float-right">
+      <div
+        class="display-table  d-flex justify-content-center  border-radius text-bule-violet-light padding margin-top-10">
+        <i class="fas fa-arrow-circle-up text-green  font-size-25 float-left"></i>
+        <div class="float-left margin-left  font-size-20">Export</div>
+      </div>
+      <div class="margin-top-15p display-table">
+        <div class="float-left col-sm-2">
+          <i *ngFor="let item of colors" class="col-sm-12 fas fa-circle text-{{item.key}}"></i>
+        </div>
+        <div *ngFor="let item of legend" class=" col-sm-8 float-left">
+          <div class="col-sm-12">{{item}}</div>
+        </div>
+      </div>
+      <div>
+        <div (click)="ChartType('line')"
+          class="row col-sm-10 offset-sm-1 margin-top-10 text-center border-radius-2 padding link">
+          <i class="margin-left-20 margin-right-5 margin-top-5 fas fa-chart-line fa-lg"></i>
+          <div class="margin-left">เส้น</div>
+        </div>
+        <div (click)="ChartType('pie')"
+          class="row col-sm-10 offset-sm-1 margin-top-10 text-center border-radius-2 padding link">
+          <i class="margin-left-20 margin-right-5 margin-top-5 fas fa-chart-pie fa-lg"></i>
+          <div class="margin-left">วงกลม</div>
+        </div>
+        <div (click)="ChartType('bar')"
+          class="row col-sm-10 offset-sm-1 margin-top-10 text-center border-radius-2 padding link">
+          <i class="margin-left-20 margin-right-5 margin-top-5 fas fa-chart-bar fa-lg"></i>
+          <div class="margin-left">แท่ง</div>
+        </div>
+        <div (click)="ChartType('horizontalBar')"
+          class="row col-sm-10 offset-sm-1 margin-top-10 text-center  border-radius-2 padding link">
+          <img class="margin-left-20 margin-right-5 " width="21px" height="21px"
+            src="assets/image/horizontal-bars-chart-of-business.png" alt="">
+          <div class="margin-left">คอลั่ม</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

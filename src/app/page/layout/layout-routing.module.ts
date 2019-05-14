@@ -8,6 +8,11 @@ import { PersonComponent } from './person/person.component';
 import { DepartmentComponent } from './department/department.component';
 import { SideComponent } from './side/side.component';
 import { GroupComponent } from './group/group.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ManagePasswordComponent } from './manage-password/manage-password.component';
+import { ManageDataComponent } from './manage-data/manage-data.component';
+import { ManageRoleComponent } from './manage-role/manage-role.component';
+import { AuditLogComponent } from './audit-log/audit-log.component';
 
 
 const routes: Routes = [
@@ -19,7 +24,12 @@ const routes: Routes = [
       {path:'person', component:PersonComponent},
       {path:'department', component:DepartmentComponent},
       {path:'side', component:SideComponent},
-      {path:'group', component:GroupComponent}
+      {path:'group', component:GroupComponent},
+      {path:'dashboard', component:DashboardComponent},
+      {path:'manage-password', component:ManagePasswordComponent},
+      {path:'manage-data', component:ManageDataComponent},
+      {path:'manage-role', component:ManageRoleComponent},
+      {path:'audit-log', component:AuditLogComponent}
     ]
   }
 ];

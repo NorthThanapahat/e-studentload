@@ -1,0 +1,135 @@
+<div class="container margin-top-20">
+  <div class="col-sm-12 no-padding">
+    <div class="w-100 border-bottom-2-gray text-center">
+      <h3>System Auditlog</h3>
+    </div>
+    <div class="w-100 margin-top-20">
+      <div class="w-100 text-gray">
+        <div class="col-sm-3 no-padding float-left">Today</div>
+        <div class="col-sm-3 no-padding float-left">7 day</div>
+        <div class="col-sm-3 no-padding float-left">14 day</div>
+        <div class="col-sm-3 no-padding float-left">
+          <div class="float-left">21 day</div>
+          <div class="float-right" style="margin-right: -10px;">30 day</div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="w-100 margin-top-10 relative" style="height: 50px;">
+        <div class="h-100 d-flex">
+          <div class="col-sm-3 no-padding">
+            <div (click)="Date('today')" [ngClass]="{'border-circle': date == 'today'}" style="left: -10px;"
+              class="ab padding  display-table z-index-top">
+              <img src="assets/image/dot-inside-a-circle.png" alt="">
+            </div>
+
+          </div>
+          <div class="col-sm-3 no-padding">
+            <div (click)="Date('7')" [ngClass]="{'border-circle': date == '7'}"
+              class="ab padding  display-table z-index-top">
+              <img src="assets/image/dot-inside-a-circle.png" alt="">
+            </div>
+          </div>
+          <div class="col-sm-3 no-padding">
+            <div (click)="Date('14')" [ngClass]="{'border-circle': date == '14'}"
+              class="ab padding display-table z-index-top">
+              <img src="assets/image/dot-inside-a-circle.png" alt="">
+            </div>
+          </div>
+          <div class="col-sm-3 no-padding">
+            <div (click)="Date('21')" [ngClass]="{'border-circle': date == '21'}"
+              class="ab padding display-table z-index-top">
+              <img src="assets/image/dot-inside-a-circle.png" alt="">
+            </div>
+
+            <div (click)="Date('30')" [ngClass]="{'border-circle': date == '30'}"
+              class="ab padding display-table z-index-top" style="right: -10px;">
+              <img src="assets/image/dot-inside-a-circle.png" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="ab line-100 z-index-1000 center-verticle"></div>
+      </div>
+    </div>
+
+    <div class="margin-top-30 col-sm-12">
+      <div class="row text-gray">
+        <div class="form-check">
+          <input class="form-check-input bg-light" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
+            checked>
+          <label class="form-check-label" for="exampleRadios1">
+            All
+          </label>
+        </div>
+        <div class="form-check margin-left-20">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+          <label class="form-check-label" for="exampleRadios2">
+            User
+          </label>
+        </div>
+      </div>
+      <div class="w-100 display-table">
+        <div class="form-group no-margin row col-sm-4 float-left">
+          <label for="inputPassword" class="col-sm-4 col-form-label">Action : </label>
+          <div class="col-sm-8">
+            <select class="form-control" required>
+              <option>All</option>
+            </select>
+          </div>
+        </div>
+        <form class="col-sm-4 form-inline float-right">
+          <div class="w-100 inner-addon left-addon">
+            <i class=" glyphicon fas fa-search text-gray"></i>
+            <input type="text" class="w-100 form-control border-15" placeholder="Search" />
+          </div>
+        </form>
+      </div>
+
+      <div class="container margin-top-30">
+        <table class="table table-bordered text-center">
+          <thead class="bg-toolight">
+            <tr>
+              <th scope="col">Date time</th>
+              <th scope="col">Action</th>
+              <th scope="col">Application</th>
+              <th scope="col">Details</th>
+              <th scope="col">By</th>
+            </tr>
+          </thead>
+          <tbody class="bg-toolight">
+            <tr>
+              <td>2016 07 12 13:30:17</td>
+              <td>User Login</td>
+              <td>ระบบ ERP</td>
+              <td>User Login</td>
+              <td>user01@gmail.com</td>
+            </tr>
+            <tr>
+              <td>2016 07 12 13:30:17</td>
+              <td>User Login</td>
+              <td>ระบบ Helpdesk</td>
+              <td>User Login</td>
+              <td>user02@gmail.com</td>
+            </tr>
+            <tr>
+              <td>2016 07 12 13:30:17</td>
+              <td>User Login</td>
+              <td>ระบบสามัญ</td>
+              <td>User Login</td>
+              <td>user03@gmail.com</td>
+            </tr>
+            <tr>
+              <td>2016 07 12 13:30:17</td>
+              <td>User Login</td>
+              <td>Appinta</td>
+              <td>User Login</td>
+              <td>user03@gmail.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>

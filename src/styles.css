@@ -63,10 +63,18 @@ html, body {
   position: absolute;
 }
 
-.z-index-top {
-  z-index: 99;
+.z-index-1000{
+  z-index: 1000;
 }
-
+.z-index-top {
+  z-index: 9999;
+}
+.right{
+  right: 10;
+}
+.center-verticle{
+  top:50%;
+}
 .top-right {
   position: absolute;
   top: 10px;
@@ -112,6 +120,9 @@ html, body {
 .ht-full {
   height: 100%;
 }
+.w-99{
+  width:99%;
+}
 
 /* margin padding */
 
@@ -124,6 +135,14 @@ html, body {
 }
 .padding {
   padding: 10px;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+.padding-tb-10{
+  padding-top:15px;
+  padding-bottom: 15px;
 }
 
 .margin-top-5 {
@@ -192,6 +211,13 @@ html, body {
   margin-right: 5px;
 }
 
+.margin-right {
+  margin-right: 5px;
+}
+.margin-right-15p {
+  margin-right: 15%;
+}
+
 .margin-bottom-10{
   margin-bottom: 10px;
 }
@@ -217,7 +243,10 @@ html, body {
 }
 
 /* border */
-
+.border-circle{
+  border-radius: 50%;
+  background: rgb(236, 221, 221);
+}
 .line-verticle {
   height: 50px;
   width: 1px;
@@ -230,6 +259,10 @@ html, body {
   border: 2px solid #0400ac;
   border-radius: 15px;
 }
+.border-radius-2{
+  border-radius: 10px;
+  border: 2px solid #001a66 !important;
+}
 .border-bottom {
   border-bottom: 15px solid #001a66 !important;
 }
@@ -240,16 +273,32 @@ html, body {
 .border-bottom-3{
   border-bottom: 3px solid #001a66 !important;
 }
+.border-bottom-3-white{
+  border-bottom: 3px solid #fff !important;
+}
 .form-control-plaintext {
   border-bottom: 1px solid #333;
 }
-
+.border-bottom-2-gray{
+  border-bottom: 1px solid grey;
+}
 .border-rec {
   border: 1px solid #001a66;
   border-radius: 10px;
 }
 .border-right{
   border-right: 1px solid #001a66 !important;
+}
+
+.border-gray{
+  border: 1px solid rgb(148, 148, 148);
+}
+
+.border-shadow{
+  -webkit-box-shadow: 4px 4px 4px 0px rgba(48, 48, 48,0.75);
+  -moz-box-shadow: 4px 4px 4px 0px rgba(48, 48, 48,0.75);
+  box-shadow: 4px 4px 4px 0px rgba(48, 48, 48, 0.75);
+  border:1px solid rgb(158, 158, 158);
 }
 /* box shadow */
 
@@ -290,6 +339,16 @@ html, body {
   font-size: 60px;
 }
 /* font-color */
+.text-orange{
+  color:rgb(254, 145, 1);
+}
+.text-skybule{
+  color:rgb(2, 159, 237);
+}
+
+.text-pink{
+  color:rgb(255, 34, 145);
+}
 .text-green{
   color: rgb(7, 221, 185);
 }
@@ -307,6 +366,7 @@ html, body {
 
 /* background */
 
+
 .bule-violet {
   background: #001a66;
 }
@@ -323,7 +383,9 @@ html, body {
 .bg-light{
   background: #dee1e6 !important;
 }
-
+.bg-toolight{
+  background: #e6e6eb !important;
+}
 .bg-violet-less{
   background: #b19edf;
 }
@@ -355,6 +417,42 @@ html, body {
 }
 
 /* custom */
+
+.inner-addon {
+  position: relative;
+}
+
+/* style glyph */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align glyph */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  40px; }
+.right-addon input { padding-right: 40px; }
+
+
+.line-100{
+  width:98%;
+  left: 7.5px;
+  height: 5px;
+  background: #ddd;
+}
+.table-bordered{
+  border: 2px solid #242424 !important;
+}
+.table-bordered thead {
+  border-bottom: 2px solid #4e4e4e !important;
+}
+.table-bordered thead th {
+  border-bottom: 2px solid #888888 !important;
+}
 .close{
   margin-right: 20px;
   position: relative;
@@ -380,4 +478,72 @@ html, body {
   color: #fff;
   background-color: #212529;
   border-color: #32383e;
+}
+.side-menu{
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  margin-top:-56px !important;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 35px;
+  width: 35px;
+  top: -4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border: 1px solid grey;
+}
+
+input:checked + .slider {
+  background-color: #dc3545;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #dc3545;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(35px);
+  -ms-transform: translateX(35px);
+  transform: translateX(35px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  height: 25px;
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

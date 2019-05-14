@@ -3,7 +3,10 @@
     <img src="assets/image/logo1.png" width="150px" alt="">
   </a>
   <form class="form-inline">
-    <input class="form-control border-15" type="search" placeholder="Search" aria-label="Search">
+    <div class="inner-addon left-addon">
+      <i class="glyphicon fas fa-search text-gray"></i>
+      <input type="text" class="form-control border-15" placeholder="Search" />
+    </div>
   </form>
 
   <div class="padding">
@@ -20,14 +23,14 @@
     <div class="clearfix"></div>
     <div class="line bule-violet-light"></div>
     <div class="float-right">
-        <div class="float-left padding">
-          <i class="fas fa-user-circle"></i>
-         <b>Admin</b> 
-        </div>
-        <div class="float-left padding link" (click)="Logout()">
-          <i class="fas fa-sign-out-alt"></i>
-          <b>Logout</b>
-        </div>
+      <div class="float-left padding">
+        <i class="fas fa-user-circle"></i>
+        <b>Admin</b>
+      </div>
+      <div class="float-left padding link" (click)="Logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <b>Logout</b>
+      </div>
     </div>
 
   </div>

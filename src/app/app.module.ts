@@ -11,6 +11,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthGuard } from './share/auth.guard';
 import { ApiProvider } from './share/api/api';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ChartModule } from 'angular2-chartjs';
+import { ChartsModule as Ng2Charts } from 'ng2-charts';
+
+
 
 @NgModule({
   declarations: [
@@ -22,7 +26,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     AppRoutingModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartModule,
+    Ng2Charts
   ],
   providers: [DataProvider,AuthGuard,ApiProvider],
   entryComponents:[ForgetPasswordComponent],
