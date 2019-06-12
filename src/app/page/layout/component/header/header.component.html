@@ -11,12 +11,12 @@
 
   <div class="padding">
     <div class="float-right">
-      <div class="float-left"><u>
-          <div>ไทย</div>
-        </u></div>
+      <div class="float-left link" (click)="SwitchLanguage('th')">
+          <div [ngClass]="{'underline': data.language == 'th'}">ไทย</div>
+        </div>
       <div class="float-left margin-left">|</div>
-      <div class="float-left margin-left">
-        <div>Eng</div>
+      <div class="float-left margin-left link" (click)="SwitchLanguage('en')">
+        <div [ngClass]="{'underline': data.language == 'en'}">Eng</div>
       </div>
     </div>
 

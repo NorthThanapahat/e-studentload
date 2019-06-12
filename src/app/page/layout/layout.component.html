@@ -6,38 +6,38 @@
       <ul class="navbar-nav navbar-center margin-auto">
         <li (click)="Page('home')" [ngClass]="{'active': click == 'home'}" [routerLink]="[ '/home']"
           class="nav-item link">
-          <a class="nav-link">หน้าแรก</a>
+          <a class="nav-link">{{'Menu.1' | translate}}</a>
         </li>
         <li class="nav-item link" [routerLink]="[ '/person']" (click)="Page('person')"
           [ngClass]="{'active': click == 'person'}">
-          <a class="nav-link">ข้อมูลบุคคล</a>
+          <a class="nav-link">{{'Menu.2' | translate}}</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" [ngClass]="{'active': click == 'department'}" id="navbarDropdown"
             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ข้อมูลหน่วยงาน
+            {{'Menu.3' | translate}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/department']">ข้อมูลหน่วยงาน</a>
-            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/side']">ข้อมูลฝ่ายงาน</a>
-            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/group']">ข้อมูลกลุ่มงาน</a>
+            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/department']">{{'Menu.4' | translate}}</a>
+            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/side']">{{'Menu.4' | translate}}</a>
+            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/group']">{{'Menu.5' | translate}}</a>
           </div>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" (click)="Page('dashboard')" [ngClass]="{'active': click == 'dashboard'}"
-            [routerLink]="[ '/dashboard']">Dashboard</a>
+            [routerLink]="[ '/dashboard']">{{'Menu.6' | translate}}</a>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" [ngClass]="{'active': click == 'setting'}" id="navbarDropdown"
               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              ตั้งค่า
+              {{'Menu.7.name' | translate}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-password']">จัดการรหัสผ่าน</a>
-              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-data']">การสำรองข้อมูล</a>
-              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-role']">การจัดการสิทธิการใช้งาน</a>
-              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/audit-log']">Audit Log</a>
+              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-password']">{{'Menu.7.1' | translate}}</a>
+              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-data']">{{'Menu.7.2' | translate}}</a>
+              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-role']">{{'Menu.7.3' | translate}}</a>
+              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/audit-log']">{{'Menu.7.4' | translate}}</a>
             </div>
           </li>
       </ul>

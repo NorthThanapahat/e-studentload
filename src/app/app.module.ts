@@ -5,22 +5,30 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './page/login/login.component';
 import { DataProvider } from './share/provider/provider';
-import {MatDialogModule} from '@angular/material/dialog';
-import { ForgetPasswordComponent } from './modal/forget-password/forget-password.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './share/auth.guard';
 import { ApiProvider } from './share/api/api';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ChartModule } from 'angular2-chartjs';
 import { ChartsModule as Ng2Charts } from 'ng2-charts';
+import { LoadingComponent } from './modal/loading/loading.component';
+import { UtilProvider } from './share/util';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxLoadingModule } from 'ngx-loading';
+import { AlertComponent } from './modal/forget-password/alert.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-
-
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http,'../assets/i18n/','.json');
+}
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ForgetPasswordComponent],
+    AlertComponent,
+    LoadingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,10 +36,20 @@ import { ChartsModule as Ng2Charts } from 'ng2-charts';
     BrowserAnimationsModule,
     HttpClientModule,
     ChartModule,
-    Ng2Charts
+    FormsModule,
+    ReactiveFormsModule,
+    NgxLoadingModule.forRoot({}),
+    Ng2Charts,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers: [DataProvider,AuthGuard,ApiProvider],
-  entryComponents:[ForgetPasswordComponent],
+  providers: [DataProvider, AuthGuard, ApiProvider, UtilProvider],
+  entryComponents: [AlertComponent, LoadingComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,129 +1,97 @@
-<div class="col-3 bg-white no-margin-padding  text-center margin-top--10 float-left">
-
-  <div class="full-body border-right padding margin-bottom-10 padding-left-10">
-    <i class="far fa-user-circle font-size-60 text-bule-violet padding"></i>
-    <div class="col-12 ">
-      <span class="border-bottom-3"> Nara Taya</span>
-    </div>
-  </div>
-  <div class="bule-violet mh-450">
-    <div class="w-100 text-left padding text-white">ประวัติการเข้าสู่ระบบ</div>
-    <div class="w-100 text-left padding bg-light margin-top-10 margin-bottom-10">
-      <i class="fas fa-user-circle font-size-25 text-danger d-inline"></i>
-      <div class="d-inline margin-left">
-        <div class="d-inline">12/12/2019</div>
-        <div class="d-inline float-right">09:32:16</div>
+<div class="fullbody">
+  <div class="col-sm-2 no-padding side-menu bule-violet text-center">
+    <div class="full-body text-white margin-bottom-10">
+      <div class="bg-white padding-bottom-30 padding-top-30 ">
+        <i class="far fa-user-circle font-size-60 text-bule-violet padding"></i>
+        <div class="col-12 ">
+          <span class="border-bottom-3 text-bule-violet"> Nara Taya</span>
+        </div>
       </div>
-    </div>
-    <div class="w-100 text-left padding bg-light margin-top-10 margin-bottom-10">
-      <i class="fas fa-user-circle font-size-25 text-danger d-inline"></i>
-      <div class="d-inline margin-left">
-        <div class="d-inline">12/12/2019</div>
-        <div class="d-inline float-right">09:32:16</div>
-      </div>
-    </div>
-    <div class="w-100 text-left padding bg-light margin-top-10 margin-bottom-10">
-      <i class="fas fa-user-circle font-size-25 text-danger d-inline"></i>
-      <div class="d-inline margin-left">
-        <div class="d-inline">12/12/2019</div>
-        <div class="d-inline float-right">09:32:16</div>
-      </div>
-    </div>
-    <div class="w-100 text-left padding bg-light margin-top-10 margin-bottom-10">
-      <i class="fas fa-user-circle font-size-25 text-danger d-inline"></i>
-      <div class="d-inline margin-left">
-        <div class="d-inline">12/12/2019</div>
-        <div class="d-inline float-right">09:32:16</div>
-      </div>
-    </div>
 
-  </div>
-
-</div>
-
-<div class="col-9 container float-left margin-top-30 ">
-  <div>
-    <h2 class="float-left">Your Application</h2>
-    <div class="float-right link" data-toggle="modal" data-target="#exampleModalCenter">
-      <i class="fas fa-plus-circle"></i>
-      เพิ่มข้อมูล
-    </div>
-  </div>
-  <div class="clearfix"></div>
-  <div class="margin-left-15p">
-    <div class="text-center col-3 item padding margin float-left">
-      <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
-      <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">Application 1</div>
-    </div>
-    <div class="text-center col-3 item padding margin float-left">
-      <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
-      <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">Application 1</div>
-    </div>
-    <div class="text-center col-3 item padding margin float-left">
-      <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
-      <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">Application 1</div>
-    </div>
-    <div class="text-center col-3 item padding margin float-left">
-      <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
-      <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">Application 1</div>
-    </div>
-    <div class="text-center col-3 item padding margin float-left">
-      <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
-      <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">Application 1</div>
-    </div>
-    <div class="text-center col-3 item padding margin float-left">
-      <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
-      <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">Application 1</div>
-    </div>
-  </div>
-
-
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <aside class="col-sm-12 container no-margin-padding">
-          <div class="modal-header bg-danger ">
-            <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">เพิ่มข้อมูล</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+      <div class="w-100">
+        <div class="w-100 text-left padding text-white">{{'Home.historyOfLogin' | translate}}</div>
+        <div class="text-bule-violet">
+          <div class="w-100 text-left padding bg-light margin-top-10 margin-bottom-10" *ngFor="let item of auditLog?.data">
+            <i class="fas fa-user-circle font-size-25 text-danger d-inline"></i>
+            <div class="d-inline margin-left">
+              <div class="d-inline">{{item.CreateDate}}</div>
+              <div class="d-inline float-right">09:32:16</div>
+            </div>
           </div>
-          <form class="container padding">
-            <div class="form-group row">
-              <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อระบบ</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputPassword" class="col-sm-3 col-form-label">Link Url</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputPassword" class="col-sm-3 col-form-label">รายละเอียด</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="input-group form-group row">
-              <label for="inputPassword" class="col-sm-3 col-form-label">แนบไฟล์เอกสาร</label>
+        
+        </div>
 
-              <div class="custom-file col-sm-9">
-                <input type="file" class="custom-file-input" id="inputGroupFile01"
-                  aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01"></label>
-              </div>
-            </div>
-            <div class="text-center">
-              <button class="btn btn-primary">บันทึก</button>
-              <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
-            </div>
+      </div>
+    </div>
 
-          </form>
-        </aside>
+  </div>
+
+  <div class="col-sm-10 float-right margin-top-30 padding">
+    <div>
+      <h2 class="float-left">Your Application</h2>
+      <div class="float-right link" data-toggle="modal" data-target="#exampleModalCenter">
+        <i class="fas fa-plus-circle"></i>
+        {{'buttonInsert' | translate}}
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="margin-left-15p">
+      
+      <div class="text-center col-3 item padding margin float-left" *ngFor="let item of application?.data">
+        <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
+        <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">Application 1</div>
+      </div>
+      
+    </div>
+
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <aside class="col-sm-12 container no-margin-padding">
+            <div class="modal-header bg-danger ">
+              <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">{{'buttonInsert' | translate}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form class="container padding" [formGroup] = "applicationFormGroup">
+              <div class="form-group row no-margin margin-top-20">
+                <label for="inputPassword" class="col-sm-3 col-form-label no-padding" >{{'Home.SystemName' | translate}}</label>
+                <div class="col-sm-9 no-padding">
+                  <input type="text" class="form-control" formControlName="applicationName" >
+                </div>
+              </div>
+              <div class="form-group row no-margin margin-top-20"> 
+                <label for="inputPassword" class="col-sm-3 col-form-label no-padding">{{'Home.LinkUrl' | translate}}</label>
+                <div class="col-sm-9 no-padding">
+                  <input type="text" class="form-control" formControlName="linkUrl">
+                </div>
+              </div>
+              <div class="form-group row no-margin margin-top-20">
+                <label for="inputPassword" class="col-sm-3 col-form-label no-padding">{{'Home.Details' | translate}}</label>
+                <div class="col-sm-9  no-padding">
+                  <input type="text" class="form-control" formControlName="details">
+                </div>
+              </div>
+              <div class="input-group row no-margin margin-top-20">
+                <label for="inputPassword" class="col-sm-3 col-form-label no-padding">{{'Home.AttachmentsFile' | translate}}</label>
+
+                <div class="custom-file col-sm-9">
+                  <input type="file" accept="image/*" (change)="processFile($event)" class="custom-file-input" id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01" formControlName="file">
+                  <label class="custom-file-label" for="inputGroupFile01" >{{path}}</label>
+                </div>
+              </div>
+              <div class="text-center margin-top-20">
+                <button class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">{{'Save' | translate}}</button>
+                <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
+              </div>
+
+            </form>
+          </aside>
+        </div>
       </div>
     </div>
   </div>

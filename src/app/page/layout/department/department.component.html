@@ -1,42 +1,47 @@
+
 <div class="container col-sm-12">
 
   <div class="col-sm-10 float-left font-size-15">
-    <div class="col-sm-12 display-table d-flex justify-content-center margin-top-20 padding border">
-      <div class="top-right link">
-        <i class="fas fa-edit text-bule-violet-light"></i>
-      </div>
-      <div class="bottom-right link margin-right-5">
-        <i class="fas fa-trash text-bule-violet-light"></i>
-      </div>
-      <div class="padding">
-        <div class="margin-top-5p float-left margin-right-5">
-          <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
+    <div class="col-sm-12 display-table d-flex  margin-top-20 padding border" *ngFor="let item of allDepartment?.data">
+      <div class="margin-left-30p">
+        <div class="top-right link" (click)="UpdateOrganization()">
+          <i class="fas fa-edit text-bule-violet-light"></i>
         </div>
-        <div class="float-left margin-left margin-top-5p font-size-15">
-          <div class="display-table">
-            <div class="text-bule-violet-light  float-left">ชื่อหน่วยงาน</div>
-            <div class="margin-left float-left"><b>กองทุนเงินกู้ยืมเพื่อการศึกษา</b></div>
+        <div class="bottom-right link margin-right-5">
+          <i class="fas fa-trash text-bule-violet-light"></i>
+        </div>
+        <div class="padding">
+          <div class="margin-top-5p float-left margin-right-5">
+            <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
           </div>
-          <div class="display-table">
-            <div class="text-bule-violet-light  float-left">โทรศัพท์</div>
-            <div class="margin-left float-left">0-2016-4888</div>
-          </div>
-          <div class="display-table">
-            <div class="text-bule-violet-light  float-left">โทรสาร</div>
-            <div class="margin-left float-left">0-2016-4800</div>
-          </div>
-          <div class="display-table">
-            <div class="text-bule-violet-light  float-left">ที่อยู่</div>
-            <div class="margin-left float-left">เลขที่ 89 อาคาร เอไอเอ แคปปิตอล เซ็นเตอร์ ชั้น 5-6 <br>ถนนรัชดาภิเษก
-              แขวงดินแดง เขตดินแดง กทม. 10400</div>
+          <div class="float-left margin-left margin-top-5p font-size-15">
+            <div class="display-table">
+              <div class="text-bule-violet-light  float-left">ชื่อหน่วยงาน</div>
+              <div class="margin-left float-left"><b>{{item.OrganizationName}}</b></div>
+            </div>
+            <div class="display-table">
+              <div class="text-bule-violet-light  float-left">โทรศัพท์</div>
+              <div class="margin-left float-left">{{item.OrganizationPhone}}</div>
+            </div>
+            <div class="display-table">
+              <div class="text-bule-violet-light  float-left">โทรสาร</div>
+              <div class="margin-left float-left">{{item.OrganizationFax}}</div>
+            </div>
+            <div class="display-table">
+              <div class="text-bule-violet-light  float-left">ที่อยู่</div>
+              <div class="margin-left float-left">เลขที่ {{item.HouseNo}} อาคาร {{item.Building}} ชั้น {{item.Floor}}
+                <span *ngIf="item.Room != '' || item.Room != undefined">ห้อง {{item.Room}}</span> <br>ถนน{{item.Road}}
+                ซอย{{item.Soi}} แขวง{{item.District}} เขต{{item.Subdistrict}} {{item.Province}} {{item.Zipcode}}</div>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
   <div class="col-sm-2 float-left d-flex justify-content-center">
     <div class="text-center col-sm-12 no-padding">
-      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter">
+      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter" (click)="Organization()">
         <i class="fas fa-plus-circle"></i>
         เพิ่มข้อมูล
       </div>
@@ -75,7 +80,7 @@
 
   </div>
 
-  <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  <div class="modal fade " data-keyboard="false" data-backdrop="static" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xlg" role="document">
       <div class="modal-content">
@@ -94,7 +99,7 @@
                   <div class="form-group row">
                     <label for="inputPassword" class="col-sm-4 col-form-label">ชื่อหน่วยงาน</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control ">
+                      <input type="text" class="form-control " name="organizationName" [(ngModel)]="organization.OrganizationName">
                     </div>
                   </div>
                 </div>
@@ -102,7 +107,7 @@
                   <div class="form-group row">
                     <label for="inputPassword" class="col-sm-5 text-right col-form-label">เลขประจำตัวผู้เสียภาษี</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" name="numberofOrganization" [(ngModel)]="organization.NumberofOrganization">
                     </div>
                   </div>
                 </div>
@@ -110,7 +115,7 @@
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">รายละเอียดของหน่วยงาน</label>
                 <div class="col-sm-9">
-                  <textarea class="form-control" name="" id="" cols="30" rows="3"></textarea>
+                  <textarea class="form-control" name="organizationDetails" [(ngModel)]="organization.OrganizationDetails" id="" cols="30" rows="3" ></textarea>
                 </div>
               </div>
 
@@ -121,15 +126,15 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-4 col-form-label">เลขที่</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control ">
+                        <input type="text" class="form-control " name="houseNoAdd" [(ngModel)]="organization.OrganizationAddress.HouseNo">
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-5 text-right col-form-label">ถนน</label>
-                      <div class="col-sm-7">
-                        <input type="text" class="form-control">
+                      <div class="col-sm-7"> 
+                        <input type="text" class="form-control" name="roadAdd" [(ngModel)]="organization.OrganizationAddress.Road">
                       </div>
                     </div>
                   </div>
@@ -139,7 +144,7 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-4 col-form-label">ตรอก/ซอย</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control ">
+                        <input type="text" class="form-control " name="alleyAdd" [(ngModel)]="organization.OrganizationAddress.Alley">
                       </div>
                     </div>
                   </div>
@@ -147,8 +152,8 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-5 text-right col-form-label">จังหวัด</label>
                       <div class="col-sm-7">
-                        <select class="form-control" required>
-                          <option value=""></option>
+                        <select class="form-control" name="provinceAdd" (change)="ProvinceSeletect($event.target.value,'OrganizationAddress')" [(ngModel)]="provinceSelect.Add" required>
+                          <option *ngFor="let item of province" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -159,8 +164,8 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-4 col-form-label">เขต/อำเภอ</label>
                       <div class="col-sm-8">
-                        <select class="form-control" required>
-                          <option value=""></option>
+                        <select class="form-control" name="districtAdd" (change)="DistrictSelect($event.target.value,'OrganizationAddress')" [(ngModel)]="districtSelect.Add" required>
+                          <option *ngFor="let item of districtList.Add" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -169,8 +174,8 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-5 text-right col-form-label">แขวง/ตำบล</label>
                       <div class="col-sm-7">
-                        <select class="form-control" required>
-                          <option value=""></option>
+                        <select class="form-control" name="subDistrictAdd"  (change)="SubDistrictSelect($event.target.value,'OrganizationAddress')"  [(ngModel)]="subDistrictSelect.Add" required>
+                          <option *ngFor="let item of subDistrictList.Add" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -181,7 +186,7 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-4 col-form-label">รหัสไปรษณีย์</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control ">
+                        <input type="text" class="form-control " name="zipcodeAdd" [(ngModel)]="organization.OrganizationAddress.Zipcode">
                       </div>
                     </div>
                   </div>
@@ -197,7 +202,7 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-4 col-form-label">เลขที่</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control ">
+                        <input type="text" class="form-control " name="houseNoDoc" [(ngModel)]="organization.AddressForDocument.HouseNo">
                       </div>
                     </div>
                   </div>
@@ -205,7 +210,7 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-5 text-right col-form-label">ถนน</label>
                       <div class="col-sm-7">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="roadDoc" [(ngModel)]="organization.AddressForDocument.Road">
                       </div>
                     </div>
                   </div>
@@ -215,7 +220,7 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-4 col-form-label">ตรอก/ซอย</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control ">
+                        <input type="text" class="form-control " name="alleyDoc" [(ngModel)]="organization.AddressForDocument.Alley">
                       </div>
                     </div>
                   </div>
@@ -223,8 +228,8 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-5 text-right col-form-label">จังหวัด</label>
                       <div class="col-sm-7">
-                        <select class="form-control" required>
-                          <option value=""></option>
+                        <select class="form-control" name="provinceDoc" (change)="ProvinceSeletect($event.target.value,'AddressForDocument')" [(ngModel)]="provinceSelect.Doc" required>
+                          <option *ngFor="let item of province" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -235,8 +240,8 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-4 col-form-label">เขต/อำเภอ</label>
                       <div class="col-sm-8">
-                        <select class="form-control" required>
-                          <option value=""></option>
+                        <select class="form-control" name="districtDoc" (change)="DistrictSelect($event.target.value,'AddressForDocument')" [(ngModel)]="districtSelect.Doc" required>
+                          <option *ngFor="let item of districtList.Doc" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -245,8 +250,8 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-5 text-right col-form-label">แขวง/ตำบล</label>
                       <div class="col-sm-7">
-                        <select class="form-control" required>
-                          <option value=""></option>
+                        <select class="form-control" name="subDistrictDoc"  (change)="SubDistrictSelect($event.target.value,'AddressForDocument')"  [(ngModel)]="subDistrictSelect.Doc" required>
+                          <option *ngFor="let item of subDistrictList.Doc" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -257,7 +262,7 @@
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-4 col-form-label">รหัสไปรษณีย์</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control ">
+                        <input type="text" class="form-control " name="zipcodeDoc" [(ngModel)]="organization.AddressForDocument.Zipcode">
                       </div>
                     </div>
                   </div>
@@ -270,7 +275,7 @@
             </div>
 
             <div class="text-center col-sm-12">
-              <button class="btn btn-primary">บันทึก</button>
+              <button class="btn btn-primary" (click)="SaveOrganization()">บันทึก</button>
               <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
             </div>
           </form>

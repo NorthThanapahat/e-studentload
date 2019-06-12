@@ -1,7 +1,7 @@
 <div class="container col-sm-12">
 
   <div class="col-sm-10 float-left font-size-15">
-    <div class="col-sm-12 display-table d-flex justify-content-center margin-top-20 padding border">
+    <div class="col-sm-12 display-table d-flex justify-content-center margin-top-20 padding border" *ngFor="let item of getDepartment?.data">
       <div class="top-right link">
         <i class="fas fa-edit text-bule-violet-light"></i>
       </div>
@@ -16,7 +16,7 @@
           <div class="float-left">
             <span class="float-left">
               <span class="text-bule-violet-light  float-left">ชื่อ - นามสกุล</span>
-              <span class="margin-left float-left">สมศักดิ์ สารดี</span>
+              <span class="margin-left float-left">{{item.PersonName}}</span>
             </span>
 
           </div>
@@ -24,22 +24,22 @@
           <div class="float-left">
             <div class="float-left">
               <div class="text-bule-violet-light  float-left">เบอร์โทรภายนอก</div>
-              <div class="margin-left float-left">232</div>
+              <div class="margin-left float-left">{{item.Contact}}</div>
             </div>
             <div class=" margin-left-20 float-left">
               <div class="text-bule-violet-light  float-left">อีเมล์</div>
-              <div class="margin-left float-left">somsak@gmail.com</div>
+              <div class="margin-left float-left"></div>
             </div>
           </div>
           <div class="clearfix"></div>
           <div class="float-left">
             <div class="float-left">
               <div class="text-bule-violet-light  float-left">ฝ่ายงาน</div>
-              <div class="margin-left float-left">สำนักงานผู้จัดการ</div>
+              <div class="margin-left float-left">{{item.PersonPosition}}</div>
             </div>
             <div class=" margin-left-20 float-left">
               <div class="text-bule-violet-light  float-left">ตำแหน่ง</div>
-              <div class="margin-left float-left">พนักงานธุรการ</div>
+              <div class="margin-left float-left">{{item.PersonDepartment}}</div>
             </div>
           </div>
         </div>

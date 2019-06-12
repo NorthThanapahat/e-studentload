@@ -16,13 +16,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th class="text-center" scope="row">1</th>
-                  <td class="text-center">xxx</td>
-                  <td class="text-center">xxx</td>
-                  <td class="text-center">xxx</td>
-                  <td class="text-center">xxx</td>
-                  <td class="text-center">xxx</td>
+                <tr *ngFor="let item of allGroup?.data">
+                  <th class="text-center" scope="row">{{item.GroupId}}</th>
+                  <td class="text-center">{{item.GroupName}}</td>
+                  <td class="text-center">{{item.CreateBy}}</td>
+                  <td class="text-center">{{item.GroupDetail}}</td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{item.IsActive}}</td>
                   <td class="text-center"><i class="fas fa-edit text-bule-violet-light"></i></td>
                   <td class="text-center"><i class="fas fa-trash text-bule-violet-light"></i></td>
                 </tr>

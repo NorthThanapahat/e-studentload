@@ -1,11 +1,12 @@
-<div class="container col-sm-12">
-
-  <div class="col-sm-10 float-left font-size-15">
-    <div class="col-sm-12 display-table d-flex justify-content-center margin-top-20 padding border">
-      <div class="top-right link">
+<div class="container col-sm-12 ">
+  
+  <div class="col-sm-10 float-left font-size-15  margin-bottom-10">
+    <div class="col-sm-12 display-table d-flex justify-content-center margin-top-20 padding border"
+      *ngFor="let item of allperson?.data;let i = index">
+      <div class="top-right link" (click)="EditPerson(item,i)"  data-toggle="modal" data-target="#exampleModalCenter">
         <i class="fas fa-edit text-bule-violet-light"></i>
       </div>
-      <div class="bottom-right link margin-right-5">
+      <div class="bottom-right link margin-right-5" (click)="DeletePerson(item,i)" data-toggle="modal" data-target="#deleteModal">
         <i class="fas fa-trash text-bule-violet-light"></i>
       </div>
       <div class="padding">
@@ -13,98 +14,50 @@
           <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
         </div>
         <div class="float-left margin-left margin-top-5p">
+
           <div class="float-left">
             <span class="float-left">
-              <span class="text-bule-violet-light  float-left">รหัสพนักงาน</span>
-              <span class="margin-left float-left">112233</span>
+              <span class="text-bule-violet-light  float-left">{{'Personal.employeeId' | translate}}</span>
+              <span class="margin-left float-left">{{item.PersonId}}</span>
             </span>
             <span class=" margin-left-20 float-left">
-              <span class="text-bule-violet-light  float-left">ชื่อ - นามสกุล</span>
-              <span class="margin-left float-left">สมศักดิ์ สารดี</span>
+              <span class="text-bule-violet-light  float-left">{{'Personal.name-sur' | translate}}</span>
+              <span class="margin-left float-left">{{item.PersonName}}</span>
             </span>
           </div>
+
           <div class="clearfix"></div>
+
           <div class="float-left">
             <div class="float-left">
-              <div class="text-bule-violet-light  float-left">เบอร์โทรภายใน</div>
-              <div class="margin-left float-left">232</div>
+              <div class="text-bule-violet-light  float-left">{{'Personal.internalPhone' | translate}}</div>
+              <div class="margin-left float-left">{{item.Contact}}</div>
             </div>
             <div class=" margin-left-20 float-left">
-              <div class="text-bule-violet-light  float-left">อีเมล์</div>
+              <div class="text-bule-violet-light  float-left">{{'Personal.email' | translate}}</div>
               <div class="margin-left float-left">somsak@gmail.com</div>
             </div>
           </div>
           <div class="clearfix"></div>
           <div class="float-left">
             <div class="float-left">
-              <div class="text-bule-violet-light  float-left">ฝ่ายงาน</div>
-              <div class="margin-left float-left">สำนักงานผู้จัดการ</div>
+              <div class="text-bule-violet-light  float-left">{{'Personal.department' | translate}}</div>
+              <div class="margin-left float-left">{{item.PersonDepartment}}</div>
             </div>
             <div class=" margin-left-20 float-left">
-              <div class="text-bule-violet-light  float-left">ตำแหน่ง</div>
-              <div class="margin-left float-left">พนักงานธุรการ</div>
+              <div class="text-bule-violet-light  float-left">{{'Personal.position' | translate}}</div>
+              <div class="margin-left float-left">{{item.PersonPosition}}</div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-    <div class="col-sm-12 display-table d-flex justify-content-center margin-top-20 padding border">
-      <div class="top-right link">
-        <i class="fas fa-edit text-bule-violet-light"></i>
-      </div>
-      <div class="bottom-right link  margin-right-5">
-        <i class="fas fa-trash text-bule-violet-light"></i>
-      </div>
-      <div class="padding">
-        <div class="margin-top-10 float-left">
-          <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
-        </div>
-        <div class="float-left margin-left margin-top-5p">
-          <div class="float-left">
-            <span class="float-left">
-              <span class="text-bule-violet-light  float-left">รหัสพนักงาน</span>
-              <span class="margin-left float-left">112233</span>
-            </span>
-            <span class=" margin-left float-left">
-              <span class="text-bule-violet-light  float-left">ชื่อ - นามสกุล</span>
-              <span class="margin-left float-left">สมศักดิ์ สารดี</span>
-            </span>
-          </div>
-          <div class="clearfix"></div>
-          <div class="float-left">
-            <div class="float-left">
-              <div class="text-bule-violet-light  float-left">เบอร์โทรภายใน</div>
-              <div class="margin-left float-left">232</div>
-            </div>
-            <div class=" margin-left float-left">
-              <div class="text-bule-violet-light  float-left">อีเมล์</div>
-              <div class="margin-left float-left">somsak@gmail.com</div>
-            </div>
-          </div>
-          <div class="clearfix"></div>
-          <div class="float-left">
-            <div class="float-left">
-              <div class="text-bule-violet-light  float-left">ฝ่ายงาน</div>
-              <div class="margin-left float-left">สำนักงานผู้จัดการ</div>
-            </div>
-            <div class=" margin-left float-left">
-              <div class="text-bule-violet-light  float-left">ตำแหน่ง</div>
-              <div class="margin-left float-left">พนักงานธุรการ</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
   </div>
   <div class="col-sm-2 float-left d-flex justify-content-center">
     <div class="text-center col-sm-12 no-padding">
-      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter">
+      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter" (click)="InsertPerson()">
         <i class="fas fa-plus-circle"></i>
-        เพิ่มข้อมูล
+        {{'buttonInsert' | translate}}
       </div>
       <div
         class="display-table  d-flex justify-content-center  border-radius text-bule-violet-light padding  margin-top-10">
@@ -118,7 +71,7 @@
       </div>
       <div class="col-sm-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
         <div class="bg-white col-sm-12 margin-top-30 float-left">
-          ประวัติการแก้ไข
+          {{'history.edit' | translate}}
           <i class="fas fa-edit"></i>
         </div>
         <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-12">
@@ -129,7 +82,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="full-body">
-              <div class="float-left d-flex justify-content-start">ชื่อ</div>
+              <div class="float-left d-flex justify-content-start">{{'name'|translate}}</div>
               <div class="float-right">11:20</div>
             </div>
           </div>
@@ -140,7 +93,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="full-body">
-              <div class="float-left d-flex justify-content-start">ชื่อ</div>
+              <div class="float-left d-flex justify-content-start">{{'name'|translate}}</div>
               <div class="float-right">11:20</div>
             </div>
           </div>
@@ -167,31 +120,40 @@
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อนาม-สกุล</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="name" [(ngModel)]="person.PersonName">
                 </div>
               </div>
               <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">ฝ่ายงาน</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="department" [(ngModel)]="person.PersonDepartment">
+                    <option *ngFor="let item of getDepartment?.data">{{item.departmentname}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3 col-form-label">ตำแหน่ง</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="position"  [(ngModel)]="person.PersonPosition">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อผู้ใช้งาน</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="username"  [(ngModel)]="person.NewUsername">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3 col-form-label">รหัสผ่าน</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="password" class="form-control" name="password"  [(ngModel)]="person.NewPassword" >
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3 col-form-label">ยืนยันรหัสผ่าน</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control">
+                  <input type="password" class="form-control" name="confirmpassword" [(ngModel)]="person.PersonConfirmPassword">
                 </div>
               </div>
               <div class="form-group row">
@@ -200,15 +162,19 @@
                   <div class="font-size-12 text-gray">จดจำข้อมูลของฉัน</div>
                 </div>
               </div>
+              <div class="invalid-feedback">Example invalid feedback text</div>
             </div>
+            
             <div class="col-sm-4 float-left margin-top-10p">
               <div class="text-center">
-                <img src="assets/image/user.png" alt="">
+                <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
+                <img class="rounded-circle image-cover" src="{{image}}" height="200px" width="200px" alt="" (click)="uploader.click()">
+
               </div>
             </div>
             <div class="clearfix"></div>
             <div class="text-center col-sm-12">
-              <button class="btn btn-primary">บันทึก</button>
+              <button (click)="SavePerson()" class="btn btn-primary">บันทึก</button>
               <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
             </div>
           </form>
@@ -221,36 +187,47 @@
                   <th scope="col" class="text-center">ประเภท</th>
                   <th scope="col" class="text-center">รายละเอียดข้อมูล</th>
                   <th scope="col" class="text-center">ข้อมูลหลัก</th>
+                  <th scope="col" class="text-center"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
                     <div class="form-group col-sm-12">
-                      <select class="form-control" required>
-                        <option value="email">อีเมล์</option>
+                      <select class="form-control" required [(ngModel)]="contactType">
+                        <option value="1" >เบอร์โทร</option>
+                        <option value="2" >อีเมล์</option>
+                        <option value="3" >facebook</option>
+                        <option value="4" >line</option>
+                        <option value="5" >instagram</option>
+                        <option value="6" >twitter</option>
                       </select>
                     </div>
                   </td>
-                  <td><input class="col-form-label col-sm-12" type="text" name="" id=""></td>
+                  <td><input class="col-form-label col-sm-12" [(ngModel)]="contactDiscription" type="text" name="" id=""></td>
                   <td>
                     <div class="form-group col-sm-12">
-                      <select class="form-control" required>
+                      <select class="form-control" [(ngModel)]="importance" required>
                         <option value="1">ข้อมูลหลัก</option>
+                        <option value="2">ข้อมูลรอง</option>
                       </select>
                     </div>
                   </td>
+                  <td (click)="AddContact()" class="link">
+                    <i style="color: rgb(69, 172, 0)" class="padding fas fa-plus-circle fa-lg"></i>
+                  </td>
                 </tr>
-                <tr>
-                  <td class="text-center"><i class="fas fa-phone fa-2x"></i></td>
-                  <td class="text-center"><b>088-321-1232</b></td>
-                  <td class="text-center"><i class="fas fa-star fa-lg text-gray"></i></td>
+                <tr *ngFor="let item of contactList;let i = index">
+                  <td class="text-center" *ngIf="item.TypeContactId == '1'"><i class="fas fa-phone fa-2x"></i></td>
+                  <td class="text-center" *ngIf="item.TypeContactId == '2'"><i class="fas fa-envelope fa-2x"></i></td>
+                  <td class="text-center" *ngIf="item.TypeContactId == '3'"><i class="fab fa-facebook-square fa-2x"></i></td>
+                  <td class="text-center" *ngIf="item.TypeContactId == '4'"><i class="fab fa-line fa-2x"></i></td>
+                  <td class="text-center" *ngIf="item.TypeContactId == '5'"><i class="fab fa-instagram fa-2x"></i></td>
+                  <td class="text-center" *ngIf="item.TypeContactId == '6'"><i class="fab fa-twitter-square fa-2x"></i></td>
+                  <td class="text-center"><b>{{item.Contact}}</b></td>
+                  <td (click)="SetActiveItem(i)" class="text-center link"><i [ngClass]="{'text-yellow': item.IsActive == '1', 'text-gray':  item.IsActive == '2'}" class="fas fa-star fa-lg"></i></td>
                 </tr>
-                <tr>
-                  <td class="text-center"><i class="far fa-envelope fa-2x"></i></td>
-                  <td class="text-center"><b>ba@ko.in.th</b></td>
-                  <td class="text-center"></td>
-                </tr>
+                
               </tbody>
             </table>
           </div>
@@ -258,4 +235,34 @@
       </div>
     </div>
   </div>
+
+  
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <aside class="col-sm-12 container no-margin-padding">
+        <div class="modal-header bg-danger ">
+          <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">คุณต้องการลบหรือไม่
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="container padding">
+          <div class="col-sm-8 float-left">
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อ {{deletePerson?.PersonName}}</label>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="text-center col-sm-12">
+            <button (click)="SaveDeletePerson()" class="btn btn-primary">บันทึก</button>
+            <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
+          </div>
+        </form>
+      </aside>
+    </div>
+  </div>
+</div>
 </div>

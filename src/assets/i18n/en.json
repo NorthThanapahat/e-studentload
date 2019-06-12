@@ -1,0 +1,40 @@
+{
+    "Menu":{
+        "1":"Homepage",
+        "2":"Personal Information",
+        "3":"Organization Information",
+        "4":"Department Information",
+        "5":"Group Information",
+        "6":"Dashboard",
+        "7":{
+            "name":"Setting",
+            "1":"Password Management",
+            "2":"Data Reserving",
+            "3":"Permission Management",
+            "4":"Audit Log"
+        }        
+    },
+    "Save":"Save",
+    "Cancle":"Cancle",
+    "buttonInsert":"Add Application",
+    "history":{
+        "edit":"Revision history"
+    },
+    "name":"Name",
+
+    "Home":{
+        "historyOfLogin":"Login History",
+        "SystemName":"System Name",
+        "LinkUrl":"Link Url",
+        "Details":"Details",
+        "AttachmentsFile":"Attachment File"
+    },
+    "Personal":{
+        "employeeId":"Employee ID",
+        "name-sur":"Name - Surname",
+        "internalPhone":"Internal Phone Number",
+        "email":"Email",
+        "department":"Department",
+        "position":"Position"
+    }
+}

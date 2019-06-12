@@ -2,6 +2,7 @@
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
 @media print {
   .breadcrumb {
     display: none !important;
@@ -144,7 +145,12 @@ html, body {
   padding-top:15px;
   padding-bottom: 15px;
 }
-
+.padding-bottom-30{
+  padding-bottom: 30px;
+}
+.padding-top-30{
+  padding-top: 30px;
+}
 .margin-top-5 {
   margin-top: 5px;
 }
@@ -207,6 +213,13 @@ html, body {
 .margin-left-15p{
   margin-left:15%;
 }
+.margin-left-25p{
+  margin-left:25%;
+}
+
+.margin-left-30p{
+  margin-left:30%;
+}
 .margin-right-5 {
   margin-right: 5px;
 }
@@ -220,6 +233,9 @@ html, body {
 
 .margin-bottom-10{
   margin-bottom: 10px;
+}
+.margin-bottom-30{
+  margin-bottom: 30px;
 }
 .margin-center {
   margin-left: auto;
@@ -308,7 +324,7 @@ html, body {
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
-/* font-style */
+/* *font-style */
 
 .underline {
   text-decoration: underline;
@@ -341,6 +357,10 @@ html, body {
 /* font-color */
 .text-orange{
   color:rgb(254, 145, 1);
+}
+.text-yellow{
+  color:rgb(243, 208, 7);
+
 }
 .text-skybule{
   color:rgb(2, 159, 237);
@@ -421,13 +441,21 @@ html, body {
 .inner-addon {
   position: relative;
 }
-
+.showdow-none{
+  box-shadow: none !important;
+}
+.background-transperent mat-dialog-container{
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
 /* style glyph */
 .inner-addon .glyphicon {
   position: absolute;
   padding: 10px;
   pointer-events: none;
 }
+
 
 /* align glyph */
 .left-addon .glyphicon  { left:  0px;}
@@ -486,7 +514,12 @@ html, body {
   margin-top:-56px !important;
 }
 
-
+.image-fit{
+  object-fit: contain;
+}
+.image-cover{
+  object-fit: cover;
+}
 .switch {
   position: relative;
   display: inline-block;

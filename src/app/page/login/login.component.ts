@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { ForgetPasswordComponent } from 'src/app/modal/forget-password/forget-password.component';
 import { Router } from '@angular/router';
+import { DataProvider } from 'src/app/share/provider/provider';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private dialog: MatDialog,public router: Router) { }
+  constructor(private dialog: MatDialog,
+    public data:DataProvider,public router: Router) { }
 
   ngOnInit() {
   }
@@ -18,12 +19,5 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('isLoggedin', 'true');
     this.router.navigate(['home']);
   }
-  // ForgetPassword(){
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.maxWidth = "70%";
-
-  //   this.dialog.open(ForgetPasswordComponent, dialogConfig);
-  // }
+  
 }
