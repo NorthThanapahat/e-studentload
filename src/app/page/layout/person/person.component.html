@@ -1,7 +1,7 @@
-<div class="container col-sm-12 ">
+<div class="container col-sm-12 col-12 ">
   
-  <div class="col-sm-10 float-left font-size-15  margin-bottom-10">
-    <div class="col-sm-12 display-table d-flex justify-content-center margin-top-20 padding border"
+  <div class="col-sm-10 col-10 float-left font-size-15  margin-bottom-10">
+    <div class="col-sm-12 col-12 display-table d-flex justify-content-center margin-top-20 padding border"
       *ngFor="let item of allperson?.data;let i = index">
       <div class="top-right link" (click)="EditPerson(item,i)"  data-toggle="modal" data-target="#exampleModalCenter">
         <i class="fas fa-edit text-bule-violet-light"></i>
@@ -21,7 +21,7 @@
               <span class="margin-left float-left">{{item.PersonId}}</span>
             </span>
             <span class=" margin-left-20 float-left">
-              <span class="text-bule-violet-light  float-left">{{'Personal.name-sur' | translate}}</span>
+              <span class="text-bule-violet-light  float-left">{{'fullname' | translate}}</span>
               <span class="margin-left float-left">{{item.PersonName}}</span>
             </span>
           </div>
@@ -30,22 +30,22 @@
 
           <div class="float-left">
             <div class="float-left">
-              <div class="text-bule-violet-light  float-left">{{'Personal.internalPhone' | translate}}</div>
+              <div class="text-bule-violet-light  float-left">{{'internalPhone' | translate}}</div>
               <div class="margin-left float-left">{{item.Contact}}</div>
             </div>
             <div class=" margin-left-20 float-left">
-              <div class="text-bule-violet-light  float-left">{{'Personal.email' | translate}}</div>
+              <div class="text-bule-violet-light  float-left">{{'email' | translate}}</div>
               <div class="margin-left float-left">somsak@gmail.com</div>
             </div>
           </div>
           <div class="clearfix"></div>
           <div class="float-left">
             <div class="float-left">
-              <div class="text-bule-violet-light  float-left">{{'Personal.department' | translate}}</div>
+              <div class="text-bule-violet-light  float-left">{{'department' | translate}}</div>
               <div class="margin-left float-left">{{item.PersonDepartment}}</div>
             </div>
             <div class=" margin-left-20 float-left">
-              <div class="text-bule-violet-light  float-left">{{'Personal.position' | translate}}</div>
+              <div class="text-bule-violet-light  float-left">{{'position' | translate}}</div>
               <div class="margin-left float-left">{{item.PersonPosition}}</div>
             </div>
           </div>
@@ -53,8 +53,8 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-2 float-left d-flex justify-content-center">
-    <div class="text-center col-sm-12 no-padding">
+  <div class="col-sm-2 col-2 float-left d-flex justify-content-center">
+    <div class="text-center col-sm-12 col-12 no-padding">
       <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter" (click)="InsertPerson()">
         <i class="fas fa-plus-circle"></i>
         {{'buttonInsert' | translate}}
@@ -69,12 +69,12 @@
         <i class="fas fa-arrow-circle-up text-green  font-size-25 float-left"></i>
         <div class="float-left margin-left  font-size-20">Export</div>
       </div>
-      <div class="col-sm-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
-        <div class="bg-white col-sm-12 margin-top-30 float-left">
+      <div class="col-sm-12 col-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
+        <div class="bg-white col-sm-12 col-12 margin-top-30 float-left">
           {{'history.edit' | translate}}
           <i class="fas fa-edit"></i>
         </div>
-        <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-12">
+        <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-12">
           <div class="full-body display-table  padding border-bottom-1">
             <div class="full-body">
               <div class="float-left d-flex justify-content-start">25/11/2018</div>
@@ -107,25 +107,25 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
-        <aside class="col-sm-12 container no-margin-padding">
+        <aside class="col-sm-12 col-12 container no-margin-padding">
           <div class="modal-header bg-danger ">
-            <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">เพิ่มรายละเอียดบุคคล
+            <h5 class="modal-title col-sm-12 col-12 text-center  text-white" id="exampleModalLongTitle">เพิ่มรายละเอียดบุคคล
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <form class="container padding">
-            <div class="col-sm-8 float-left">
+            <div class="col-sm-8 col-8 float-left">
               <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อนาม-สกุล</label>
-                <div class="col-sm-9">
+                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ชื่อนาม-สกุล</label>
+                <div class="col-sm-9 col-9">
                   <input type="text" class="form-control" name="name" [(ngModel)]="person.PersonName">
                 </div>
               </div>
               <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">ฝ่ายงาน</label>
-                <div class="col-sm-9">
+                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ฝ่ายงาน</label>
+                <div class="col-sm-9 col-9">
                   <select class="form-control" name="department" [(ngModel)]="person.PersonDepartment">
                     <option *ngFor="let item of getDepartment?.data">{{item.departmentname}}</option>
                   </select>
@@ -133,31 +133,31 @@
               </div>
 
               <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">ตำแหน่ง</label>
-                <div class="col-sm-9">
+                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ตำแหน่ง</label>
+                <div class="col-sm-9 col-9">
                   <input type="text" class="form-control" name="position"  [(ngModel)]="person.PersonPosition">
                 </div>
               </div>
               <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อผู้ใช้งาน</label>
-                <div class="col-sm-9">
+                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ชื่อผู้ใช้งาน</label>
+                <div class="col-sm-9 col-9">
                   <input type="text" class="form-control" name="username"  [(ngModel)]="person.NewUsername">
                 </div>
               </div>
               <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">รหัสผ่าน</label>
-                <div class="col-sm-9">
+                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">รหัสผ่าน</label>
+                <div class="col-sm-9  col-9">
                   <input type="password" class="form-control" name="password"  [(ngModel)]="person.NewPassword" >
                 </div>
               </div>
               <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">ยืนยันรหัสผ่าน</label>
-                <div class="col-sm-9">
+                <label for="inputPassword" class="col-sm-3  col-3 col-form-label">ยืนยันรหัสผ่าน</label>
+                <div class="col-sm-9  col-9">
                   <input type="password" class="form-control" name="confirmpassword" [(ngModel)]="person.PersonConfirmPassword">
                 </div>
               </div>
               <div class="form-group row">
-                <div class="float-left offset-sm-3 col-sm-6">
+                <div class="float-left offset-sm-3  offset-6 col-6 col-sm-6">
                   <input type="checkbox" class="margin-right-5 float-left" />
                   <div class="font-size-12 text-gray">จดจำข้อมูลของฉัน</div>
                 </div>
@@ -165,7 +165,7 @@
               <div class="invalid-feedback">Example invalid feedback text</div>
             </div>
             
-            <div class="col-sm-4 float-left margin-top-10p">
+            <div class="col-sm-4  col-4 float-left margin-top-10p">
               <div class="text-center">
                 <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
                 <img class="rounded-circle image-cover" src="{{image}}" height="200px" width="200px" alt="" (click)="uploader.click()">
@@ -173,7 +173,7 @@
               </div>
             </div>
             <div class="clearfix"></div>
-            <div class="text-center col-sm-12">
+            <div class="text-center col-sm-12  col-12">
               <button (click)="SavePerson()" class="btn btn-primary">บันทึก</button>
               <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
             </div>
@@ -193,7 +193,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-12  col-12">
                       <select class="form-control" required [(ngModel)]="contactType">
                         <option value="1" >เบอร์โทร</option>
                         <option value="2" >อีเมล์</option>
@@ -204,9 +204,9 @@
                       </select>
                     </div>
                   </td>
-                  <td><input class="col-form-label col-sm-12" [(ngModel)]="contactDiscription" type="text" name="" id=""></td>
+                  <td><input class="col-form-label col-sm-12  col-12" [(ngModel)]="contactDiscription" type="text" name="" id=""></td>
                   <td>
-                    <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-12  col-12">
                       <select class="form-control" [(ngModel)]="importance" required>
                         <option value="1">ข้อมูลหลัก</option>
                         <option value="2">ข้อมูลรอง</option>
@@ -241,22 +241,22 @@
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <aside class="col-sm-12 container no-margin-padding">
+      <aside class="col-sm-12  col-12 container no-margin-padding">
         <div class="modal-header bg-danger ">
-          <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">คุณต้องการลบหรือไม่
+          <h5 class="modal-title col-sm-12  col-12 text-center  text-white" id="exampleModalLongTitle">คุณต้องการลบหรือไม่
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <form class="container padding">
-          <div class="col-sm-8 float-left">
+          <div class="col-sm-8  col-8 float-left">
             <div class="form-group row">
-              <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อ {{deletePerson?.PersonName}}</label>
+              <label for="inputPassword" class="col-sm-3  col-3 col-form-label">ชื่อ {{deletePerson?.PersonName}}</label>
             </div>
           </div>
           <div class="clearfix"></div>
-          <div class="text-center col-sm-12">
+          <div class="text-center col-sm-12  col-12">
             <button (click)="SaveDeletePerson()" class="btn btn-primary">บันทึก</button>
             <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
           </div>

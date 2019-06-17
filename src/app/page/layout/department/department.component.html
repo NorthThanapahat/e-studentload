@@ -16,22 +16,22 @@
           </div>
           <div class="float-left margin-left margin-top-5p font-size-15">
             <div class="display-table">
-              <div class="text-bule-violet-light  float-left">ชื่อหน่วยงาน</div>
+              <div class="text-bule-violet-light  float-left">{{'Organization.organizationName' | translate}}</div>
               <div class="margin-left float-left"><b>{{item.OrganizationName}}</b></div>
             </div>
             <div class="display-table">
-              <div class="text-bule-violet-light  float-left">โทรศัพท์</div>
+              <div class="text-bule-violet-light  float-left">{{'Organization.tel' | translate}}</div>
               <div class="margin-left float-left">{{item.OrganizationPhone}}</div>
             </div>
             <div class="display-table">
-              <div class="text-bule-violet-light  float-left">โทรสาร</div>
+              <div class="text-bule-violet-light  float-left">{{'Organization.fax' | translate}}</div>
               <div class="margin-left float-left">{{item.OrganizationFax}}</div>
             </div>
-            <div class="display-table">
-              <div class="text-bule-violet-light  float-left">ที่อยู่</div>
-              <div class="margin-left float-left">เลขที่ {{item.HouseNo}} อาคาร {{item.Building}} ชั้น {{item.Floor}}
-                <span *ngIf="item.Room != '' || item.Room != undefined">ห้อง {{item.Room}}</span> <br>ถนน{{item.Road}}
-                ซอย{{item.Soi}} แขวง{{item.District}} เขต{{item.Subdistrict}} {{item.Province}} {{item.Zipcode}}</div>
+            <div class="display-table"><b>                                                                                                                                                                                                                                                                                                                                    </b>
+              <div class="text-bule-violet-light  float-left">{{'Organization.address' | translate}}</div>
+              <div class="margin-left float-left">{{'Organization.houseNo' | translate}} {{item.HouseNo}} {{'Organization.building' | translate}} {{item.Building}} {{'Organization.floor' | translate}} {{item.Floor}}
+                <span *ngIf="item.Room != '' || item.Room != undefined">{{'Organization.room' | translate}} {{item.Room}}</span> <br>{{'Organization.road' | translate}}{{item.Road}}
+                {{'Organization.alley' | translate}} {{item.Soi}} {{'Organization.subDistrict' | translate}}{{item.District}} {{'Organization.district' | translate}}{{item.Subdistrict}} {{item.Province}} {{item.Zipcode}}</div>
             </div>
           </div>
         </div>
@@ -43,15 +43,16 @@
     <div class="text-center col-sm-12 no-padding">
       <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter" (click)="Organization()">
         <i class="fas fa-plus-circle"></i>
-        เพิ่มข้อมูล
+        {{'buttonInsert' | translate}}
       </div>
 
       <div class="col-sm-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
         <div class="bg-white col-sm-12 margin-top-50p float-left">
-          ประวัติการแก้ไข
+          {{'history.edit' | translate}}
           <i class="fas fa-edit"></i>
         </div>
         <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-12">
+          
           <div class="full-body display-table  padding border-bottom-1">
             <div class="full-body">
               <div class="float-left d-flex justify-content-start">25/11/2018</div>
@@ -59,18 +60,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="full-body">
-              <div class="float-left d-flex justify-content-start">ชื่อ</div>
-              <div class="float-right">11:20</div>
-            </div>
-          </div>
-          <div class="full-body display-table  padding border-bottom-1">
-            <div class="full-body">
-              <div class="float-left d-flex justify-content-start">25/11/2018</div>
-              <div class="float-right">มีนา</div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="full-body">
-              <div class="float-left d-flex justify-content-start">ชื่อ</div>
+              <div class="float-left d-flex justify-content-start">{{'name' | translate}}</div>
               <div class="float-right">11:20</div>
             </div>
           </div>
@@ -86,7 +76,7 @@
       <div class="modal-content">
         <aside class="col-sm-12 container no-margin-padding">
           <div class="modal-header bg-danger ">
-            <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">เพิ่มรายละเอียดหน่วยงาน
+            <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">{{'Organization.addOrganization' | translate}}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -97,7 +87,7 @@
               <div class="row">
                 <div class="col-sm-6 float-left">
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-4 col-form-label">ชื่อหน่วยงาน</label>
+                    <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.organizationName' | translate}}</label>
                     <div class="col-sm-8">
                       <input type="text" class="form-control " name="organizationName" [(ngModel)]="organization.OrganizationName">
                     </div>
@@ -105,7 +95,7 @@
                 </div>
                 <div class="col-sm-6 float-left">
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-5 text-right col-form-label">เลขประจำตัวผู้เสียภาษี</label>
+                    <label for="inputPassword" class="col-sm-5 text-right col-form-label">{{'Organization.tin' | translate}}</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" name="numberofOrganization" [(ngModel)]="organization.NumberofOrganization">
                     </div>
@@ -113,18 +103,18 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">รายละเอียดของหน่วยงาน</label>
+                <label for="inputPassword" class="col-sm-2 col-form-label">{{'Organization.detailOrganization' | translate}}</label>
                 <div class="col-sm-9">
                   <textarea class="form-control" name="organizationDetails" [(ngModel)]="organization.OrganizationDetails" id="" cols="30" rows="3" ></textarea>
                 </div>
               </div>
 
               <div>
-                <h5>ที่ตั้งหน่วยงาน</h5>
+                <h5>{{'Organization.addressOrganization' | translate}}</h5>
                 <div class="row">
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-4 col-form-label">เลขที่</label>
+                      <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.houseNo' | translate}}</label>
                       <div class="col-sm-8">
                         <input type="text" class="form-control " name="houseNoAdd" [(ngModel)]="organization.OrganizationAddress.HouseNo">
                       </div>
@@ -132,7 +122,7 @@
                   </div>
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">ถนน</label>
+                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">{{'Organization.road' | translate}}</label>
                       <div class="col-sm-7"> 
                         <input type="text" class="form-control" name="roadAdd" [(ngModel)]="organization.OrganizationAddress.Road">
                       </div>
@@ -142,7 +132,7 @@
                 <div class="row">
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-4 col-form-label">ตรอก/ซอย</label>
+                      <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.alleyAdd' | translate}}</label>
                       <div class="col-sm-8">
                         <input type="text" class="form-control " name="alleyAdd" [(ngModel)]="organization.OrganizationAddress.Alley">
                       </div>
@@ -150,10 +140,10 @@
                   </div>
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">จังหวัด</label>
+                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">{{'Organization.province' | translate}}</label>
                       <div class="col-sm-7">
                         <select class="form-control" name="provinceAdd" (change)="ProvinceSeletect($event.target.value,'OrganizationAddress')" [(ngModel)]="provinceSelect.Add" required>
-                          <option *ngFor="let item of province" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
+                          <option *ngFor="let item of data.province" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -162,7 +152,7 @@
                 <div class="row">
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-4 col-form-label">เขต/อำเภอ</label>
+                      <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.districtAdd' | translate}}</label>
                       <div class="col-sm-8">
                         <select class="form-control" name="districtAdd" (change)="DistrictSelect($event.target.value,'OrganizationAddress')" [(ngModel)]="districtSelect.Add" required>
                           <option *ngFor="let item of districtList.Add" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
@@ -172,7 +162,7 @@
                   </div>
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">แขวง/ตำบล</label>
+                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">{{'Organization.subDistrictAdd' | translate}}</label>
                       <div class="col-sm-7">
                         <select class="form-control" name="subDistrictAdd"  (change)="SubDistrictSelect($event.target.value,'OrganizationAddress')"  [(ngModel)]="subDistrictSelect.Add" required>
                           <option *ngFor="let item of subDistrictList.Add" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
@@ -184,7 +174,7 @@
                 <div class="row">
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-4 col-form-label">รหัสไปรษณีย์</label>
+                      <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.zipcode' | translate}}</label>
                       <div class="col-sm-8">
                         <input type="text" class="form-control " name="zipcodeAdd" [(ngModel)]="organization.OrganizationAddress.Zipcode">
                       </div>
@@ -196,11 +186,11 @@
               </div>
 
               <div>
-                <h5>ที่อยู่สำหรับจัดส่งเอกสาร</h5>
+                <h5>{{'Organization.addressforDoc' | translate}}</h5>
                 <div class="row">
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-4 col-form-label">เลขที่</label>
+                      <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.houseNo' | translate}}</label>
                       <div class="col-sm-8">
                         <input type="text" class="form-control " name="houseNoDoc" [(ngModel)]="organization.AddressForDocument.HouseNo">
                       </div>
@@ -208,7 +198,7 @@
                   </div>
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">ถนน</label>
+                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">{{'Organization.road' | translate}}</label>
                       <div class="col-sm-7">
                         <input type="text" class="form-control" name="roadDoc" [(ngModel)]="organization.AddressForDocument.Road">
                       </div>
@@ -218,7 +208,7 @@
                 <div class="row">
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-4 col-form-label">ตรอก/ซอย</label>
+                      <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.alleyAdd' | translate}}</label>
                       <div class="col-sm-8">
                         <input type="text" class="form-control " name="alleyDoc" [(ngModel)]="organization.AddressForDocument.Alley">
                       </div>
@@ -226,10 +216,10 @@
                   </div>
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">จังหวัด</label>
+                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">{{'Organization.province' | translate}}</label>
                       <div class="col-sm-7">
                         <select class="form-control" name="provinceDoc" (change)="ProvinceSeletect($event.target.value,'AddressForDocument')" [(ngModel)]="provinceSelect.Doc" required>
-                          <option *ngFor="let item of province" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
+                          <option *ngFor="let item of data.province" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -238,7 +228,7 @@
                 <div class="row">
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-4 col-form-label">เขต/อำเภอ</label>
+                      <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.districtAdd' | translate}}</label>
                       <div class="col-sm-8">
                         <select class="form-control" name="districtDoc" (change)="DistrictSelect($event.target.value,'AddressForDocument')" [(ngModel)]="districtSelect.Doc" required>
                           <option *ngFor="let item of districtList.Doc" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
@@ -248,7 +238,7 @@
                   </div>
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">แขวง/ตำบล</label>
+                      <label for="inputPassword" class="col-sm-5 text-right col-form-label">{{'Organization.subDistrictAdd' | translate}}</label>
                       <div class="col-sm-7">
                         <select class="form-control" name="subDistrictDoc"  (change)="SubDistrictSelect($event.target.value,'AddressForDocument')"  [(ngModel)]="subDistrictSelect.Doc" required>
                           <option *ngFor="let item of subDistrictList.Doc" value="{{item.pid}}|{{item.name}}">{{item.name}}</option>
@@ -260,7 +250,7 @@
                 <div class="row">
                   <div class="col-sm-6 float-left">
                     <div class="form-group row">
-                      <label for="inputPassword" class="col-sm-4 col-form-label">รหัสไปรษณีย์</label>
+                      <label for="inputPassword" class="col-sm-4 col-form-label">{{'Organization.zipcode' | translate}}</label>
                       <div class="col-sm-8">
                         <input type="text" class="form-control " name="zipcodeDoc" [(ngModel)]="organization.AddressForDocument.Zipcode">
                       </div>
@@ -275,8 +265,8 @@
             </div>
 
             <div class="text-center col-sm-12">
-              <button class="btn btn-primary" (click)="SaveOrganization()">บันทึก</button>
-              <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
+              <button class="btn btn-primary" (click)="SaveOrganization()">{{'Save' | translate}}</button>
+              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
             </div>
           </form>
         </aside>

@@ -1,39 +1,78 @@
 {
-    "Menu":{
-        "1":"หน้าแรก",
-        "2":"ข้อมูลบุคคล",
-        "3":"ข้อมูลหน่วยงาน",
-        "4":"ข้อมูลฝ่ายงาน",
-        "5":"ข้อมูลกลุ่มงาน",
-        "6":"Dashboard",
-        "7":{
-            "name":"ตั้งค่า",
-            "1":"จัดการรหัสผ่าน",
-            "2":"การสำรองข้อมูล",
-            "3":"การจัดการใช้สิทธิการใช้งาน",
-            "4":"Audit Log"
-        }        
+    "Menu": {
+        "1": "หน้าแรก",
+        "2": "ข้อมูลบุคคล",
+        "3": "ข้อมูลหน่วยงาน",
+        "4": "ข้อมูลฝ่ายงาน",
+        "5": "ข้อมูลกลุ่มงาน",
+        "6": "Dashboard",
+        "7": {
+            "name": "ตั้งค่า",
+            "1": "จัดการรหัสผ่าน",
+            "2": "การสำรองข้อมูล",
+            "3": "การจัดการใช้สิทธิการใช้งาน",
+            "4": "Audit Log"
+        }
     },
-    "Save":"บันทึก",
-    "Cancle":"ยกเลิก",
-    "buttonInsert":"เพิ่มข้อมูล",
-    "history":{
-        "edit":"ประวัติการแก้ไข"
+    "Save": "บันทึก",
+    "Cancle": "ยกเลิก",
+    "buttonInsert": "เพิ่มข้อมูล",
+    "history": {
+        "edit": "ประวัติการแก้ไข"
     },
-    "name":"ชื่อ",
-    "Home":{
-        "historyOfLogin":"ประวัติการเข้าสู่ระบบ",
-        "SystemName":"ชื่อระบบ",
-        "LinkUrl":"Link Url",
-        "Details":"รายละเอียด",
-        "AttachmentsFile":"แนบไฟล์เอกสาร"
+    "name": "ชื่อ",
+    "fullname": "ชื่อ-นามสกุล",
+    "internalPhone": "เบอร์โทรภายใน",
+    "email": "อีเมล์",
+    "department": "ฝ่ายงาน",
+    "position": "ตำแหน่ง",
+    "externalPhone": "เบอร์โทรภายนอก",
+    "Home": {
+        "historyOfLogin": "ประวัติการเข้าสู่ระบบ",
+        "SystemName": "ชื่อระบบ",
+        "LinkUrl": "Link Url",
+        "Details": "รายละเอียด",
+        "AttachmentsFile": "แนบไฟล์เอกสาร"
     },
-    "Personal":{
-        "employeeId":"รหัสพนักงาน",
-        "name-sur":"ชื่อ-นามสกุล",
+    "Personal": {
+        "employeeId": "รหัสพนักงาน",
+        "name-sur":"ชื่อ-สกุล",
         "internalPhone":"เบอร์โทรภายใน",
         "email":"อีเมล์",
         "department":"ฝ่ายงาน",
         "position":"ตำแหน่ง"
+    },
+    "Organization": {
+        "addOrganization":"เพิ่มรายละเอียดหน่วยงาน",
+        "addressOrganization":"ที่ตั้งหน่วยงาน",
+        "addressforDoc":"ที่อยู่สำหรับจัดส่งเอกสาร",
+        "organizationName":"ชื่อหน่วยงาน",
+        "tin":"เลขประจำตัวผู้เสียภาษี",
+        "detailOrganization":"รายละเอียดของหน่วยงาน",
+        "alleyAdd":"ตรอก/ซอย",
+        "province":"จังหวัด",
+        "districtAdd":"เขต/อำเภอ",
+        "subDistrictAdd":"แขวง/ตำบล",
+        "zipcode":"รหัสไปรษณีย์",
+        "tel":"โทรศัพท์",
+        "fax":"โทรสาร",
+        "address":"ที่อยู่",
+        "houseNo":"เลขที่",
+        "building":"อาคาร",
+        "floor":"ชั้น",
+        "room":"ห้อง",
+        "road":"ถนน",
+        "alley":"ซอย",
+        "subDistrict":"แขวง",
+        "district":"เขต"
+
+    },
+    "Department":{
+        "AddDepartmentData" : "เพิ่มรายละเอียดข้อมูลฝ่ายงาน",
+        "departmentName":"ชื่อฝ่ายงาน",
+        "organizationName":"ชื่อหน่วยงาน",
+        "detail":"รายละเอียด",
+        "address":"ที่อยู่จัดส่ง",
+        "contact":"รายละเอียดการติดต่อ"
     }
 }

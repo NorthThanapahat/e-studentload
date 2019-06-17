@@ -25,13 +25,13 @@ export class HomeComponent implements OnInit {
   auditLog: any;
   applicationFormGroup: FormGroup;
   image: string | ArrayBuffer;
-  path:string;
+  path: string;
 
   constructor(public api: ApiProvider,
     public util: UtilProvider,
-     private formBuilder: FormBuilder,
-     public data:DataProvider,
-     public translate:TranslateService) { }
+    private formBuilder: FormBuilder,
+    public data: DataProvider,
+    public translate: TranslateService) { }
 
   ngOnInit() {
     this.applicationFormGroup = this.formBuilder.group({
@@ -40,13 +40,13 @@ export class HomeComponent implements OnInit {
       details: ['', Validators.required],
       file: ['', Validators.required],
     });
-      setTimeout(()=>{
-        this.util.ShowLoading();
-        // this.util.AlertMessage('เพิ่มข้อมูลสำเร็จ','ApplicationId : '+"asd");
-        this.GetAllApplication();
+    setTimeout(() => {
+      this.util.ShowLoading();
+      // this.util.AlertMessage('เพิ่มข้อมูลสำเร็จ','ApplicationId : '+"asd");
+      this.GetAllApplication();
 
-      },200);
-    
+    }, 200);
+
     let param = {
       key: "personid",
       value: "1"
@@ -67,15 +67,15 @@ export class HomeComponent implements OnInit {
       this.application = res;
       this.util.HideLoading();
       // this.util.HideLoading();
-    },(err)=>{
-      console.log("err===>",err);
+    }, (err) => {
+      console.log("err===>", err);
       this.util.HideLoading();
     });
   }
   processFile(value) {
     console.log(value);
     this.path = value.target.value;
-    this.util.readThis(value.target).onloadend = (e)=>{
+    this.util.readThis(value.target).onloadend = (e) => {
       console.log(e.target.result);
       this.image = e.target.result;
     };
@@ -104,19 +104,30 @@ export class HomeComponent implements OnInit {
     const data = "ApplicationName=" + this.applicationFormGroup.controls['applicationName'].value +
       "&LinkURL=" + this.applicationFormGroup.controls['linkUrl'].value +
       "&File" + this.path +
-      "&Detail"+ this.applicationFormGroup.controls['details'].value+
+      "&Detail" + this.applicationFormGroup.controls['details'].value +
       "&CreateBy=" + 1 +
       "&IsActive=" + 1;
-      this.util.ShowLoading();
+    this.util.ShowLoading();
     this.api.SendRequestApiWithData(ConfigAPI.InsertApplication, data).then((res: any) => {
       console.log(res);
       if (res.successful) {
-       this.GetAllApplication();
-       this.util.AlertMessage('เพิ่มข้อมูลสำเร็จ','ApplicationId : '+res.data[0].ApplicationId);
+        this.GetAllApplication();
+        if(this.data.language == 'th'){
+          this.util.AlertMessage('เพิ่มข้อมูลสำเร็จ', 'ApplicationId : ' + res.data[0].ApplicationId);
+
+        }else if(this.data.language == 'en'){
+          this.util.AlertMessage('Insert Data Successed', 'ApplicationId : ' + res.data[0].ApplicationId);
+        }
       } else {
-        this.util.AlertMessage('เพิ่มข้อมูลไม่สำเร็จ','กรุณาตรวจสอบอีกครั้ง');
+        if (this.data.language == 'th') {
+          this.util.AlertMessage('เพิ่มข้อมูลไม่สำเร็จ', 'กรุณาตรวจสอบอีกครั้ง');
+
+        }else if(this.data.language == 'en'){
+          this.util.AlertMessage('Insert Data Incomplete !', 'Please try again.');
+
+        }
       }
-    },(err)=>{
+    }, (err) => {
       this.util.HideLoading();
     });
   }
@@ -138,9 +149,9 @@ export class HomeComponent implements OnInit {
     const data = "ApplicationName=" + this.applicationFormGroup.controls['applicationName'].value +
       "&LinkURL=" + this.applicationFormGroup.controls['linkUrl'].value +
       "&File" + this.image.toString() +
-      "&Detail"+ this.applicationFormGroup.controls['details'].value+
+      "&Detail" + this.applicationFormGroup.controls['details'].value +
       "&CreateBy=" + 1 +
-      "&IsActive=" + 1; 
+      "&IsActive=" + 1;
 
     this.api.SendRequestApiWithData(ConfigAPI.UpdateApplication, data).then((res: any) => {
       console.log(res);

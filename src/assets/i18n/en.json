@@ -1,40 +1,77 @@
 {
-    "Menu":{
-        "1":"Homepage",
-        "2":"Personal Information",
-        "3":"Organization Information",
-        "4":"Department Information",
-        "5":"Group Information",
-        "6":"Dashboard",
-        "7":{
-            "name":"Setting",
-            "1":"Password Management",
-            "2":"Data Reserving",
-            "3":"Permission Management",
-            "4":"Audit Log"
-        }        
+    "Menu": {
+        "1": "Homepage",
+        "2": "Personal Information",
+        "3": "Organization Information",
+        "4": "Department Information",
+        "5": "Group Information",
+        "6": "Dashboard",
+        "7": {
+            "name": "Setting",
+            "1": "Password Management",
+            "2": "Data Reserving",
+            "3": "Permission Management",
+            "4": "Audit Log"
+        }
     },
-    "Save":"Save",
-    "Cancle":"Cancle",
-    "buttonInsert":"Add Application",
-    "history":{
-        "edit":"Revision history"
+    "Save": "Save",
+    "Cancle": "Cancle",
+    "buttonInsert": "Add Application",
+    "history": {
+        "edit": "Revision history"
     },
-    "name":"Name",
-
-    "Home":{
-        "historyOfLogin":"Login History",
-        "SystemName":"System Name",
-        "LinkUrl":"Link Url",
-        "Details":"Details",
-        "AttachmentsFile":"Attachment File"
+    "name": "Name",
+    "fullname": "Name - Surname",
+    "internalPhone": "Internal Phone Number",
+    "email": "Email",
+    "department": "Department",
+    "position": "position",
+    "externalPhone": "External Phone Number",
+    "Home": {
+        "historyOfLogin": "Login History",
+        "SystemName": "System Name",
+        "LinkUrl": "Link Url",
+        "Details": "Details",
+        "AttachmentsFile": "Attachment File"
     },
-    "Personal":{
-        "employeeId":"Employee ID",
-        "name-sur":"Name - Surname",
-        "internalPhone":"Internal Phone Number",
-        "email":"Email",
-        "department":"Department",
-        "position":"Position"
+    "Personal": {
+        "employeeId": "Employee ID",
+        "name-sur": "Name - Surname",
+        "internalPhone": "Internal Phone Number",
+        "email": "Email",
+        "department": "Department",
+        "position": "Position"
+    },
+    "Organization": {
+        "addressOrganization": "OrganizationAddress ",
+        "addressforDoc": "Address for Sending document",
+        "addOrganization": "Insert Organization",
+        "organizationName": "Organization Name",
+        "tin": "Taxpayer identification number (TIN)",
+        "detailOrganization": "DetailOrganization",
+        "alleyAdd": "Alley",
+        "province": "Province",
+        "districtAdd": "District Add",
+        "subDistrictAdd": "Sub-District",
+        "zipcode": "zipcode",
+        "tel": "Phone Number",
+        "fax": "Fax",
+        "address": "Address",
+        "houseNo": "House No.",
+        "building": "Building",
+        "floor": "Floor",
+        "room": "Room",
+        "road": "Road",
+        "alley": "Alley",
+        "subDistrict": "Sub-District",
+        "district": "District"
+    },
+    "Department": {
+        "AddDepartmentData": "Insert Department",
+        "departmentName": "Department Name",
+        "organizationName": "Organization Name",
+        "detail": "Detail",
+        "address": "Address",
+        "contact": "Contact"
     }
 }
