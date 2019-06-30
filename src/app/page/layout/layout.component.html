@@ -1,54 +1,105 @@
-<app-header></app-header>
-<div class="relative">
+<app-header class="nav-header"></app-header>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav navbar-center margin-auto">
-        <li (click)="Page('home')" [ngClass]="{'active': click == 'home'}" [routerLink]="[ '/home']"
-          class="nav-item link">
-          <a class="nav-link">{{'Menu.1' | translate}}</a>
-        </li>
-        <li class="nav-item link" [routerLink]="[ '/person']" (click)="Page('person')"
-          [ngClass]="{'active': click == 'person'}">
-          <a class="nav-link">{{'Menu.2' | translate}}</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" [ngClass]="{'active': click == 'department'}" id="navbarDropdown"
-            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{'Menu.3' | translate}}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/department']">{{'Menu.3' | translate}}</a>
-            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/side']">{{'Menu.4' | translate}}</a>
-            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/group']">{{'Menu.5' | translate}}</a>
+<div class="col-sm-2 no-padding side-menu bule-violet text-center" *ngIf="data.page == 'application' || data.page == 'dashboard'">
+    <div class="full-body text-white margin-bottom-10" *ngIf="data.page == 'dashboard'">
+      <i class="far fa-user-circle fa-5x  padding"></i>
+      <div class="col-12 ">
+        <span class="border-bottom-3-white">{{data.userData.data[0].PersonName}}</span>
+      </div>
+      <div class="d-flex w-100 bg-white text-bule-violet-light link padding justify-content-center margin-top-30"
+        data-toggle="collapse" href="#collapseSideMenu" role="button" aria-expanded="false"
+        aria-controls="collapseSideMenu">
+        <div class="float-left">
+          <b>Dashboard</b>
+        </div>
+        <i class="fas fa-chevron-down float-left margin-left margin-top-5"></i>
+      </div>
+      <div class="collapse show" id="collapseSideMenu">
+        <div class="d-flex w-100  bg-white text-bule-violet-light link padding justify-content-center margin-top-5">
+          <div class="float-left">
+            <b>{{'Dashboard.sidemenu1' | translate}}</b>
           </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" (click)="Page('dashboard')" [ngClass]="{'active': click == 'dashboard'}"
-            [routerLink]="[ '/dashboard']">{{'Menu.6' | translate}}</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" [ngClass]="{'active': click == 'setting'}" id="navbarDropdown"
-              role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{'Menu.7.name' | translate}}
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-password']">{{'Menu.7.1' | translate}}</a>
-              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-data']">{{'Menu.7.2' | translate}}</a>
-              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/manage-role']">{{'Menu.7.3' | translate}}</a>
-              <a class="dropdown-item" (click)="Page('setting')" [routerLink]="[ '/audit-log']">{{'Menu.7.4' | translate}}</a>
+        </div>
+        <div class="d-flex w-100  bg-violet-less text-white link padding justify-content-center margin-top-5">
+          <div class="float-left">
+            <b>{{'Dashboard.sidemenu2' | translate}}</b>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="full-body text-white margin-bottom-10" *ngIf="data.page == 'application'">
+        <div class="bg-white padding-bottom-30 padding-top-30 ">
+          <i class="far fa-user-circle font-size-60 text-bule-violet padding"></i>
+          <div class="col-12 ">
+            <span class="border-bottom-3 text-bule-violet">{{data.userData.data[0].PersonName}}</span>
+          </div>
+        </div>
+  
+        <div class="w-100">
+          <div class="w-100 text-left padding text-white">{{'Home.historyOfLogin' | translate}}</div>
+          <div class="text-bule-violet">
+            <div class="w-100 text-left padding bg-light margin-top-10 margin-bottom-10"
+              *ngFor="let item of data.auditLog?.data">
+              <i class="fas fa-user-circle font-size-25 text-danger d-inline"></i> {{item.PersonId}}
+              <div class="d-inline margin-left">
+                <div class="d-inline">{{item.CreateDate}}</div>
+                <div class="d-inline float-right">09:32:16</div>
+              </div>
             </div>
-          </li>
-      </ul>
-    </div>
-  </nav>
-  <!-- <div class="col-4 bg-white ab z-index-top top-0 no-margin-padding">
-    <div class="full-body border-right">
-        <i class="far fa-user-circle font-size-60 text-bule-violet"></i>
-    </div>
-  </div> -->
-</div>
-<section>
-  <router-outlet></router-outlet>
+  
+          </div>
+  
+        </div>
+      </div>
+  </div>
+<section  >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav navbar-center margin-auto">
+            <li (click)="Page('home')" [ngClass]="{'active': click == 'home'}" [routerLink]="[ '/home']"
+              class="nav-item link">
+              <a class="nav-link">{{'Menu.1' | translate}}</a>
+            </li>
+            <li class="nav-item link" [routerLink]="[ '/person']" (click)="Page('person')"
+              [ngClass]="{'active': click == 'person'}">
+              <a class="nav-link">{{'Menu.2' | translate}}</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" [ngClass]="{'active': click == 'department'}" id="navbarDropdown"
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{'Menu.3' | translate}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" (click)="Page('department')"
+                  [routerLink]="[ '/department']">{{'Menu.3' | translate}}</a>
+                <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/side']">{{'Menu.4' | translate}}</a>
+                <a class="dropdown-item" (click)="Page('department')"
+                  [routerLink]="[ '/group']">{{'Menu.5' | translate}}</a>
+              </div>
+            </li>
+    
+            <li class="nav-item">
+              <a class="nav-link" (click)="Page('dashboard')" [ngClass]="{'active': click == 'dashboard'}"
+                [routerLink]="[ '/dashboard']">{{'Menu.6' | translate}}</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" [ngClass]="{'active': click == 'setting'}" id="navbarDropdown"
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{'Menu.7.name' | translate}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" (click)="Page('setting')"
+                  [routerLink]="[ '/manage-password']">{{'Menu.7.1' | translate}}</a>
+                <a class="dropdown-item" (click)="Page('setting')"
+                  [routerLink]="[ '/manage-data']">{{'Menu.7.2' | translate}}</a>
+                <a class="dropdown-item" (click)="Page('setting')"
+                  [routerLink]="[ '/manage-role']">{{'Menu.7.3' | translate}}</a>
+                <a class="dropdown-item" (click)="Page('setting')"
+                  [routerLink]="[ '/audit-log']">{{'Menu.7.4' | translate}}</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+  <router-outlet ></router-outlet>
 </section>

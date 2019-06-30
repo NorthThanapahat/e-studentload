@@ -1,11 +1,11 @@
 <div class="container no-padding  margin-top-20 border-shadow margin-bottom-10">
   <div class="col-sm-12 no-padding">
     <div class="text-white text-center justify-content-center no-padding">
-      <h4 class="bg-danger padding">กำหนดสิทธิการใช้งาน</h4>
+      <h4 class="bg-danger padding">{{'Permission.SetPermission' | translate}}</h4>
       <div class="ht-200 bg-white"></div>
     </div>
     <button class="col-sm-4 btn btn-success margin-left float-right margin-bottom-10" data-toggle="modal"
-      data-target="#exampleModalCenter">สร้างสิทธิ์การใช้งาน</button>
+      data-target="#exampleModalCenter">{{'Permission.CreatePermission' | translate}}</button>
     <div class="clearfix"></div>
     <div class="container no-padding">
       <div class="col-sm-12 font-size-20 no-padding">
@@ -14,33 +14,31 @@
           <table class="table w-100">
             <thead class="bg-danger text-white text-center">
               <tr>
-                <th scope="col">ชื่อบุคคล/ชื่อกลุ่มบุคคล</th>
-                <th scope="col">เมนู</th>
-                <th scope="col">สิทธิ์การใช้งาน</th>
-                <th scope="col">สถานะ</th>
-                <th scope="col">แก้ไข</th>
+                <th scope="col">{{'Permission.GroupName-Person' | translate}}</th>
+                <th scope="col">{{'Permission.Menu' | translate}}</th>
+                <th scope="col">{{'Permission.Permission' | translate}}</th>
+                <th scope="col">{{'Permission.Status' | translate}}</th>
+                <th scope="col">{{'Permission.Edit' | translate}}</th>
               </tr>
             </thead>
             <tbody class="text-center">
-              <tr>
-
-              </tr>
-              <tr>
-
-              </tr>
-              <tr>
-
+              <tr *ngFor="let item of permission?.data">
+                <td class="text-center">{{item.PersonName}} / {{item.GroupName}}</td>
+                <td class="text-center">{{item.MenuName}}</td>
+                <td class="text-center">{{item.PermissionType}}</td>
+                <td class="text-center">{{item.IsActive}} </td>
+                <td class="text-center link" data-toggle="modal" data-target="#exampleModalCenter" (click)="Edit(item)">
+                  <i class="fas fa-edit text-bule-violet-light"></i></td>
               </tr>
             </tbody>
-            <div class="w-100 ht-200"></div>
           </table>
 
 
 
         </div>
         <div class="col-sm-4 offset-sm-4 display-table margin-top-20 margin-bottom-10">
-          <button class="btn btn-primary margin-left float-left">บันทึก</button>
-          <button class="btn btn-danger margin-right float-right" data-dismiss="modal">ยกเลิก</button>
+          <button class="btn btn-primary margin-left float-left">{{'Save' | translate}}</button>
+          <button class="btn btn-danger margin-right float-right" data-dismiss="modal">{{'Cancle' | translate}}</button>
         </div>
       </div>
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -50,7 +48,7 @@
             <aside class="col-sm-12 container no-margin-padding">
               <div class="modal-header bg-danger ">
                 <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">
-                  เพิ่มรายละเอียดบุคคล
+                  {{'Permission.SetPermission' | translate}}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -59,10 +57,12 @@
               <form class="container padding">
                 <div class="col-sm-12 float-left">
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-3 col-form-label">ประเภทสิทธิ์</label>
+                    <label for="inputPassword" class="col-sm-3 col-form-label">
+                      {{'Permission.PermissionType' | translate}}</label>
                     <div class="col-sm-9">
-                      <select class="form-control" name="department">
-                        <option></option>
+                      <select class="form-control" name="permissionType">
+                        <option value="person">{{'Permission.Person' | translate}}</option>
+                        <option value="group">{{'Permission.Group' | translate}}</option>
                       </select>
                     </div>
                   </div>
@@ -70,34 +70,41 @@
 
 
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อบุคคล/กลุ่ม</label>
+                    <label for="inputPassword"
+                      class="col-sm-3 col-form-label">{{'Permission.GroupName-Person' | translate}}</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" name="name">
+                      <select class="form-control" name="permissionType">
+                        <option value="person"></option>
+                      </select>
                     </div>
                   </div>
                   <div class="form-group ">
-                    <label for="inputPassword" class="col-sm-12 col-form-label no-padding">ประเภทสิทธิ์</label>
+                    <label for="inputPassword"
+                      class="col-sm-12 col-form-label no-padding">{{'Permission.PermissionType' | translate}}</label>
                     <div class="container">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                           value="option1">
-                        <label class="form-check-label" for="inlineRadio1">แอปพลิเคชั่น</label>
+                        <label class="form-check-label"
+                          for="inlineRadio1">{{'Permission.Application' | translate}}</label>
                       </div>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
                           value="option2">
-                        <label class="form-check-label" for="inlineRadio2">เมนู</label>
+                        <label class="form-check-label" for="inlineRadio2">{{'Permission.Menu' | translate}}</label>
                       </div>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อแอปพลิเคชั่น/เมนู</label>
+                    <label for="inputPassword"
+                      class="col-sm-3 col-form-label">{{'Permission.ApplicationName-Menu' | translate}}</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" name="name">
                     </div>
                   </div>
                   <div class="form-group ">
-                    <label for="inputPassword" class="col-sm-12 col-form-label no-padding">ประเภทสิทธิ์</label>
+                    <label for="inputPassword"
+                      class="col-sm-12 col-form-label no-padding">{{'Permission.PermissionType' | translate}}</label>
                     <div class="container col-sm-8 offset-sm-2">
                       <div class="form-check col-sm-6 float-left">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
@@ -129,77 +136,17 @@
 
                     <div class=" margin-left-20 form-check">
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                      <label class="form-check-label font-size-12" for="inlineCheckbox2">สิทธิพิเศษ</label>
+                      <label class="form-check-label font-size-15"
+                        for="inlineCheckbox2">{{'Permission.SpacialPermission' | translate}}</label>
                     </div>
                   </div>
 
-
-                  <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อบุคคล/กลุ่ม</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" name="name">
-                    </div>
-                  </div>
-                  <div class="form-group ">
-                    <label for="inputPassword" class="col-sm-12 col-form-label no-padding">ประเภทเมนู</label>
-                    <div class="container">
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                          value="option1">
-                        <label class="form-check-label" for="inlineRadio1">แอปพลิเคชั่น</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                          value="option2">
-                        <label class="form-check-label" for="inlineRadio2">เมนู</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อแอปพลิเคชั่น/เมนู</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" name="name">
-                    </div>
-                  </div>
-                  <div class="form-group ">
-                    <label for="inputPassword" class="col-sm-12 col-form-label no-padding">ประเภทสิทธิ์</label>
-                    <div class="container col-sm-8 offset-sm-2">
-                      <div class="form-check col-sm-6 float-left">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1">View</label>
-                      </div>
-                      <div class="form-check col-sm-6 float-left">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox2">Delete</label>
-                      </div>
-                      <div class="form-check col-sm-6 float-left">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox2">Add</label>
-                      </div>
-                      <div class="form-check col-sm-6 float-left">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox2">Import</label>
-                      </div>
-                      <div class="form-check col-sm-6 float-left">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1">Edit</label>
-                      </div>
-                      <div class="form-check col-sm-6 float-left">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox2">Export</label>
-                      </div>
-
-                    </div>
-                    <div class="clearfix"></div>
-
-                    
-                  </div>
                 </div>
 
                 <div class="clearfix"></div>
                 <div class="text-center col-sm-12">
-                  <button class="btn btn-primary">บันทึก</button>
-                  <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
+                  <button class="btn btn-primary">{{'Save' | translate}}</button>
+                  <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
                 </div>
               </form>
 

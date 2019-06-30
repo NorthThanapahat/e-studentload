@@ -1,9 +1,9 @@
 <div class="container col-12 no-margin-padding relative">
   <div class="full-body">
-    <div class="ab z-index-top top-right padding font-size-12">
-      <a href="">ไทย</a>
+    <div class="ab z-index-top top-right padding font-size-18">
+      <a class="link" [ngClass]="{'text-bold': data.language == 'th'}" (click)="SwitchLanguage('th')">ไทย</a>
       <span class="margin-left">|</span>
-      <a class="margin-left" href="">Eng</a>
+      <a class="margin-left link"  [ngClass]="{'text-bold': data.language == 'en'}" (click)="SwitchLanguage('en')">Eng</a>
     </div>
     <div class="col-6 full-img no-margin-padding float-left">
       <img class="full-vh" src="../../../assets/image/login-01.jpg" alt="" />
@@ -32,7 +32,7 @@
             <label for="staticEmail" class="col-form-label"><i
                 class="fas fa-user-circle text-bule-violet font-size-20"></i></label>
             <div class="col-sm-10 col-10">
-              <input type="text" class="form-control-plaintext" id="staticEmail"
+              <input type="text" class="form-control-plaintext" id="staticEmail" name="username" [(ngModel)]="username"
                 placeholder="ชื่อผู้เข้าใช้งานหรืออีเมล" />
             </div>
           </div>
@@ -41,14 +41,14 @@
               <i class="fas fa-unlock-alt"></i>
             </label>
             <div class="col-sm-10 col-10">
-              <input type="text" class="form-control-plaintext" id="staticEmail" placeholder="รหัสผ่าน" />
+              <input type="text" class="form-control-plaintext" id="staticEmail" placeholder="รหัสผ่าน" name="password" [(ngModel)]="password" />
             </div>
             <div class="col-12 margin-top-10">
               <div class="float-left col-6">
                 <input type="checkbox" class="margin-right-5 float-left" />
-                <div class="font-size-12">จดจำข้อมูลของฉัน</div>
+                <div class="font-size-15">จดจำข้อมูลของฉัน</div>
               </div>
-              <div class="btn float-right font-size-12 underline" data-toggle="modal" data-target="#exampleModalCenter">
+              <div class="btn float-right font-size-15 underline" data-toggle="modal" data-target="#exampleModalCenter">
                 ลืมรหัสผ่าน</div>
             </div>
             <div class="col-12">

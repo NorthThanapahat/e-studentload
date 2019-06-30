@@ -18,14 +18,14 @@ import { ManageRoleComponent } from './manage-role/manage-role.component';
 import { AuditLogComponent } from './audit-log/audit-log.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { TranslateModule } from '@ngx-translate/core';
-
-
-
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { MatButtonModule, MatCardModule, MatFormFieldModule,MatNativeDateModule ,MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule } from '@angular/material';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [HeaderComponent,HomeComponent,PersonComponent,LayoutComponent, DepartmentComponent, SideComponent, GroupComponent, DashboardComponent, ManagePasswordComponent, ManageDataComponent, ManageRoleComponent, AuditLogComponent],
   imports: [
-    CommonModule,TranslateModule,LayoutRoutingModule,FormsModule,ChartModule,Ng2Charts,ReactiveFormsModule,NgxLoadingModule.forRoot({})
+    CommonModule,NgbPaginationModule,MatButtonModule, MatCardModule, MatNativeDateModule ,MatInputModule ,MatFormFieldModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule , NgbAlertModule,TranslateModule,LayoutRoutingModule,FormsModule,ChartModule,Ng2Charts,ReactiveFormsModule,ModalModule.forRoot(),NgxLoadingModule.forRoot({})
   ],
   providers:[{provide:LocationStrategy,useClass:HashLocationStrategy}]
 

@@ -1,12 +1,15 @@
 <div class="container col-sm-12 col-12 ">
-  
-  <div class="col-sm-10 col-10 float-left font-size-15  margin-bottom-10">
+  <div *ngIf="data.persons?.length == 0" class="col-sm-10 float-left font-size-48 margin-top-10p text-center">
+    {{'NotFoundData' | translate}}
+  </div>
+  <div class="col-sm-10 col-10 float-left font-size-20  margin-bottom-10">
     <div class="col-sm-12 col-12 display-table d-flex justify-content-center margin-top-20 padding border"
-      *ngFor="let item of allperson?.data;let i = index">
-      <div class="top-right link" (click)="EditPerson(item,i)"  data-toggle="modal" data-target="#exampleModalCenter">
+      *ngFor="let item of data.persons | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
+      <div class="top-right link" (click)="EditPerson(item)" data-toggle="modal" data-target="#exampleModalCenter">
         <i class="fas fa-edit text-bule-violet-light"></i>
       </div>
-      <div class="bottom-right link margin-right-5" (click)="DeletePerson(item,i)" data-toggle="modal" data-target="#deleteModal">
+      <div class="bottom-right link margin-right-5" (click)="DeletePerson(item)" data-toggle="modal"
+        data-target="#deleteModal">
         <i class="fas fa-trash text-bule-violet-light"></i>
       </div>
       <div class="padding">
@@ -55,7 +58,8 @@
   </div>
   <div class="col-sm-2 col-2 float-left d-flex justify-content-center">
     <div class="text-center col-sm-12 col-12 no-padding">
-      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter" (click)="InsertPerson()">
+      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter"
+        (click)="InsertPerson()">
         <i class="fas fa-plus-circle"></i>
         {{'buttonInsert' | translate}}
       </div>
@@ -74,7 +78,7 @@
           {{'history.edit' | translate}}
           <i class="fas fa-edit"></i>
         </div>
-        <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-12">
+        <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-15">
           <div class="full-body display-table  padding border-bottom-1">
             <div class="full-body">
               <div class="float-left d-flex justify-content-start">25/11/2018</div>
@@ -102,6 +106,12 @@
     </div>
 
   </div>
+  <div class="clearfix"></div>
+  <div class="col-12 justify-content-center mb-5">
+    <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
+      [collectionSize]="data.persons?.length"></ngb-pagination>
+  </div>
+
 
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -109,7 +119,8 @@
       <div class="modal-content">
         <aside class="col-sm-12 col-12 container no-margin-padding">
           <div class="modal-header bg-danger ">
-            <h5 class="modal-title col-sm-12 col-12 text-center  text-white" id="exampleModalLongTitle">เพิ่มรายละเอียดบุคคล
+            <h5 class="modal-title col-sm-12 col-12 text-center  text-white" id="exampleModalLongTitle">
+              เพิ่มรายละเอียดบุคคล
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -135,47 +146,50 @@
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ตำแหน่ง</label>
                 <div class="col-sm-9 col-9">
-                  <input type="text" class="form-control" name="position"  [(ngModel)]="person.PersonPosition">
+                  <input type="text" class="form-control" name="position" [(ngModel)]="person.PersonPosition">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ชื่อผู้ใช้งาน</label>
                 <div class="col-sm-9 col-9">
-                  <input type="text" class="form-control" name="username"  [(ngModel)]="person.NewUsername">
+                  <input type="text" class="form-control" name="username" [(ngModel)]="person.NewUsername">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3 col-3 col-form-label">รหัสผ่าน</label>
                 <div class="col-sm-9  col-9">
-                  <input type="password" class="form-control" name="password"  [(ngModel)]="person.NewPassword" >
+                  <input type="password" class="form-control" name="password" [(ngModel)]="person.NewPassword">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3  col-3 col-form-label">ยืนยันรหัสผ่าน</label>
                 <div class="col-sm-9  col-9">
-                  <input type="password" class="form-control" name="confirmpassword" [(ngModel)]="person.PersonConfirmPassword">
+                  <input type="password" class="form-control" name="confirmpassword"
+                    [(ngModel)]="person.PersonConfirmPassword">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="float-left offset-sm-3  offset-6 col-6 col-sm-6">
                   <input type="checkbox" class="margin-right-5 float-left" />
-                  <div class="font-size-12 text-gray">จดจำข้อมูลของฉัน</div>
+                  <div class="font-size-15 text-gray">จดจำข้อมูลของฉัน</div>
                 </div>
               </div>
               <div class="invalid-feedback">Example invalid feedback text</div>
             </div>
-            
+
             <div class="col-sm-4  col-4 float-left margin-top-10p">
               <div class="text-center">
                 <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
-                <img class="rounded-circle image-cover" src="{{image}}" height="200px" width="200px" alt="" (click)="uploader.click()">
+                <img class="rounded-circle image-cover" src="{{image}}" height="200px" width="200px" alt=""
+                  (click)="uploader.click()">
 
               </div>
             </div>
             <div class="clearfix"></div>
             <div class="text-center col-sm-12  col-12">
-              <button (click)="SavePerson()" class="btn btn-primary">บันทึก</button>
-              <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
+              <button (click)="SavePerson()" data-dismiss="modal"
+                class="btn btn-primary">{{'Save' | translate}}</button>
+              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
             </div>
           </form>
 
@@ -195,16 +209,17 @@
                   <td>
                     <div class="form-group col-sm-12  col-12">
                       <select class="form-control" required [(ngModel)]="contactType">
-                        <option value="1" >เบอร์โทร</option>
-                        <option value="2" >อีเมล์</option>
-                        <option value="3" >facebook</option>
-                        <option value="4" >line</option>
-                        <option value="5" >instagram</option>
-                        <option value="6" >twitter</option>
+                        <option value="1">เบอร์โทร</option>
+                        <option value="2">อีเมล์</option>
+                        <option value="3">facebook</option>
+                        <option value="4">line</option>
+                        <option value="5">instagram</option>
+                        <option value="6">twitter</option>
                       </select>
                     </div>
                   </td>
-                  <td><input class="col-form-label col-sm-12  col-12" [(ngModel)]="contactDiscription" type="text" name="" id=""></td>
+                  <td><input class="col-form-label col-sm-12  col-12" [(ngModel)]="contactDiscription" type="text"
+                      name="" id=""></td>
                   <td>
                     <div class="form-group col-sm-12  col-12">
                       <select class="form-control" [(ngModel)]="importance" required>
@@ -220,14 +235,18 @@
                 <tr *ngFor="let item of contactList;let i = index">
                   <td class="text-center" *ngIf="item.TypeContactId == '1'"><i class="fas fa-phone fa-2x"></i></td>
                   <td class="text-center" *ngIf="item.TypeContactId == '2'"><i class="fas fa-envelope fa-2x"></i></td>
-                  <td class="text-center" *ngIf="item.TypeContactId == '3'"><i class="fab fa-facebook-square fa-2x"></i></td>
+                  <td class="text-center" *ngIf="item.TypeContactId == '3'"><i class="fab fa-facebook-square fa-2x"></i>
+                  </td>
                   <td class="text-center" *ngIf="item.TypeContactId == '4'"><i class="fab fa-line fa-2x"></i></td>
                   <td class="text-center" *ngIf="item.TypeContactId == '5'"><i class="fab fa-instagram fa-2x"></i></td>
-                  <td class="text-center" *ngIf="item.TypeContactId == '6'"><i class="fab fa-twitter-square fa-2x"></i></td>
+                  <td class="text-center" *ngIf="item.TypeContactId == '6'"><i class="fab fa-twitter-square fa-2x"></i>
+                  </td>
                   <td class="text-center"><b>{{item.Contact}}</b></td>
-                  <td (click)="SetActiveItem(i)" class="text-center link"><i [ngClass]="{'text-yellow': item.IsActive == '1', 'text-gray':  item.IsActive == '2'}" class="fas fa-star fa-lg"></i></td>
+                  <td (click)="SetActiveItem(i)" class="text-center link"><i
+                      [ngClass]="{'text-yellow': item.IsActive == '1', 'text-gray':  item.IsActive == '2'}"
+                      class="fas fa-star fa-lg"></i></td>
                 </tr>
-                
+
               </tbody>
             </table>
           </div>
@@ -236,33 +255,36 @@
     </div>
   </div>
 
-  
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <aside class="col-sm-12  col-12 container no-margin-padding">
-        <div class="modal-header bg-danger ">
-          <h5 class="modal-title col-sm-12  col-12 text-center  text-white" id="exampleModalLongTitle">คุณต้องการลบหรือไม่
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form class="container padding">
-          <div class="col-sm-8  col-8 float-left">
-            <div class="form-group row">
-              <label for="inputPassword" class="col-sm-3  col-3 col-form-label">ชื่อ {{deletePerson?.PersonName}}</label>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <aside class="col-sm-12  col-12 container no-margin-padding">
+          <div class="modal-header bg-danger ">
+            <h5 class="modal-title col-sm-12  col-12 text-center  text-white" id="exampleModalLongTitle">
+              {{'deleteConfirm' |translate }}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="container padding">
+            <div class="col-sm-8  col-8 float-left">
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3  col-3 col-form-label">{{'name' | translate}}
+                  {{deletePerson?.PersonName}}</label>
+              </div>
             </div>
-          </div>
-          <div class="clearfix"></div>
-          <div class="text-center col-sm-12  col-12">
-            <button (click)="SaveDeletePerson()" class="btn btn-primary">บันทึก</button>
-            <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
-          </div>
-        </form>
-      </aside>
+            <div class="clearfix"></div>
+            <div class="text-center col-sm-12  col-12">
+              <button (click)="SaveDeletePerson()" data-dismiss="modal"
+                class="btn btn-primary">{{'Save' | translate}}</button>
+              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
+            </div>
+          </form>
+        </aside>
+      </div>
     </div>
   </div>
-</div>
+
 </div>

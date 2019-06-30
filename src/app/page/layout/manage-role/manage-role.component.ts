@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiProvider } from 'src/app/share/api/api';
+import { DataProvider } from 'src/app/share/provider/provider';
+import { UtilProvider } from 'src/app/share/util';
+import { ConfigAPI } from 'src/app/share/api/ConfigApi';
 
 @Component({
   selector: 'app-manage-role',
@@ -7,9 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageRoleComponent implements OnInit {
 
-  constructor() { }
+  permission:any;
+  constructor(
+    public api:ApiProvider,
+    public data:DataProvider,
+    public util:UtilProvider
+  ) { 
+    this.data.page = 'manage-role';
+
+  }
 
   ngOnInit() {
+
+    this.api.SendRequestApi(`${ConfigAPI.GetAllpermission}?token=${this.util.GetAccessToken()}`).then((res:any)=>{
+      console.log(res);
+      this.permission = res;
+    }); 
+  }
+
+  Edit(item){
+    console.log(item);
   }
 
 }

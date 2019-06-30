@@ -19,6 +19,13 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { AlertComponent } from './modal/forget-password/alert.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { LoginPageService } from './share/login-page/login-page.service';
+import { HomeService } from './share/api/home-service/home-service';
+import { MatDatepickerModule } from '@angular/material';
+
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http,'../assets/i18n/','.json');
@@ -31,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadingComponent],
   imports: [
     BrowserModule,
+    ModalModule.forRoot(),
     AppRoutingModule,
     MatDialogModule,
     BrowserAnimationsModule,
@@ -40,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     NgxLoadingModule.forRoot({}),
     Ng2Charts,
+    NgxPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -48,7 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [DataProvider, AuthGuard, ApiProvider, UtilProvider],
+  providers: [DataProvider, AuthGuard, ApiProvider, UtilProvider,LoginPageService,HomeService,MatDatepickerModule],
   entryComponents: [AlertComponent, LoadingComponent],
   bootstrap: [AppComponent]
 })

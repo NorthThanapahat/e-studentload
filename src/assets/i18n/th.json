@@ -1,4 +1,6 @@
 {
+
+    "NotFoundData":"ไม่พบข้อมูล",
     "Menu": {
         "1": "หน้าแรก",
         "2": "ข้อมูลบุคคล",
@@ -27,6 +29,8 @@
     "department": "ฝ่ายงาน",
     "position": "ตำแหน่ง",
     "externalPhone": "เบอร์โทรภายนอก",
+    "deleteConfirm":"คุณต้องการลบหรือไม่",
+    
     "Home": {
         "historyOfLogin": "ประวัติการเข้าสู่ระบบ",
         "SystemName": "ชื่อระบบ",
@@ -74,5 +78,71 @@
         "detail":"รายละเอียด",
         "address":"ที่อยู่จัดส่ง",
         "contact":"รายละเอียดการติดต่อ"
+    },
+    "group":{
+        "no":"เลขที่",
+        "groupname":"ชื่อกลุ่ม",
+        "createby":"ผู้สร้าง",
+        "detail":"รายละเอียด",
+        "status":"สถานะ",
+        "edit":"แก้ไข",
+        "delete":"ลบ",
+        "AddGroupData":"เพิ่มรายละเอียดกลุ่มงาน",
+        "groupName":"ชื่อกลุ่ม",
+        "department":"ฝ่ายงาน",
+        "other":"อื่นๆ"
+    },
+    "RememberMe":"จดจำข้อมูลของฉัน",
+    "Active":"ใช้งาน",
+    "InActive":"ไม่ใช้งาน",
+    "password-management":{
+        "PasswordManagement":"การจัดการรหัสผ่าน",
+        "CreatingPassword":"การสร้างรหัสผ่าน",
+        "AllowCreatePasswordBySystem":"อนุญาติให้ผู้ใช้งานสร้างรหัสผ่านโดยระบบได้",
+        "CreatePasswordBySelf":"การสร้างรหัสผ่านด้วยตัวเอง",
+        "AllowCreatePasswordBySelf":"อนุญาติให้ผู้ใช้งานสร้างรหัสผ่านด้วยตัวเองได้",
+        "No":"ลำดับ",
+        "Application":"แอปพลิเคชั่น",
+        "Username":"ชื่อผู้ใช้งาน",
+        "Password":"รหัสผ่าน",
+        "Datetime":"วันที่/เวลา",
+        "Status":"สถานะ",
+        "Edit":"แก้ไข",
+        "OldPassword":"รหัสผ่านเก่า",
+        "NewPassword":"รหัสผ่านใหม่",
+        "PasswordConfirm":"กรอกรหัสอีกครั้ง"
+    },
+    "Permission":{
+        "SetPermission":"กำหนดสิทธิการใช้งาน",
+        "CreatePermission":"สร้างสิทธิ์การใช้งาน",
+        "GroupName-Person":"ชื่อบุคคล/ชื่อกลุ่มบุคคล",
+        "Menu":"เมนู",
+        "Permission":"สิทธิ์การใช้งาน",
+        "Status":"สถานะ",
+        "Edit":"แก้ไข",
+        "PermissionType":"ประเภทสิทธิ์",
+        "Person":"บุคคล",
+        "Group":"กลุ่ม",
+        "Application":"แอปพลิเคชั่น",
+        "ApplicationName-Menu":"ชื่อแอปพลิเคชั่น/เมนู",
+        "SpacialPermission":"สิทธิพิเศษ"
+    },
+    "Dashboard":{
+        "title":"การเข้าใช้งานระบบ",
+        "sidemenu1":"สถิติผู้ใช้งาน",
+        "sidemenu2":"การใช้งานระบบ",
+        "line":"เส้น",
+        "circle":"วงกลม",
+        "bar":"แท่ง",
+        "column":"คอลั่ม",
+        "startdate":"จากวันที่",
+        "enddate":"ถึงวันที่"
+    },
+    "Manage-Data":{
+        "title":"การสำรองข้อมูล",
+        "dateamount":"จำนวนวันที่ต้องการจัดเก็บย้อนหลัง",
+        "datestart":"วันที่เริ่มสำรองข้อมูล",
+        "time":"เวลาที่เริ่มสำรองข้อมูล",
+        "frequency":"ความถี่ในการสำรองข้อมูล"
     }
 }

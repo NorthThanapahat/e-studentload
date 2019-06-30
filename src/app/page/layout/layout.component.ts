@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataProvider } from 'src/app/share/provider/provider';
+import { UserData } from 'src/app/model/response/user-data';
+import { UtilProvider } from 'src/app/share/util';
 
 @Component({
   selector: 'app-layout',
@@ -8,9 +11,12 @@ import { Router } from '@angular/router';
 })
 export class LayoutComponent implements OnInit {
   click: string;
-  constructor(public router: Router) { }
+  page:string;
+  constructor(public router: Router,public data : DataProvider,public util :UtilProvider) { }
 
   ngOnInit() {
+    this.page = this.data.page;
+    this.data.userData  = <UserData> this.util.GetUserInfo();
     this.click = 'home';
     this.router.navigate(['home']);
     console.log(localStorage.getItem('isLoggedin'));

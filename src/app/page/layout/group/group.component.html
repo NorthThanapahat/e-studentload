@@ -1,150 +1,177 @@
 <div class="container col-sm-12">
+ 
+  <div class="col-sm-10 float-left font-size-20">
+    <div class="padding">
+      <table class="table col-sm-10 offset-sm-1">
+        <thead class="bg-blue-dark text-white">
+          <tr>
+            <th class="text-center" scope="col">{{'group.no' | translate}}</th>
+            <th class="text-center" scope="col">{{'group.groupname' | translate}}</th>
+            <th class="text-center" scope="col">{{'group.createby' | translate}}</th>
+            <th class="text-center" scope="col">{{'group.detail' | translate}}</th>
+            <th class="text-center" scope="col"></th>
+            <th class="text-center" scope="col">{{'group.status' | translate}}</th>
+            <th class="text-center" scope="col">{{'group.edit' | translate}}</th>
+            <th class="text-center" scope="col">{{'group.delete' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of data.group | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
+            <th class="text-center" scope="row">{{item.GroupId}}</th>
+            <td class="text-center">{{item.GroupName}}</td>
+            <td class="text-center">{{item.CreateBy}}</td>
+            <td class="text-center">{{item.GroupDetail}}</td>
+            <td class="text-center"></td>
+            <td class="text-center">{{item.IsActive}}</td>
+            <td class="text-center link" data-toggle="modal" data-target="#exampleModalCenter" (click)="Edit(item)"><i
+                class="fas fa-edit text-bule-violet-light"></i></td>
+            <td class="text-center link" data-toggle="modal" data-target="#deleteModal" (click)="Delete(item)"><i
+                class="fas fa-trash text-bule-violet-light"></i></td>
+          </tr>
 
-    <div class="col-sm-10 float-left font-size-15">
-      <div class="padding">
-          <table class="table col-sm-10 offset-sm-1">
-              <thead class="bg-blue-dark text-white">
-                <tr>
-                  <th class="text-center"  scope="col">ลำดับ</th>
-                  <th class="text-center" scope="col">ชื่อกลุ่ม</th>
-                  <th class="text-center" scope="col">ผู้สร้าง</th>
-                  <th class="text-center" scope="col">รายละเอียด</th>
-                  <th class="text-center" scope="col"></th>
-                  <th class="text-center" scope="col">สถานะ</th>
-                  <th class="text-center" scope="col">แก้ไข</th>
-                  <th class="text-center" scope="col">ลบ</th>
+        </tbody>
+      </table>
+      <div *ngIf="data.group?.length == 0" class="col-12 col-sm-12 font-size-48 margin-top-20 text-center">
+          {{'NotFoundData' | translate}}
+        </div>
+    </div>
+  </div>
+  <div class="col-sm-2 float-left d-flex justify-content-center">
+    <div class="text-center col-sm-12 no-padding">
+      <div class="link text-bule-violet-light" (click)="InsertGroup()" data-toggle="modal"
+        data-target="#exampleModalCenter">
+        <i class="fas fa-plus-circle"></i>
+        {{'buttonInsert' | translate}}
+      </div>
+
+      <div class="col-sm-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
+        <div class="bg-white col-sm-12 margin-top-50p float-left">
+          {{'history.edit' | translate}}
+          <i class="fas fa-edit"></i>
+        </div>
+        <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-15">
+          <div class="full-body display-table  padding border-bottom-1">
+            <div class="full-body">
+              <div class="float-left d-flex justify-content-start">25/11/2018</div>
+              <div class="float-right">มีนา</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="full-body">
+              <div class="float-left d-flex justify-content-start">{{'name' | translate}}</div>
+              <div class="float-right">11:20</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="clearfix"></div>
+  <div class="col-12 justify-content-center margin-top-10">
+    <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
+      [collectionSize]="data.group?.length"></ngb-pagination>
+  </div>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <aside class="col-sm-12 container no-margin-padding">
+          <div class="modal-header bg-danger ">
+            <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">
+              {{'group.AddGroupData' | translate}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="container padding">
+            <div class="col-sm-12 padding">
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">{{'group.groupName' | translate}}</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [(ngModel)]="group.groupName" name="groupname">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">{{'group.department' | translate}}</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="department" [(ngModel)]="group.department"
+                    (change)="DepartmentSelete($event.target.value)" required>
+                    <option *ngFor="let item of getDepartment?.data" value="{{item.DepartmentId}}">
+                      {{item.DepartmentName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="float-left offset-sm-3 col-sm-6">
+                  <input type="checkbox" name="other" [(ngModel)]="group.isOther" class="margin-right-5 float-left" />
+                  <div class="font-size-15">{{'other' | translate}}</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="clearfix"></div>
+
+            <table class="table col-sm-10 col-10 offset-sm-1 margin-top-20">
+              <thead class="bg-blue-dark text-white d-block w-100">
+                <tr class="d-table w-100">
+                  <th style="width:50%;" scope="col">{{'fullname' | translate}}</th>
+                  <th style="width:50%;" scope="col">{{'Department.contact' | translate}}</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr *ngFor="let item of allGroup?.data">
-                  <th class="text-center" scope="row">{{item.GroupId}}</th>
-                  <td class="text-center">{{item.GroupName}}</td>
-                  <td class="text-center">{{item.CreateBy}}</td>
-                  <td class="text-center">{{item.GroupDetail}}</td>
-                  <td class="text-center"></td>
-                  <td class="text-center">{{item.IsActive}}</td>
-                  <td class="text-center"><i class="fas fa-edit text-bule-violet-light"></i></td>
-                  <td class="text-center"><i class="fas fa-trash text-bule-violet-light"></i></td>
+              <tbody class="bg-violet-less text-white ht-400 d-block overflow-auto">
+                <tr *ngFor="let item of allperson?.data" (click)="AddPerson(item)" class="d-table w-100">
+                  <td style="width:50%;">{{item.PersonName}}</td>
+                  <td style="width:50%;">{{item.Contact}}</td>
                 </tr>
-               
               </tbody>
             </table>
-      </div>
-    </div>
-    <div class="col-sm-2 float-left d-flex justify-content-center">
-      <div class="text-center col-sm-12 no-padding">
-        <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter">
-          <i class="fas fa-plus-circle"></i>
-          เพิ่มข้อมูล
-        </div>
-  
-        <div class="col-sm-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
-          <div class="bg-white col-sm-12 margin-top-50p float-left">
-            ประวัติการแก้ไข
-            <i class="fas fa-edit"></i>
-          </div>
-          <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-12">
-            <div class="full-body display-table  padding border-bottom-1">
-              <div class="full-body">
-                <div class="float-left d-flex justify-content-start">25/11/2018</div>
-                <div class="float-right">มีนา</div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="full-body">
-                <div class="float-left d-flex justify-content-start">ชื่อ</div>
-                <div class="float-right">11:20</div>
+            <div class="bg-violet-less  border-radius padding d-flex">
+              <div class="bg-white float-left padding margin-left" *ngFor="let item of group.GroupPerson;let i = index">
+                {{item.PersonName}}<i class="far fa-times-circle margin-left link" (click)="DeletePerson(item,i)"></i>
               </div>
             </div>
-            <div class="full-body display-table  padding border-bottom-1">
-              <div class="full-body">
-                <div class="float-left d-flex justify-content-start">25/11/2018</div>
-                <div class="float-right">มีนา</div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="full-body">
-                <div class="float-left d-flex justify-content-start">ชื่อ</div>
-                <div class="float-right">11:20</div>
-              </div>
+            <div class="text-center col-sm-12 margin-top-20">
+              <button class="btn btn-primary" data-dismiss="modal" (click)="SaveGroup()">{{'Save' | translate}}</button>
+              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
             </div>
-          </div>
-        </div>
-      </div>
-  
-    </div>
-  
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <aside class="col-sm-12 container no-margin-padding">
-            <div class="modal-header bg-danger ">
-              <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">เพิ่มรายละเอียดบุคคล
-              </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form class="container padding">
-              <div class="col-sm-12 padding">
-                  <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อฝ่ายงาน</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-3 col-form-label">ชื่อหน่วยงาน</label>
-                    <div class="col-sm-9">
-                        <select class="form-control" required>
-                            <option></option>
-                          </select>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                      <div class="float-left offset-sm-3 col-sm-6">
-                        <input type="checkbox" class="margin-right-5 float-left" />
-                        <div class="font-size-12">อื่นๆ</div>
-                      </div>
-                    </div>
-              </div>
-  
-  
-              <div class="clearfix"></div>
-  
-              <table class="table col-sm-10 offset-sm-1 margin-top-20">
-                <thead class="bg-blue-dark text-white">
-                  <tr>
-                    <th scope="col">ชื่อ-นามสกุล</th>
-                    <th scope="col">ที่อยู่ที่จัดส่ง</th>
-                  </tr>
-                </thead>
-                <tbody class="bg-violet-less text-white">
-                  <tr>
-                    <td>สมศักดิ์ สารดี</td>
-                    <td>เลขที่ 173 ถนนดินแดง ตรอก/ซอย- ตำบล/แขวง เสาชิงช้า</td>
-                  </tr>
-                  <tr>
-                    <td>วิษนา กระตี่</td>
-                    <td>เลขที่ 173 ถนนดินแดง ตรอก/ซอย- ตำบล/แขวง เสาชิงช้า</td>
-                  </tr>
-                  <tr>
-                    <td>สมหมาย สารดี</td>
-                    <td>เลขที่ 173 ถนนดินแดง ตรอก/ซอย- ตำบล/แขวง เสาชิงช้า</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="bg-violet-less  border-radius padding d-flex">
-                <div class="bg-white float-left padding margin-left">สมศักดิ์ สารดี <i class="far fa-times-circle margin-left link"></i></div>
-                <div class="bg-white float-left padding margin-left">วิษนา กระตี่ <i class="far fa-times-circle margin-left link"></i></div>
-              </div>
-              <div class="text-center col-sm-12 margin-top-20">
-                <button class="btn btn-primary">บันทึก</button>
-                <button class="btn btn-danger margin-left" data-dismiss="modal">ยกเลิก</button>
-              </div>
-            </form>
-  
-          </aside>
-        </div>
+          </form>
+
+        </aside>
       </div>
     </div>
   </div>
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <aside class="col-sm-12  col-12 container no-margin-padding">
+          <div class="modal-header bg-danger ">
+            <h5 class="modal-title col-sm-12  col-12 text-center  text-white" id="exampleModalLongTitle">
+              {{'deleteConfirm' |translate }}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="container padding">
+            <div class="col-sm-8  col-8 float-left">
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3  col-3 col-form-label">{{'name' | translate}}
+                  {{group?.groupName}}</label>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="text-center col-sm-12  col-12">
+              <button (click)="SaveDeleteGroup()" data-dismiss="modal"
+                class="btn btn-primary">{{'Save' | translate}}</button>
+              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
+            </div>
+          </form>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>

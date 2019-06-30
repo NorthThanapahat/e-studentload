@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProvider } from 'src/app/share/provider/provider';
 
 @Component({
   selector: 'app-audit-log',
@@ -9,7 +10,9 @@ export class AuditLogComponent implements OnInit {
 
 
   date:string;
-  constructor() { }
+  constructor(public data:DataProvider) {
+    this.data.page = 'auditlog'
+   }
 
   ngOnInit() {
     this.date = "today"

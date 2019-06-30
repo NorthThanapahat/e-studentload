@@ -1,11 +1,11 @@
-<nav class="navbar navbar-light bg-header text-bule-violet-light border-bottom box-shadow-bottom">
+<nav class="navbar navbar-light bg-header nav-header text-bule-violet-light border-bottom box-shadow-bottom bg-banner">
   <a class="navbar-brand" href="#">
     <img src="assets/image/logo1.png" width="150px" alt="">
   </a>
   <form class="form-inline">
     <div class="inner-addon left-addon">
       <i class="glyphicon fas fa-search text-gray"></i>
-      <input type="text" class="form-control border-15" placeholder="Search" />
+      <input type="text" class="form-control border-15" placeholder="Search" name="search" (keyup)="SearchItem($event.target.value)"/>
     </div>
   </form>
 
@@ -22,14 +22,14 @@
 
     <div class="clearfix"></div>
     <div class="line bule-violet-light"></div>
-    <div class="float-right">
-      <div class="float-left padding">
-        <i class="fas fa-user-circle"></i>
-        <b>Admin</b>
+    <div class="float-right padding">
+      <div class="float-left">
+        <i class="fas fa-user-circle fa-lg"></i>
+        <b class="margin-left">{{username}}</b>
       </div>
-      <div class="float-left padding link" (click)="Logout()">
-        <i class="fas fa-sign-out-alt"></i>
-        <b>Logout</b>
+      <div class="float-left margin-left-20 link" (click)="Logout()">
+        <i class="fas fa-sign-out-alt fa-lg"></i>
+        <b class="margin-left">Logout</b>
       </div>
     </div>
 

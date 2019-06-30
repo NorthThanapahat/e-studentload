@@ -1,4 +1,5 @@
 {
+    "NotFoundData":"Data not found",
     "Menu": {
         "1": "Homepage",
         "2": "Personal Information",
@@ -27,6 +28,7 @@
     "department": "Department",
     "position": "position",
     "externalPhone": "External Phone Number",
+    "deleteConfirm":"Do you want to delete ?",
     "Home": {
         "historyOfLogin": "Login History",
         "SystemName": "System Name",
@@ -73,5 +75,71 @@
         "detail": "Detail",
         "address": "Address",
         "contact": "Contact"
+    },
+    "group":{
+        "no":"No",
+        "groupname":"GroupName",
+        "createby":"Create By",
+        "detail":"Detail",
+        "status":"Status",
+        "edit":"Edit",
+        "delete":"Delete",
+        "AddGroupData":"Insert Group",
+        "groupName":"Group Name",
+        "department":"Department",
+        "other":"other"
+    }, 
+    "RememberMe":"Remember MyData",
+    "Active":"Active",
+    "InActive":"InActive",
+    "password-management":{
+        "PasswordManagement":"Password ManageMent",
+        "CreatingPassword":"Creating Password",
+        "AllowCreatePasswordBySystem":"Allow User can create password by system",
+        "CreatePasswordBySelf":"Creating Password By Self",
+        "AllowCreatePasswordBySelf":"Allow User can create password by self",
+        "No":"No.",
+        "Application":"Application",
+        "Username":"Username",
+        "Password":"Password",
+        "Datetime":"Datetime",
+        "Status":"Status",
+        "Edit":"Edit",
+        "OldPassword":"OldPassword",
+        "NewPassword":"NewPassword",
+        "PasswordConfirm":"Confirm Password"
+    },
+    "Permission":{
+        "SetPermission":"Setting Permission",
+        "CreatePermission":"Create Permission",
+        "GroupName-Person":"PersonName/GroupName",
+        "Menu":"Menu",
+        "Permission":"Permission",
+        "Status":"Status",
+        "Edit":"Edit",
+        "PermissionType":"Permission Type",
+        "Person":"Person",
+        "Group":"Group",
+        "Application":"Application",
+        "ApplicationName-Menu":"ApplicationName/Menu",
+        "SpacialPermission":"Spacial Permission"
+    },
+    "Dashboard":{
+        "title":"Using System",
+        "sidemenu1":"Statistics of Users",
+        "sidemenu2":"Statistics of Using System",
+        "line":"line",
+        "circle":"circle",
+        "bar":"bar",
+        "column":"column",
+        "startdate":"Start Date",
+        "enddate":"End Date"
+    },
+    "Manage-Data":{
+        "title":"Backup Data",
+        "dateamount":"Date amout for backup data",
+        "datestart":"Date Start for backup data",
+        "time":"Time Start for backup data",
+        "frequency":"Frequency for backup data"
     }
 }

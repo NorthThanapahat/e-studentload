@@ -15,11 +15,10 @@ import { DataProvider } from 'src/app/share/provider/provider';
 export class DepartmentComponent implements OnInit {
 
   allDepartment: any;
- 
+  isInsert = false;
   districtList: any;
   subDistrictList: any;
   organization: Organizaion;
-
 
   provinceSelect: any;
   districtSelect: any;
@@ -29,31 +28,38 @@ export class DepartmentComponent implements OnInit {
 
   constructor(public api: ApiProvider,
     public util: UtilProvider,
-    public data:DataProvider) { }
+    public data: DataProvider) {
+    this.data.page = 'organization';
+
+  }
 
   ngOnInit() {
-
     this.subDistrictList = [];
-    if(this.data.language == 'th'){
+    if (this.data.language == 'th') {
       this.data.province = ThailandData.province.th.changwats;
       this.data.district = ThailandData.district.th.amphoes;
       this.data.subDistrict = ThailandData.subDistrict.th.tambons;
-    }else if(this.data.language == 'en'){
+    } else if (this.data.language == 'en') {
       this.data.province = ThailandData.province.en.changwats;
       this.data.district = ThailandData.district.en.amphoes;
       this.data.subDistrict = ThailandData.subDistrict.en.tambons;
     }
-   
+
 
     this.organization = new Organizaion();
     this.organization.AddressForDocument = new Address();
     this.organization.OrganizationAddress = new Address();
-    this.api.SendRequestApi(ConfigAPI.GetAllOrganization).then((res: any) => {
-      this.allDepartment = res;
-    });
+    this.GetOrganization();
     this.Organization();
   }
+  GetOrganization() {
+    this.api.SendRequestApi(`${ConfigAPI.GetAllOrganization}?token=${this.util.GetAccessToken()}`).then((res: any) => {
+      this.data.allOrganization = res;
+      this.data.organizations = res.data;
+    });
+  }
   Organization() {
+    this.isInsert = true;
     this.organization = new Organizaion();
     this.organization.AddressForDocument = new Address();
     this.organization.OrganizationAddress = new Address();
@@ -87,6 +93,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   SaveOrganization() {
+
     this.organization.AddressForDocument.District = this.districtSelect.Doc.split('|')[1];
     this.organization.AddressForDocument.SubDistrict = this.subDistrictSelect.Doc.split('|')[1];
     this.organization.AddressForDocument.Province = this.provinceSelect.Doc.split('|')[1];
@@ -94,9 +101,146 @@ export class DepartmentComponent implements OnInit {
     this.organization.OrganizationAddress.District = this.districtSelect.Add.split('|')[1];
     this.organization.OrganizationAddress.SubDistrict = this.subDistrictSelect.Add.split('|')[1];
     console.log(this.organization);
+
+    let data = "OrganizationName=" + this.organization.OrganizationName +
+      "&OrganizationPhone='" + this.organization.OrganizationPhone +
+      "'&AddressType= 1" +
+      "&SubDistrict=" + this.organization.OrganizationAddress.SubDistrict +
+      "&District=" + this.organization.OrganizationAddress.District +
+      "&Province=" + this.organization.OrganizationAddress.Province +
+      "&Zipcode=" + this.organization.OrganizationAddress.Zipcode +
+      "&HouseNo=" + this.organization.OrganizationAddress.HouseNo +
+      "&Building=" + this.organization.OrganizationAddress.Building +
+      "&Road=" + this.organization.OrganizationAddress.Road +
+      "&Soi=" + this.organization.OrganizationAddress.Alley +
+      "CreateBy=" + this.data.userData.data[0].PersonId +
+      "&IsActive=1"
+    if (this.isInsert) {
+      this.api.SendRequestApiWithData(ConfigAPI.InsertOrganization, data).then((res: any) => {
+        if (res.successful) {
+          let data = "OrganizationName=" + this.organization.OrganizationName +
+            "&OrganizationPhone='" + this.organization.OrganizationPhone +
+            "'&AddressType= 2" +
+            "&SubDistrict=" + this.organization.AddressForDocument.SubDistrict +
+            "&District=" + this.organization.AddressForDocument.District +
+            "&Province=" + this.organization.OrganizationAddress.Province +
+            "&Zipcode=" + this.organization.OrganizationAddress.Zipcode +
+            "&HouseNo=" + this.organization.OrganizationAddress.HouseNo +
+            "&Building=" + this.organization.OrganizationAddress.Building +
+            "&Road=" + this.organization.OrganizationAddress.Road +
+            "&Soi=" + this.organization.OrganizationAddress.Alley +
+            "CreateBy=" + this.data.userData.data[0].PersonId +
+            "&IsActive=1"
+          this.api.SendRequestApiWithData(ConfigAPI.InsertOrganization, data).then((res: any) => {
+            if (res.successful) {
+              this.util.MessageSuccess(this.data.language);
+              this.GetOrganization();
+
+            } else {
+              this.util.MessageError(this.data.language);
+              this.GetOrganization();
+
+            }
+          });
+        } else {
+          this.util.MessageError(this.data.language);
+        }
+      }, (err) => {
+        this.util.MessageError(this.data.language);
+      });
+    } else {
+      this.api.SendRequestApiWithData(ConfigAPI.UpdateOrganization, data).then((res: any) => {
+        if (res.successful) {
+          let data = "OrganizationName=" + this.organization.OrganizationName +
+            "&OrganizationPhone=" + this.organization.OrganizationPhone +
+            "&AddressType= 2" +
+            "&SubDistrict=" + this.organization.AddressForDocument.SubDistrict +
+            "&District=" + this.organization.AddressForDocument.District +
+            "&Province=" + this.organization.OrganizationAddress.Province +
+            "&Zipcode=" + this.organization.OrganizationAddress.Zipcode +
+            "&HouseNo=" + this.organization.OrganizationAddress.HouseNo +
+            "&Building=" + this.organization.OrganizationAddress.Building +
+            "&Road=" + this.organization.OrganizationAddress.Road +
+            "&Soi=" + this.organization.OrganizationAddress.Alley +
+            "CreateBy=" + this.data.userData.data[0].PersonId +
+            "&IsActive=1"
+          this.api.SendRequestApiWithData(ConfigAPI.UpdateOrganization, data).then((res: any) => {
+            if (res.successful) {
+              this.util.MessageSuccess(this.data.language);
+              this.GetOrganization();
+
+            } else {
+              this.util.MessageError(this.data.language);
+              this.GetOrganization();
+
+            }
+          });
+        } else {
+          this.util.MessageError(this.data.language);
+        }
+      }, (err) => {
+        this.util.MessageError(this.data.language);
+      });
+    }
+
+  }
+
+  SaveDeletePerson() {
+    let data = "OrganizationId=" + this.organization.OrganizationId + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1";
+    this.api.SendRequestApiWithData(ConfigAPI.DeleteOrganization, data).then((res: any) => {
+      if (res.successful) {
+        this.util.MessageSuccess(this.data.language);
+        this.GetOrganization();
+      } else {
+        this.util.MessageError(this.data.language);
+
+      }
+    }, (err: any) => {
+      this.util.MessageError(this.data.language);
+    });
   }
   UpdateOrganization(item) {
+    this.isInsert = false;
+    this.organization.OrganizationId = item.OrganizationId;
+    this.organization.OrganizationName = item.OrganizationName;
+    this.organization.OrganizationDetails = item.OrganizationDetail;
+    this.organization.NumberofOrganization = item.TaxpayerIdentificationNumber;
+    this.organization.AddressForDocument.Alley = item.SendingAddressAlley;
+    this.organization.AddressForDocument.HouseNo = item.SendingAddressHouseNo;
+    this.organization.AddressForDocument.District = item.SendingAddressDistrict;
+    this.organization.AddressForDocument.SubDistrict = item.SendingAddressSubDistrict;
+    this.organization.AddressForDocument.Road = item.SendingAddressRoad;
+    this.organization.AddressForDocument.Province = item.SendingAddressProvince;
+    this.organization.AddressForDocument.Zipcode = item.SendingAddressZipcode;
+    this.organization.OrganizationAddress.Alley = item.OrganizationAddressAlley;
+    this.organization.OrganizationAddress.HouseNo = item.OrganizationAddressHouseNo;
+    this.organization.OrganizationAddress.District = item.OrganizationAddressDistrict;
+    this.organization.OrganizationAddress.SubDistrict = item.OrganizationAddressSubdistrict;
+    this.organization.OrganizationAddress.Road = item.OrganizationAddressRoad;
+    this.organization.OrganizationAddress.Province = item.OrganizationAddressProvince;
+    this.organization.OrganizationAddress.Zipcode = item.OrganizationAddressZipcode;
 
+
+  }
+  DeleteOrganization(item) {
+    this.organization.OrganizationId = item.OrganizationId;
+    this.organization.OrganizationName = item.OrganizationName;
+    this.organization.OrganizationDetails = item.OrganizationDetail;
+    this.organization.NumberofOrganization = item.TaxpayerIdentificationNumber;
+    this.organization.AddressForDocument.Alley = item.SendingAddressAlley;
+    this.organization.AddressForDocument.HouseNo = item.SendingAddressHouseNo;
+    this.organization.AddressForDocument.District = item.SendingAddressDistrict;
+    this.organization.AddressForDocument.SubDistrict = item.SendingAddressSubDistrict;
+    this.organization.AddressForDocument.Road = item.SendingAddressRoad;
+    this.organization.AddressForDocument.Province = item.SendingAddressProvince;
+    this.organization.AddressForDocument.Zipcode = item.SendingAddressZipcode;
+    this.organization.OrganizationAddress.Alley = item.OrganizationAddressAlley;
+    this.organization.OrganizationAddress.HouseNo = item.OrganizationAddressHouseNo;
+    this.organization.OrganizationAddress.District = item.OrganizationAddressDistrict;
+    this.organization.OrganizationAddress.SubDistrict = item.OrganizationAddressSubdistrict;
+    this.organization.OrganizationAddress.Road = item.OrganizationAddressRoad;
+    this.organization.OrganizationAddress.Province = item.OrganizationAddressProvince;
+    this.organization.OrganizationAddress.Zipcode = item.OrganizationAddressZipcode;
   }
 
   ProvinceSeletect(value, type) {
@@ -114,7 +258,7 @@ export class DepartmentComponent implements OnInit {
       this.districtSelect.Add = this.districtList.Add[0].pid + "|" + this.districtList.Add[0].name;
       this.subDistrictSelect.Add = this.subDistrictList.Add[0].pid + "|" + this.subDistrictList.Add[0].name;
     }
-    
+
     console.log(this.organization);
     console.log(this.districtList);
     console.log(value);
@@ -150,6 +294,6 @@ export class DepartmentComponent implements OnInit {
     }
   }
 
- 
+
 
 }

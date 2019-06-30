@@ -6,6 +6,9 @@ import { URLSearchParams } from 'url';
 import { FormBuilder, FormGroup, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataProvider } from 'src/app/share/provider/provider';
 import { TranslateService } from '@ngx-translate/core';
+import { Application } from 'src/app/model/request/application';
+import { Router } from '@angular/router';
+import { HomeService } from 'src/app/share/api/home-service/home-service';
 
 @Component({
   selector: 'app-home',
@@ -20,26 +23,29 @@ import { TranslateService } from '@ngx-translate/core';
   ]
 })
 export class HomeComponent implements OnInit {
-
+  isInsert = false;
   application: any;
   auditLog: any;
-  applicationFormGroup: FormGroup;
   image: string | ArrayBuffer;
   path: string;
+  deleteApplication: any;
+  applicationItem: Application = new Application();
 
   constructor(public api: ApiProvider,
     public util: UtilProvider,
     private formBuilder: FormBuilder,
     public data: DataProvider,
-    public translate: TranslateService) { }
+    private homeService: HomeService,
+    public translate: TranslateService,
+    private router: Router) {
+    this.data.page = 'application';
+
+  }
 
   ngOnInit() {
-    this.applicationFormGroup = this.formBuilder.group({
-      applicationName: ['', Validators.required],
-      linkUrl: ['', Validators.required],
-      details: ['', Validators.required],
-      file: ['', Validators.required],
-    });
+    console.log(this.util.GetUserInfo());
+    if (this.util.GetUserInfo() != undefined)
+      this.data.userData = this.util.GetUserInfo();
     setTimeout(() => {
       this.util.ShowLoading();
       // this.util.AlertMessage('เพิ่มข้อมูลสำเร็จ','ApplicationId : '+"asd");
@@ -47,34 +53,44 @@ export class HomeComponent implements OnInit {
 
     }, 200);
 
-    let param = {
-      key: "personid",
-      value: "1"
-    }
-    this.api.SendGetRequestApiWithParam(ConfigAPI.GetAuditLog, param).then((res: any) => {
-      this.auditLog = res;
+  
+    this.api.SendRequestApi(`${ConfigAPI.GetAuditLog}?token=${this.util.GetAccessToken()}&personid=${this.data.userData.data[0].PersonId}`).then((res: any) => {
+      this.data.auditLog = res;
     })
   }
 
 
 
   GetAllApplication() {
-    let param = {
-      key: "personid",
-      value: "1"
+
+    let data = {
+      personid: this.data.userData.data[0].PersonId,
+      accesstoken: this.util.GetAccessToken()
     }
-    this.api.SendGetRequestApiWithParam(ConfigAPI.GetApplication, param).then((res: any) => {
-      this.application = res;
+    this.homeService.GetApplication(data).subscribe((res: any) => {
       this.util.HideLoading();
+
+      console.log(res);
+      if (res.successful) {
+        this.application = res;
+        this.data.allApplication = res;
+        this.data.application = res.data;
+      } else {
+        if (res.code == '-2146233088') {
+          this.util.DoError();
+        }
+      }
+
       // this.util.HideLoading();
     }, (err) => {
       console.log("err===>", err);
       this.util.HideLoading();
+      this.util.Logout();
     });
   }
   processFile(value) {
     console.log(value);
-    this.path = value.target.value;
+    this.application = value.target.value;
     this.util.readThis(value.target).onloadend = (e) => {
       console.log(e.target.result);
       this.image = e.target.result;
@@ -93,73 +109,83 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
-
-    // const formData = new FormData();
-    // formData.append('ApplicationName', this.applicationFormGroup.controls['applicationName'].value);
-    // formData.append('LinkURL', this.applicationFormGroup.controls['linkUrl'].value);
-    // formData.append('File', this.image.toString());
-    // formData.append('CreateBy', '1');
-    // formData.append('IsActive', '1');
-
-    const data = "ApplicationName=" + this.applicationFormGroup.controls['applicationName'].value +
-      "&LinkURL=" + this.applicationFormGroup.controls['linkUrl'].value +
-      "&File" + this.path +
-      "&Detail" + this.applicationFormGroup.controls['details'].value +
-      "&CreateBy=" + 1 +
-      "&IsActive=" + 1;
     this.util.ShowLoading();
-    this.api.SendRequestApiWithData(ConfigAPI.InsertApplication, data).then((res: any) => {
+    console.log(this.isInsert);
+    if (this.isInsert) {
+      const data = "ApplicationName=" + this.applicationItem.ApplicationName +
+        "&LinkURL=" + this.applicationItem.LinkURL +
+        "&File" + this.path +
+        "&Detail" + this.applicationItem.Detail +
+        "&CreateBy=" + 1 +
+        "&IsActive=" + 1
+
+      this.api.SendRequestApiWithData(ConfigAPI.InsertApplication, data).then((res: any) => {
+        console.log(res);
+        if (res.successful) {
+          this.GetAllApplication();
+          this.util.MessageSuccess(this.data.language)
+        } else {
+          this.util.MessageError(this.data.language);
+        }
+      }, (err) => {
+        this.util.HideLoading();
+        this.util.Logout();
+        this.router.navigate(['/login']);
+      });
+    } else {
+      const data = "ApplicationId=" + this.applicationItem.ApplicationId + "&ApplicationName=" + this.applicationItem.ApplicationName +
+        "&LinkURL=" + this.applicationItem.LinkURL +
+        "&File" + this.path +
+        "&Detail" + this.applicationItem.Detail +
+        "&CreateBy=" + 1 +
+        "&IsActive=" + 1
+
+      this.api.SendRequestApiWithData(ConfigAPI.UpdateApplication, data).then((res: any) => {
+        console.log(res);
+        if (res.successful) {
+          this.GetAllApplication();
+          this.util.MessageSuccess(this.data.language)
+        } else {
+          this.util.MessageError(this.data.language);
+        }
+      }, (err) => {
+        this.util.HideLoading();
+        this.util.Logout();
+        this.router.navigate(['/login']);
+      });
+    }
+
+  }
+
+  NewApplication() {
+    this.isInsert = true;
+    this.applicationItem = new Application();
+  }
+
+  Edit(applicaition) {
+    this.path = '';
+    this.isInsert = false;
+    this.applicationItem = <Application>applicaition;
+  }
+  Delete(application) {
+    this.deleteApplication = <Application>application;
+  }
+
+  ConfirmDelete() {
+    let data = "ApplicationId=" + this.deleteApplication.ApplicationId + "&IsActive=1";
+
+    this.api.SendRequestApiWithData(ConfigAPI.DeleteApplication, data).then((res: any) => {
       console.log(res);
       if (res.successful) {
         this.GetAllApplication();
-        if(this.data.language == 'th'){
-          this.util.AlertMessage('เพิ่มข้อมูลสำเร็จ', 'ApplicationId : ' + res.data[0].ApplicationId);
-
-        }else if(this.data.language == 'en'){
-          this.util.AlertMessage('Insert Data Successed', 'ApplicationId : ' + res.data[0].ApplicationId);
-        }
+        this.util.MessageSuccess(this.data.language);
       } else {
-        if (this.data.language == 'th') {
-          this.util.AlertMessage('เพิ่มข้อมูลไม่สำเร็จ', 'กรุณาตรวจสอบอีกครั้ง');
-
-        }else if(this.data.language == 'en'){
-          this.util.AlertMessage('Insert Data Incomplete !', 'Please try again.');
-
-        }
+        this.util.MessageError(this.data.language);
       }
     }, (err) => {
-      this.util.HideLoading();
+      this.util.MessageError(this.data.language);
     });
   }
 
-  Delete(applicationId, isActive) {
-    let data = "ApplicationId=" + applicationId + "&IsActive=" + isActive;
 
-    this.api.SendPutRequestApiWithData(ConfigAPI.DeleteApplication, data).then((res: any) => {
-      console.log(res);
-      if (res.successful) {
-        this.GetAllApplication();
-      } else {
-
-      }
-    });
-  }
-
-  Update() {
-    const data = "ApplicationName=" + this.applicationFormGroup.controls['applicationName'].value +
-      "&LinkURL=" + this.applicationFormGroup.controls['linkUrl'].value +
-      "&File" + this.image.toString() +
-      "&Detail" + this.applicationFormGroup.controls['details'].value +
-      "&CreateBy=" + 1 +
-      "&IsActive=" + 1;
-
-    this.api.SendRequestApiWithData(ConfigAPI.UpdateApplication, data).then((res: any) => {
-      console.log(res);
-      if (res.successful) {
-        this.GetAllApplication();
-      } else {
-
-      }
-    });
-  }
 }
