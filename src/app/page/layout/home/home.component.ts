@@ -76,9 +76,9 @@ export class HomeComponent implements OnInit {
         this.data.allApplication = res;
         this.data.application = res.data;
       } else {
-        if (res.code == '-2146233088') {
-          this.util.DoError();
-        }
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
       }
 
       // this.util.HideLoading();

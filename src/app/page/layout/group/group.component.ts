@@ -14,57 +14,84 @@ import { DataProvider } from 'src/app/share/provider/provider';
 export class GroupComponent implements OnInit {
   allGroup: any;
   allperson: AllPerson;
+  persons: Array<any>;
   group: Group = new Group();
   getDepartment: any;
   isInsert = false;
   constructor(public api: ApiProvider,
     public data: DataProvider,
     public util: UtilProvider) {
-      this.data.page = 'group'
-     }
+    this.data.page = 'group'
+  }
 
   ngOnInit() {
     this.api.SendRequestApi(`${ConfigAPI.GetAllDepartment}?token=${this.util.GetAccessToken()}`).then((res: any) => {
       this.getDepartment = res;
     });
     this.api.SendRequestApi(`${ConfigAPI.GetAllGroup}?token=${this.util.GetAccessToken()}`).then((res: any) => {
-      this.data.allGroup = res;
-      this.data.group = res.data;
-      this.api.SendRequestApi(`${ConfigAPI.GetAllPerson}?token=${this.util.GetAccessToken()}`).then((res: any) => {
-        this.allperson = <AllPerson>res;
-        console.log(this.allperson);
-      });
+      if (res.successful) {
+        this.data.allGroup = res;
+        this.data.group = res.data;
+        this.api.SendRequestApi(`${ConfigAPI.GetAllPerson}?token=${this.util.GetAccessToken()}`).then((res: any) => {
+          this.allperson = <AllPerson>res;
+          this.persons = res.data;
+          for (let item of this.persons) {
+            item.selected = false;
+          }
+          console.log(this.allperson);
+        });
+      } else {
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
+      }
+
     });
   }
   GetGroup() {
     this.api.SendRequestApi(`${ConfigAPI.GetAllGroup}?token=${this.util.GetAccessToken()}`).then((res: any) => {
-      this.data.allGroup = res;
-      this.data.group = res.data;
+      if (res.successful) {
+        this.data.allGroup = res;
+        this.data.group = res.data;
+      } else {
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
+      }
     });
   }
   SaveGroup() {
+    this.CloseModal();
     if (this.isInsert) {
       let data = "GroupName=" + this.group.groupName + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
 
       this.api.SendRequestApiWithData(ConfigAPI.InsertGroup, data).then((res: any) => {
         if (res.successful) {
-          var isErr = false;
-          for (let i in this.group.GroupPerson) {
-            let data = "GroupId=" + res.data[0].GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
-            this.api.SendRequestApiWithData(ConfigAPI.InsertGroupPerson, data).then((res: any) => {
-              if (!res.successful) {
-                isErr = true;
-              }
-            });
+          if (this.group.GroupPerson.length > 0) {
+            var isErr = false;
 
-          }
-          if (isErr) {
-            this.GetGroup();
-            this.util.MessageError(this.data.language);
+            for (let i in this.group.GroupPerson) {
+              let data = "GroupId=" + this.group.GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
+              this.api.SendRequestApiWithData(ConfigAPI.InsertGroupPerson, data).then((res: any) => {
+                if (!res.successful) {
+                  isErr = true;
+                }
+              });
+
+            }
+            if (isErr) {
+              this.GetGroup();
+              this.util.MessageError(this.data.language);
+            } else {
+              this.GetGroup();
+              this.util.MessageSuccess(this.data.language);
+            }
           } else {
             this.GetGroup();
             this.util.MessageSuccess(this.data.language);
           }
+
+
 
         } else {
           this.util.MessageError(this.data.language);
@@ -80,22 +107,30 @@ export class GroupComponent implements OnInit {
       this.api.SendRequestApiWithData(ConfigAPI.UpdateGroup, data).then((res: any) => {
         if (res.successful) {
           if (this.group.GroupPerson.length > 0) {
+            var isErr = false;
+
             for (let i in this.group.GroupPerson) {
               let data = "GroupId=" + this.group.GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
               this.api.SendRequestApiWithData(ConfigAPI.UpdateGroupPerson, data).then((res: any) => {
-                if (res.successful) {
-                  this.GetGroup();
-                  this.util.MessageSuccess(this.data.language);
-                } else {
-                  this.util.MessageError(this.data.language);
-
+                if (!res.successful) {
+                  isErr = true;
                 }
               });
+
             }
-          } else {
+            if (isErr) {
+              this.GetGroup();
+              this.util.MessageError(this.data.language);
+            } else {
               this.GetGroup();
               this.util.MessageSuccess(this.data.language);
+            }
+          } else {
+            this.GetGroup();
+            this.util.MessageSuccess(this.data.language);
           }
+
+
 
         } else {
           this.util.MessageError(this.data.language);
@@ -111,9 +146,13 @@ export class GroupComponent implements OnInit {
     console.log(value);
   }
 
-  AddPerson(item) {
-    this.group.GroupPerson.push(item);
-    console.log(this.group);
+  AddPerson(item, i) {
+    if (!item.selected) {
+      this.group.GroupPerson.push(item);
+      item.selected = true;
+    }
+
+    console.log(this.allperson);
   }
   Edit(item) {
     this.isInsert = false;
@@ -155,6 +194,17 @@ export class GroupComponent implements OnInit {
     console.log(i);
     this.group.GroupPerson.splice(i, 1);
     console.log(this.group.GroupPerson);
+    for (let i in this.persons) {
+      if (item.PersonId == this.persons[i].PersonId) {
+        this.persons[i].selected = false;
+      }
+    }
+    console.log(this.persons);
+  }
+  CloseModal() {
+    for (let person of this.persons) {
+      person.selected = false;
+    }
   }
 
 }

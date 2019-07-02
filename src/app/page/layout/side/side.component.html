@@ -95,7 +95,7 @@
             <h5 class="modal-title col-sm-12 col-12 text-center  text-white" id="exampleModalLongTitle">
               {{'Department.AddDepartmentData' | translate}}
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" (click)="CloseModal()" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -158,7 +158,7 @@
                 </tr>
               </thead>
               <tbody class="bg-violet-less text-white ht-400 d-block overflow-auto">
-                <tr *ngFor="let item of allperson?.data" (click)="AddPerson(item)" class="d-table w-100">
+                <tr *ngFor="let item of persons;let i = index" (click)="AddPerson(item,i)" [ngClass]="{'text-graylight': item.selected}" class="d-table w-100">
                   <td style="width:50%;">{{item.PersonName}}</td>
                   <td style="width:50%;">{{item.Contact}}</td>
                 </tr>
@@ -172,7 +172,7 @@
             <div class="text-center col-sm-12 col-12 margin-top-20">
               <button class="btn btn-primary" data-dismiss="modal"
                 (click)="SaveOrganization()">{{'Save' | translate}}</button>
-              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
+              <button class="btn btn-danger margin-left" (click)="CloseModal()" data-dismiss="modal">{{'Cancle' | translate}}</button>
             </div>
           </form>
 

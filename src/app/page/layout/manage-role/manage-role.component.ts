@@ -25,7 +25,14 @@ export class ManageRoleComponent implements OnInit {
 
     this.api.SendRequestApi(`${ConfigAPI.GetAllpermission}?token=${this.util.GetAccessToken()}`).then((res:any)=>{
       console.log(res);
-      this.permission = res;
+      
+      if(res.successful){
+        this.permission = res;
+      }else{
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
+      }
     }); 
   }
 

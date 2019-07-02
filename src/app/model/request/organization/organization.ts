@@ -1,21 +1,25 @@
-export class Organizaion{
-    OrganizationId:number;
-    OrganizationName:string = '';
-    OrganizationPhone:string = '';
-    OrganizationDetails:string = '';
-    NumberofOrganization:string = '';
-    OrganizationAddress:Address;
-    AddressForDocument:Address;
-
+export class Organizaion {
+    CreateBy: string = '';
+    CreateDate:string = '';
+    IsActive: string = '';
+    OrganizationAddressAlley: string = '';
+    OrganizationAddressDistrict: string = '';
+    OrganizationAddressHouseNo: string = '';
+    OrganizationAddressProvince: string = '';
+    OrganizationAddressRoad:string = '';
+    OrganizationAddressSubdistrict: string = '';
+    OrganizationAddressZipcode:string = '';
+    OrganizationDetail:string='';
+    OrganizationId: string = '';
+    OrganizationName: string = '';
+    SendingAddressAlley:string = '';
+    SendingAddressDistrict:string = '';
+    SendingAddressHouseNo: string = '';
+    SendingAddressProvince:string = '';
+    SendingAddressRoad: string = '';
+    SendingAddressSubDistrict: string = '';
+    SendingAddressZipcode: string = '';
+    TaxpayerIdentificationNumber:string = '';
 }
 
-export class Address{
-    HouseNo:string = '';
-    Road:string = '';
-    Alley:string = '';
-    Province:string = '';
-    SubDistrict:string = '';
-    District:string = '';
-    Zipcode:string = '';
-    Building:string = '';
-}
+

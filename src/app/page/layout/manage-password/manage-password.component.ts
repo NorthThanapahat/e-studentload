@@ -30,11 +30,19 @@ export class ManagePasswordComponent implements OnInit {
       value: '1'
     }
     this.api.SendRequestApi(`${ConfigAPI.GetPasswordManagement}?personId=${this.data.userData.data[0].PersonId}&token=${this.util.GetAccessToken()}`).then((res: any) => {
-      this.data.allPassword = res;
-      this.data.password = res.data;
-      for(let i in this.data.password){
-        this.data.password[i].id = parseInt(i)+1; 
+      if(res.successful){
+        this.data.allPassword = res;
+        this.data.password = res.data;
+        for(let i in this.data.password){
+          this.data.password[i].id = parseInt(i)+1; 
+        }
+      }else{
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
       }
+      
+     
     });
   }
   Validate() {

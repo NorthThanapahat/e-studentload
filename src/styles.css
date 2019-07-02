@@ -390,7 +390,9 @@ html, body {
 .text-gray {
   color: #a4a8b3;
 }
-
+.text-graylight {
+  color: #d5d6da;
+}
 .text-bule-violet {
   color: #001a66;
 }

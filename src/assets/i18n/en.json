@@ -1,5 +1,12 @@
 {
     "NotFoundData":"Data not found",
+    "Login":{
+        "username":"Username or Email",
+        "password":"Password",
+        "signin":"SignIn",
+        "forgetpassword":"Forget Password",
+        "remember":"Remember Data"
+    },
     "Menu": {
         "1": "Homepage",
         "2": "Personal Information",

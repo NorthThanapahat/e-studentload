@@ -7,7 +7,7 @@ import { UtilProvider } from '../util';
 export class ApiProvider {
 
     headers = new HttpHeaders();
-    constructor(public http: HttpClient,public util:UtilProvider) {
+    constructor(public http: HttpClient, public util: UtilProvider) {
 
     }
     setHeader() {
@@ -17,13 +17,13 @@ export class ApiProvider {
 
         return headers;
     }
-    
+
     SendRequestApiWithData(url, data) {
         return new Promise((resolve, reject) => {
             let headers = new HttpHeaders();
             headers = headers.append("Accept", '*/*');
             headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-            data = data+"&token="+this.util.GetAccessToken();
+            data = data + "&token=" + this.util.GetAccessToken();
             console.log(url + "===> ", data);
             this.http.post(url, data, { headers: headers })
                 .subscribe(res => {
@@ -41,8 +41,13 @@ export class ApiProvider {
             let headers = this.setHeader();
 
             this.http.get(url, { headers })
-                .subscribe(res => {
+                .subscribe((res: any) => {
                     console.log(url + ' response ===>', res);
+                    if (!res.successful) {
+                        if (res.code == '-2146233088') {
+                            this.util.DoError();
+                        }
+                    }
                     resolve(res);
                 }, (err) => {
                     reject(err);

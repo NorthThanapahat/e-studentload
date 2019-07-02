@@ -78,6 +78,13 @@ export class DashboardComponent implements OnInit {
   GetDataStatisticPersonal(startDate, endDate) {
     this.api.SendRequestApi(`${ConfigAPI.GetReportPerson}?token=${this.util.GetAccessToken()}&CreateDate=${startDate}&CreateDate1=${endDate}`).then((res: any) => {
       console.log(res);
+      if(res.successful){
+
+      }else{
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
+      }
     }, (err) => {
 
     });

@@ -40,11 +40,11 @@ export class PersonComponent implements OnInit {
   constructor(public api: ApiProvider,
     public util: UtilProvider,
     public dialog: MatDialog,
-    private router:Router,
+    private router: Router,
     public data: DataProvider) {
     this.data.page = 'person';
 
-     }
+  }
 
   ngOnInit() {
 
@@ -52,9 +52,15 @@ export class PersonComponent implements OnInit {
     this.importance = '1';
     this.image = "assets/image/user.png";
     this.api.SendRequestApi(`${ConfigAPI.GetDepartment}?token=${this.util.GetAccessToken()}`).then((res: any) => {
-      this.getDepartment = res;
-      console.log("this.getDepartment", this.getDepartment);
-    },(err)=>{
+      if (res.successful) {
+        this.getDepartment = res;
+        console.log("this.getDepartment", this.getDepartment);
+      } else {
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
+      }
+    }, (err) => {
       this.util.DoError();
     });
     console.log(this.person);
@@ -69,11 +75,17 @@ export class PersonComponent implements OnInit {
   }
   GetAllPerson() {
     this.api.SendRequestApi(`${ConfigAPI.GetAllPerson}?token=${this.util.GetAccessToken()}`).then((res: any) => {
-      this.allperson = <AllPerson>res;
-      this.data.allPerson = res;
-      this.data.persons = res.data;
-      console.log(this.allperson);
-    },(err)=>{
+      if (res.successful) {
+        this.allperson = <AllPerson>res;
+        this.data.allPerson = res;
+        this.data.persons = res.data;
+        console.log(this.allperson);
+      } else {
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
+      }
+    }, (err) => {
       this.util.MessageError(this.data.language);
       this.router.navigate(['/login']);
     });
@@ -83,7 +95,7 @@ export class PersonComponent implements OnInit {
     // let dataInsertPersonContact = "TypeContactId=" + this.contactList.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&OldUsername=" + this.person.OldUsername + "&NewUsername=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&OldPassword=" + this.person.OldPassword + "&NewPassword=" + this.person.NewPassword;
 
     if (this.isInsert) {
-      this.SendSavePerson(ConfigAPI.InsertPerson,"PersonName=" + this.person.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&Username=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&Password=" + this.person.NewPassword + "&COnfirmPassword=" + this.person.PersonConfirmPassword);
+      this.SendSavePerson(ConfigAPI.InsertPerson, "PersonName=" + this.person.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&Username=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&Password=" + this.person.NewPassword + "&COnfirmPassword=" + this.person.PersonConfirmPassword);
     } else {
       // this.api.SendRequestApiWithData(ConfigAPI.UpdatePerson, "PersonName=" + this.person.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&Username=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&Password=" + this.person.NewPassword + "&COnfirmPassword=" + this.person.PersonConfirmPassword).then((res: any) => {
       //   if (res.successful) {
@@ -94,7 +106,7 @@ export class PersonComponent implements OnInit {
       // },(err:any)=>{
       //   this.util.MessageError(this.data.language);
       // });
-      this.SendSavePerson(ConfigAPI.UpdatePerson,"PersonName=" + this.person.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&Username=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&Password=" + this.person.NewPassword + "&ConfirmPassword=" + this.person.PersonConfirmPassword + "&PersonId=" + this.person.PersonId);
+      this.SendSavePerson(ConfigAPI.UpdatePerson, "PersonName=" + this.person.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&Username=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&Password=" + this.person.NewPassword + "&ConfirmPassword=" + this.person.PersonConfirmPassword + "&PersonId=" + this.person.PersonId);
 
     }
   }
@@ -134,7 +146,7 @@ export class PersonComponent implements OnInit {
               "&IsActive=" + this.person.IsActive +
               "&PersonId =" + this.person.PersonId).then((res: any) => {
                 if (!res.successful) {
-                 err  = true;
+                  err = true;
                 }
               });
           }
@@ -156,7 +168,7 @@ export class PersonComponent implements OnInit {
               "&IsActive=" + this.person.IsActive +
               "&PersonId =" + this.person.PersonId).then((res: any) => {
                 if (!res.successful) {
-                 err  = true;
+                  err = true;
                 }
               });
           }
