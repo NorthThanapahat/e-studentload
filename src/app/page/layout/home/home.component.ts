@@ -53,10 +53,8 @@ export class HomeComponent implements OnInit {
 
     }, 200);
 
-  
-    this.api.SendRequestApi(`${ConfigAPI.GetAuditLog}?token=${this.util.GetAccessToken()}&personid=${this.data.userData.data[0].PersonId}`).then((res: any) => {
-      this.data.auditLog = res;
-    })
+    
+
   }
 
 
@@ -122,7 +120,10 @@ export class HomeComponent implements OnInit {
       this.api.SendRequestApiWithData(ConfigAPI.InsertApplication, data).then((res: any) => {
         console.log(res);
         if (res.successful) {
+          this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "application");
           this.GetAllApplication();
+          
+
           this.util.MessageSuccess(this.data.language)
         } else {
           this.util.MessageError(this.data.language);
@@ -143,6 +144,8 @@ export class HomeComponent implements OnInit {
       this.api.SendRequestApiWithData(ConfigAPI.UpdateApplication, data).then((res: any) => {
         console.log(res);
         if (res.successful) {
+          this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "application");
+          
           this.GetAllApplication();
           this.util.MessageSuccess(this.data.language)
         } else {
@@ -177,6 +180,8 @@ export class HomeComponent implements OnInit {
     this.api.SendRequestApiWithData(ConfigAPI.DeleteApplication, data).then((res: any) => {
       console.log(res);
       if (res.successful) {
+        this.api.InsertLog(this.data.userData.data[0].PersonId, 'De;ete', "application");
+        
         this.GetAllApplication();
         this.util.MessageSuccess(this.data.language);
       } else {

@@ -128,6 +128,7 @@ export class DepartmentComponent implements OnInit {
     if (this.isInsert) {
       this.api.SendRequestApiWithData(ConfigAPI.InsertOrganization, data).then((res: any) => {
         if (res.successful) {
+          this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "organization");
           this.util.MessageSuccess(this.data.language);
           this.GetOrganization();
         } else {
@@ -160,6 +161,7 @@ export class DepartmentComponent implements OnInit {
 
       this.api.SendRequestApiWithData(ConfigAPI.UpdateOrganization, data).then((res: any) => {
         if (res.successful) {
+          this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "organization");
           this.util.MessageSuccess(this.data.language);
           this.GetOrganization();
 
@@ -179,6 +181,7 @@ export class DepartmentComponent implements OnInit {
     let data = "OrganizationId=" + this.organization.OrganizationId + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1";
     this.api.SendRequestApiWithData(ConfigAPI.DeleteOrganization, data).then((res: any) => {
       if (res.successful) {
+        this.api.InsertLog(this.data.userData.data[0].PersonId, 'Delete', "organization");
         this.util.MessageSuccess(this.data.language);
         this.GetOrganization();
       } else {

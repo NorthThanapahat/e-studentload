@@ -5,6 +5,8 @@ export class ConfigAPI {
 
     public static Login = ConfigAPI.Base_URL + "connect/token";
 
+    public static InsertLog = ConfigAPI.Base_API + "Insertuserlog";
+    
 
     public static GetDepartment = ConfigAPI.Base_API + "getdepartment";
     public static GetUserInfo = ConfigAPI.Base_API + "getuserinfo";

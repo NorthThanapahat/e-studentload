@@ -84,11 +84,14 @@ export class GroupComponent implements OnInit {
               this.util.MessageError(this.data.language);
             } else {
               this.GetGroup();
+              this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "group");
               this.util.MessageSuccess(this.data.language);
             }
           } else {
             this.GetGroup();
             this.util.MessageSuccess(this.data.language);
+            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "group");
+
           }
 
 
@@ -124,9 +127,13 @@ export class GroupComponent implements OnInit {
             } else {
               this.GetGroup();
               this.util.MessageSuccess(this.data.language);
+              this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "group");
+
             }
           } else {
             this.GetGroup();
+            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "group");
+
             this.util.MessageSuccess(this.data.language);
           }
 
@@ -168,6 +175,8 @@ export class GroupComponent implements OnInit {
     this.api.SendRequestApiWithData(ConfigAPI.DeleteGroup, data).then((res: any) => {
       if (res.successful) {
         this.GetGroup();
+        this.api.InsertLog(this.data.userData.data[0].PersonId, 'Delete', "group");
+        
         this.util.MessageSuccess(this.data.language);
       } else {
         this.util.MessageError(this.data.language);

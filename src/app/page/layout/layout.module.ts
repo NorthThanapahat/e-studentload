@@ -21,11 +21,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatButtonModule, MatCardModule, MatFormFieldModule,MatNativeDateModule ,MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule } from '@angular/material';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [HeaderComponent,HomeComponent,PersonComponent,LayoutComponent, DepartmentComponent, SideComponent, GroupComponent, DashboardComponent, ManagePasswordComponent, ManageDataComponent, ManageRoleComponent, AuditLogComponent],
   imports: [
-    CommonModule,NgbPaginationModule,MatButtonModule, MatCardModule, MatNativeDateModule ,MatInputModule ,MatFormFieldModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule , NgbAlertModule,TranslateModule,LayoutRoutingModule,FormsModule,ChartModule,Ng2Charts,ReactiveFormsModule,ModalModule.forRoot(),NgxLoadingModule.forRoot({})
+    CommonModule,NgbPaginationModule, OwlDateTimeModule, 
+    NgxMaterialTimepickerModule,
+    OwlNativeDateTimeModule,MatButtonModule, MatCardModule, MatNativeDateModule ,MatInputModule ,MatFormFieldModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule , NgbAlertModule,TranslateModule,LayoutRoutingModule,FormsModule,ChartModule,Ng2Charts,ReactiveFormsModule,ModalModule.forRoot(),NgxLoadingModule.forRoot({})
   ],
   providers:[{provide:LocationStrategy,useClass:HashLocationStrategy}]
 

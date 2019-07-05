@@ -135,50 +135,64 @@ export class PersonComponent implements OnInit {
     this.api.SendRequestApiWithData(url, data).then((res: any) => {
       console.log(res);
       if (res.successful) {
+
         if (this.isInsert) {
           var err = false;
-          for (let contactItem of this.contactList) {
-            this.api.SendRequestApiWithData(ConfigAPI.InsertContactPerson,
-              "TypeContactId=" + contactItem.TypeContactId +
-              "&Importance=" + contactItem.Importance +
-              "&Contact=" + contactItem.Contact +
-              "&CreateBy=" + this.person.CreateBy +
-              "&IsActive=" + this.person.IsActive +
-              "&PersonId =" + this.person.PersonId).then((res: any) => {
-                if (!res.successful) {
-                  err = true;
-                }
-              });
+          if (this.contactList.length > 0) {
+            for (let contactItem of this.contactList) {
+              this.api.SendRequestApiWithData(ConfigAPI.InsertContactPerson,
+                "TypeContactId=" + contactItem.TypeContactId +
+                "&Importance=" + contactItem.Importance +
+                "&Contact=" + contactItem.Contact +
+                "&CreateBy=" + this.person.CreateBy +
+                "&IsActive=" + this.person.IsActive +
+                "&PersonId =" + this.person.PersonId).then((res: any) => {
+                  if (!res.successful) {
+                    err = true;
+                  }
+                });
+            }
+
+            if (err) {
+              this.util.MessageError(this.data.language);
+            } else {
+              this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "person");
+              this.util.MessageSuccess(this.data.language);
+              this.GetAllPerson();
+            }
+          } else {
+            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "person");
           }
 
-          if (err) {
-            this.util.MessageError(this.data.language);
-          } else {
-            this.util.MessageSuccess(this.data.language);
-            this.GetAllPerson();
-          }
 
         } else {
-          for (let contactItem of this.contactList) {
-            this.api.SendRequestApiWithData(ConfigAPI.UpdateContactPerson,
-              "TypeContactId=" + contactItem.TypeContactId +
-              "&Importance=" + contactItem.Importance +
-              "&Contact=" + contactItem.Contact +
-              "&CreateBy=" + this.person.CreateBy +
-              "&IsActive=" + this.person.IsActive +
-              "&PersonId =" + this.person.PersonId).then((res: any) => {
-                if (!res.successful) {
-                  err = true;
-                }
-              });
+          if(this.contactList.length > 0){
+            for (let contactItem of this.contactList) {
+              this.api.SendRequestApiWithData(ConfigAPI.UpdateContactPerson,
+                "TypeContactId=" + contactItem.TypeContactId +
+                "&Importance=" + contactItem.Importance +
+                "&Contact=" + contactItem.Contact +
+                "&CreateBy=" + this.person.CreateBy +
+                "&IsActive=" + this.person.IsActive +
+                "&PersonId =" + this.person.PersonId).then((res: any) => {
+                  if (!res.successful) {
+                    err = true;
+                  }
+                });
+            }
+  
+            if (err) {
+              this.util.MessageError(this.data.language);
+            } else {
+            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "person");
+              this.util.MessageSuccess(this.data.language);
+              this.GetAllPerson();
+            }
+          }else{
+            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "person");
+            
           }
-
-          if (err) {
-            this.util.MessageError(this.data.language);
-          } else {
-            this.util.MessageSuccess(this.data.language);
-            this.GetAllPerson();
-          }
+          
         }
       }
       else {
@@ -228,6 +242,7 @@ export class PersonComponent implements OnInit {
     this.api.SendRequestApiWithData(ConfigAPI.DeletePerson, data).then((res: any) => {
       console.log(res);
       if (res.successful) {
+        this.api.InsertLog(this.data.userData.data[0].PersonId, 'Delete', "person");
         this.GetAllPerson();
       } else {
         this.util.MessageError(this.data.language);

@@ -3,7 +3,7 @@
     {{'NotFoundData' | translate}}
   </div>
   <div class="col-sm-10 float-left font-size-20" *ngIf="data.organizations?.length > 0">
-    <div class="col-sm-12 display-table d-flex  margin-top-20 padding border" 
+    <div class="col-sm-12 display-table d-flex  margin-top-20 padding border"
       *ngFor="let item of data.organizations | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
       <div class="margin-left-30p">
         <div class="top-right link" data-toggle="modal" data-target="#exampleModalCenter"
@@ -47,7 +47,7 @@
 
     </div>
   </div>
-  
+
   <div class="col-sm-2 float-left d-flex justify-content-center">
     <div class="text-center col-sm-12 no-padding">
       <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter"
@@ -62,16 +62,15 @@
           <i class="fas fa-edit"></i>
         </div>
         <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-15">
-
-          <div class="full-body display-table  padding border-bottom-1">
+          <div class="full-body display-table  padding border-bottom-1" *ngFor="let item of data?.organizationLog">
             <div class="full-body">
-              <div class="float-left d-flex justify-content-start">25/11/2018</div>
-              <div class="float-right">มีนา</div>
+              <div class="float-left d-flex justify-content-start">{{item.Date}}</div>
+              <div class="float-right">{{item.Month}}</div>
             </div>
             <div class="clearfix"></div>
             <div class="full-body">
-              <div class="float-left d-flex justify-content-start">{{'name' | translate}}</div>
-              <div class="float-right">11:20</div>
+              <div class="float-left d-flex justify-content-start">{{item.PersonId}}</div>
+              <div class="float-right">{{item.Time}}</div>
             </div>
           </div>
         </div>

@@ -15,8 +15,8 @@ export class SideComponent implements OnInit {
 
   image: any;
   allperson: AllPerson;
-  persons:Array<any>;
-  fullPerson:Array<any>;
+  persons: Array<any>;
+  fullPerson: Array<any>;
   isInsert = false;
   getDepartment: any;
   allOrganization: any;
@@ -36,7 +36,7 @@ export class SideComponent implements OnInit {
     this.api.SendRequestApi(`${ConfigAPI.GetAllPerson}?token=${this.util.GetAccessToken()}`).then((res: any) => {
       this.allperson = <AllPerson>res;
       this.persons = res.data;
-      for(let item of this.persons){
+      for (let item of this.persons) {
         item.selected = false;
       }
       console.log(this.allperson);
@@ -61,12 +61,12 @@ export class SideComponent implements OnInit {
   SelectOrganization(value) {
     console.log(value);
   }
-  AddPerson(item,i) {
-    if(!item.selected){
+  AddPerson(item, i) {
+    if (!item.selected) {
       this.department.DepartmentPerson.push(item);
       item.selected = true;
     }
-    
+
     console.log(this.allperson);
   }
   Edit(item) {
@@ -80,9 +80,9 @@ export class SideComponent implements OnInit {
   DeletePerson(item, i) {
     console.log(i);
     this.department.DepartmentPerson.splice(i, 1);
-    
-    for(let i in this.persons){
-      if(item.PersonId == this.persons[i].PersonId){
+
+    for (let i in this.persons) {
+      if (item.PersonId == this.persons[i].PersonId) {
         this.persons[i].selected = false;
       }
     }
@@ -105,6 +105,8 @@ export class SideComponent implements OnInit {
     this.api.SendRequestApiWithData(ConfigAPI.DeleteDepartment, data).then((res: any) => {
       if (res.successful) {
         this.GetDepartment();
+        this.api.InsertLog(this.data.userData.data[0].PersonId, 'Delete', "department");
+        
         this.util.MessageSuccess(this.data.language);
       } else {
         this.util.MessageError(this.data.language);
@@ -124,26 +126,29 @@ export class SideComponent implements OnInit {
     if (this.isInsert) {
       this.api.SendRequestApiWithData(ConfigAPI.InsertDepartment, data).then((res: any) => {
         if (res.successful) {
-          if(this.department.DepartmentPerson.length > 0){
+          if (this.department.DepartmentPerson.length > 0) {
             for (let i in this.department.DepartmentPerson) {
               let data = "DepartmentId=" + res.data[0].DepartmentId + "&personId=" + this.department.DepartmentPerson[i].PersonId + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1";
               this.api.SendRequestApiWithData(ConfigAPI.InsertDepartmentPerson, data).then((res: any) => {
                 if (res.successful) {
                   this.GetDepartment();
+                  this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "department");
+
                   this.util.MessageSuccess(this.data.language);
                 } else {
                   this.util.MessageError(this.data.language);
                 }
               }, (err) => {
                 this.util.MessageError(this.data.language);
-  
+
               });
             }
-          }else{
+          } else {
             this.GetDepartment();
+            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "department");
             this.util.MessageSuccess(this.data.language);
           }
-          
+
         } else {
           this.util.MessageError(this.data.language);
         }
@@ -152,15 +157,16 @@ export class SideComponent implements OnInit {
         this.util.MessageError(this.data.language);
       });
     } else {
-    let data = "DepartmentId="+this.department.DepartmentId+"&DepartmentName=" + this.department.DepartmentName + "&DepartmentDetail=" + this.department.Detail + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1" + "&OrganizationId=" + this.department.OrganizationId + "&DepartmentPhone=" + this.department.InternalPhoneNumber;
+      let data = "DepartmentId=" + this.department.DepartmentId + "&DepartmentName=" + this.department.DepartmentName + "&DepartmentDetail=" + this.department.Detail + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1" + "&OrganizationId=" + this.department.OrganizationId + "&DepartmentPhone=" + this.department.InternalPhoneNumber;
 
       this.api.SendRequestApiWithData(ConfigAPI.UpdateDepartment, data).then((res: any) => {
         if (res.successful) {
-          if(this.department.DepartmentPerson.length > 0){
+          if (this.department.DepartmentPerson.length > 0) {
             for (let i in this.department.DepartmentPerson) {
               let data = "DepartmentId=" + this.department.DepartmentId + "&personId=" + this.department.DepartmentPerson[i].PersonId + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1";
               this.api.SendRequestApiWithData(ConfigAPI.InsertDepartmentPerson, data).then((res: any) => {
                 if (res.successful) {
+                  this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "department");
                   this.GetDepartment();
                   this.util.MessageSuccess(this.data.language);
                 } else {
@@ -168,10 +174,11 @@ export class SideComponent implements OnInit {
                 }
               }, (err) => {
                 this.util.MessageError(this.data.language);
-  
+
               });
             }
-          }else{
+          } else {
+            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "department");
             this.GetDepartment();
             this.util.MessageSuccess(this.data.language);
           }
@@ -184,10 +191,10 @@ export class SideComponent implements OnInit {
 
   }
 
-  CloseModal(){
-     for(let person of this.persons){
-       person.selected = false;
-     }
+  CloseModal() {
+    for (let person of this.persons) {
+      person.selected = false;
+    }
   }
 
 }

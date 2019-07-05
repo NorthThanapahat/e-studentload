@@ -8,29 +8,37 @@
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-6 col-form-label">{{'Manage-Data.dateamount' | translate}}</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control bg-toolight">
+            <input type="number" size="2" class="form-control bg-toolight number" [(ngModel)]="dateAmt">
           </div>
         </div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-6 col-form-label">{{'Manage-Data.datestart' | translate}}</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control bg-toolight">
+            <mat-form-field class="w-100">
+              <mat-label class="font-size-15">{{'Dashboard.startdate' | translate}}</mat-label>
+              <input (dateInput)="addEvent('input','start', $event.target.value)"  [min]="today"
+                (dateChange)="addEvent('change','start', $event.target.value)" class="font-size-15 text-center form-control bg-toolight" [value]="date.value"
+                matInput [matDatepicker]="StartDate" placeholder="date">
+              <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+              <mat-datepicker #StartDate></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-6 col-form-label">{{'Manage-Data.time' | translate}}</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control bg-toolight">
+            <input class="text-center form-control bg-toolight" [disabled]= "dataSave.save == '1'" [ngxTimepicker]="picker" [(ngModel)]="time" [format]="24"   readonly>
+            <ngx-material-timepicker #picker></ngx-material-timepicker>
           </div>
         </div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-6 col-form-label">{{'Manage-Data.frequency' | translate}}</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control bg-toolight">
+            <input type="text" class="form-control bg-toolight" [disabled]= "dataSave.save == '1'" name="frequency" [(ngModel)]="frequency">
           </div>
         </div>
         <div class="col-sm-6 offset-sm-3 display-table margin-top-20">
-          <button class="btn btn-primary margin-left float-left" >{{'Save' | translate}}</button>
+          <button class="btn btn-primary margin-left float-left" (click)="Save()">{{'Save' | translate}}</button>
           <button class="btn btn-danger margin-right float-right">{{'Cancle' | translate}}</button>
         </div>
       </div>

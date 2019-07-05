@@ -10,11 +10,11 @@ import * as moment from 'moment';
 @Injectable()
 export class UtilProvider {
 
-  loading :any;
-  constructor(private router:Router,private data:DataProvider,private dialog: MatDialog) {
+  loading: any;
+  constructor(private router: Router, private data: DataProvider, private dialog: MatDialog) {
 
   }
-  ConfigDialog(width:string){
+  ConfigDialog(width: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -23,10 +23,10 @@ export class UtilProvider {
     return dialogConfig;
   }
 
-  SetUserInfo(userInfo){
-    localStorage.setItem('userinfo',JSON.stringify(userInfo));
+  SetUserInfo(userInfo) {
+    localStorage.setItem('userinfo', JSON.stringify(userInfo));
   }
-  GetUserInfo() : any{
+  GetUserInfo(): any {
     return JSON.parse(localStorage.getItem('userinfo'));
   }
 
@@ -38,27 +38,43 @@ export class UtilProvider {
     return myReader;
   }
 
-  Logout(){
+  Logout() {
     localStorage.clear();
-    localStorage.setItem("language",'th');
+    localStorage.setItem("language", 'th');
   }
-  
+
   ShowLoading() {
-    this.loading =  this.dialog.open(LoadingComponent,{
-      panelClass:"background-transperent",
-      disableClose:true
+    this.loading = this.dialog.open(LoadingComponent, {
+      panelClass: "background-transperent",
+      disableClose: true
     });
   }
-  HideLoading(){
+  HideLoading() {
     this.loading.close();
   }
- 
-  DoError(){
+  ConvertISODate(date) {
+    return moment(date, 'YYYY-MM-DDTHH:mm:ssTZD').format('YYYY-MM-DD HH:mm:ss');
+  }
+
+  PushItemArray(array: Array<any>, item) {
+    let newarray = array;
+    console.log('PushItemArray=>',array+","+item)
+    if (newarray == undefined) {
+      newarray = [];
+      newarray.push(item);
+      console.log(newarray);
+    } else {
+      newarray.push(item);
+    }
+    
+    return newarray;
+  }
+  DoError() {
     this.Logout();
     this.MessageError(this.data.language);
     this.router.navigate(['/login'])
   }
-  SwitchLanguage(language: string,data,translate) {
+  SwitchLanguage(language: string, data, translate) {
     translate.use(language);
     data.language = language;
     localStorage.setItem("language", language);
@@ -73,51 +89,51 @@ export class UtilProvider {
     }
 
   }
-  MessageSuccess(language){
-      if (language == 'th') {
-        this.AlertMessage('ผลการดำเนินการ', 'ดำเนินการสำเร็จ',{});
-
-      } else if (language == 'en') {
-        this.AlertMessage('Result', 'Successful',{});
-      }
-  }
-
-  MessageError(language){
-
-      if (language == 'th') {
-        this.AlertMessage('เกิดข้อผิดพลาด', 'ไม่สามารถดำเนินการได้ กรุณาตรวจสอบอีกครั้ง',{});
-
-      } else if (language == 'en') {
-        this.AlertMessage('Insert Data Incomplete !', 'Cann\'t process . Please try again.',{});
-
-      }
-  }
-  MessageErrorText(language,text){
-
+  MessageSuccess(language) {
     if (language == 'th') {
-      this.AlertMessage('เกิดข้อผิดพลาด', text,{});
+      this.AlertMessage('ผลการดำเนินการ', 'ดำเนินการสำเร็จ', {});
 
     } else if (language == 'en') {
-      this.AlertMessage('Insert Data Incomplete !', text,{});
+      this.AlertMessage('Result', 'Successful', {});
+    }
+  }
+
+  MessageError(language) {
+
+    if (language == 'th') {
+      this.AlertMessage('เกิดข้อผิดพลาด', 'ไม่สามารถดำเนินการได้ กรุณาตรวจสอบอีกครั้ง', {});
+
+    } else if (language == 'en') {
+      this.AlertMessage('Insert Data Incomplete !', 'Cann\'t process . Please try again.', {});
 
     }
-}
-  AlertMessage(title: string, content: string,data:any) {
+  }
+  MessageErrorText(language, text) {
+
+    if (language == 'th') {
+      this.AlertMessage('เกิดข้อผิดพลาด', text, {});
+
+    } else if (language == 'en') {
+      this.AlertMessage('Insert Data Incomplete !', text, {});
+
+    }
+  }
+  AlertMessage(title: string, content: string, data: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "50%";
     dialogConfig.panelClass = "popup-modal"
-    dialogConfig.data = { title: title, body: content,data };
+    dialogConfig.data = { title: title, body: content, data };
 
     this.dialog.open(AlertComponent, dialogConfig);
   }
 
-  SetAccessToken(accesstoken){
-    localStorage.setItem('accesstoken',accesstoken);
+  SetAccessToken(accesstoken) {
+    localStorage.setItem('accesstoken', accesstoken);
   }
 
-  GetAccessToken(){
+  GetAccessToken() {
     return localStorage.getItem('accesstoken');
   }
 }
