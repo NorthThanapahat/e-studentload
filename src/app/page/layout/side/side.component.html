@@ -6,7 +6,7 @@
     <div class="col-sm-12 col-12 display-table d-flex justify-content-center margin-top-20 padding border"
       *ngFor="let item of data.department  | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
       <div class="top-right link">
-        <i class="fas fa-edit text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter"
+        <i class="fas fa-edit text-bule-violet-light" 
           (click)="Edit(item)"></i>
       </div>
       <div class="bottom-right link margin-right-5" data-toggle="modal" data-target="#deleteModal"
@@ -21,7 +21,7 @@
           <div class="float-left">
             <span class="float-left">
               <span class="text-bule-violet-light  float-left">{{'fullname' | translate}}</span>
-              <span class="margin-left float-left">{{item.DepartmentName}}</span>
+              <span class="margin-left float-left">{{item.Title}}{{item.Fname}} {{item.Lname}}</span>
             </span>
 
           </div>
@@ -33,18 +33,18 @@
             </div>
             <div class=" margin-left-20 float-left">
               <div class="text-bule-violet-light  float-left">{{'email' | translate}}</div>
-              <div class="margin-left float-left"></div>
+              <div class="margin-left float-left">{{item.DepartmentDetail}}</div>
             </div>
           </div>
           <div class="clearfix"></div>
           <div class="float-left">
             <div class="float-left">
               <div class="text-bule-violet-light  float-left">{{'department' | translate}}</div>
-              <div class="margin-left float-left">{{item.PersonDepartment}}</div>
+              <div class="margin-left float-left">{{item.DepartmentName}}</div>
             </div>
             <div class=" margin-left-20 float-left">
               <div class="text-bule-violet-light  float-left">{{'position' | translate}}</div>
-              <div class="margin-left float-left">{{item.PersonPosition}}</div>
+              <div class="margin-left float-left">{{item.Position}}</div>
             </div>
           </div>
         </div>
@@ -52,9 +52,10 @@
 
     </div>
   </div>
+  
   <div class="col-sm-2 col-2 float-left d-flex justify-content-center">
     <div class="text-center col-sm-12 col-12 no-padding">
-      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter" (click)="Insert()">
+      <div class="link text-bule-violet-light"  (click)="Insert()">
         <i class="fas fa-plus-circle"></i>
         {{'buttonInsert' | translate}}
       </div>
@@ -72,7 +73,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="full-body">
-              <div class="float-left d-flex justify-content-start">{{item.PersonId}}</div>
+              <div class="float-left d-flex justify-content-start">{{item.EventLog}}</div>
               <div class="float-right">{{item.Time}}</div>
             </div>
           </div>
@@ -86,100 +87,114 @@
     <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
       [collectionSize]="data.department?.length"></ngb-pagination>
   </div>
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content">
-        <aside class="col-sm-12 col-12 container no-margin-padding">
-          <div class="modal-header bg-danger ">
-            <h5 class="modal-title col-sm-12 col-12 text-center  text-white" id="exampleModalLongTitle">
-              {{'Department.AddDepartmentData' | translate}}
-            </h5>
-            <button type="button" (click)="CloseModal()" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+
+  <modal #myModal>
+      <modal-header class="col-12 no-padding">
+        <h5 class="modal-title col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle">
+          {{'Department.AddDepartmentData' | translate}}</h5>
+        <button type="button" class="close no-margin ab" (click)="CloseModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </modal-header>
+      <modal-content>
+        <div>
+          <div class="modal-content">
+            <aside class="col-sm-12 container no-margin-padding">
+
+                <form class="container padding">
+                    <div class="bule-violet-light-less col-sm-12 col-12 d-flex padding">
+                      <div class="col-sm-12 col-12 float-left">
+                        <div class="form-group row">
+                          <label for="inputPassword"
+                            class="col-sm-3 col-3 col-form-label">{{'Department.departmentName' | translate}}</label>
+                          <div class="col-sm-9 col-9">
+                            <input type="text" class="form-control" name="departmentName"
+                              [(ngModel)]="department.DepartmentName">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputPassword"
+                            class="col-sm-3 col-3 col-form-label">{{'Department.organizationName' | translate}}</label>
+                          <div class="col-sm-9 col-9">
+                            <select class="form-control" [(ngModel)]="department.OrganizationId" name="organizationName"
+                              (change)="SelectOrganization($event.target.value)" required>
+                              <option *ngFor="let item of allOrganization?.data" value="{{item.OrganizationId}}">
+                                {{item.OrganizationName}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row ">
+                          <label for="inputPassword"
+                            class="col-sm-3 col-3 col-form-label">{{'Department.detail' | translate}}</label>
+                          <div class="col-sm-9 col-9">
+                            <input type="text" class="form-control" name="detail" [(ngModel)]="department.Detail">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputPassword"
+                            class="col-sm-3 col-3 col-form-label">{{'internalPhone' | translate}}</label>
+                          <div class="col-sm-9 col-9">
+                            <input type="text" class="form-control" name="DepartmentPhone"
+                              [(ngModel)]="department.DepartmentPhone">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword"
+                              class="col-sm-3 col-3 col-form-label">{{'email' | translate}}</label>
+                            <div class="col-sm-9 col-9">
+                              <input type="text" class="form-control" name="email"
+                                [(ngModel)]="department.email">
+                            </div>
+                          </div>
+                      </div>
+                      <!-- <div class="col-sm-4 col-4 float-left margin-top-20">
+                        <div class="text-center">
+                          <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
+                          <img class="rounded-circle image-cover" src="{{image}}" height="100px" width="100px" alt=""
+                            (click)="uploader.click()">
+        
+                        </div>
+                      </div> -->
+                    </div>
+        
+        
+                    <div class="clearfix"></div>
+        
+                    <!-- <table class="table col-sm-10 col-10 offset-sm-1 margin-top-20">
+                      <thead class="bg-blue-dark text-white d-block w-100">
+                        <tr class="d-table w-100">
+                          <th style="width:50%;" scope="col">{{'fullname' | translate}}</th>
+                          <th style="width:50%;" scope="col">{{'Department.contact' | translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-violet-less text-white ht-400 d-block overflow-auto">
+                        <tr *ngFor="let item of persons;let i = index" (click)="AddPerson(item,i)" [ngClass]="{'text-graylight': item.selected}" class="d-table w-100">
+                          <td style="width:50%;">{{item.Fname}} {{item.Lname}}</td>
+                          <td style="width:50%;">{{item.offi_tel}}</td>
+                        </tr>
+                      </tbody>
+                    </table> -->
+                    <!-- <div class="bg-violet-less  border-radius padding d-flex">
+                      <div class="bg-white float-left padding margin-left"
+                        *ngFor="let item of department.DepartmentPerson;let i = index">{{item.Fname}} {{item.Lname}}<i
+                          class="far fa-times-circle margin-left link" (click)="DeletePerson(item,i)"></i></div>
+                    </div> -->
+                   
+                  </form>
+            </aside>
           </div>
-          <form class="container padding">
-            <div class="bule-violet-light-less col-sm-12 col-12 d-flex padding">
-              <div class="col-sm-8 col-8 float-left">
-                <div class="form-group row">
-                  <label for="inputPassword"
-                    class="col-sm-3 col-3 col-form-label">{{'Department.departmentName' | translate}}</label>
-                  <div class="col-sm-9 col-9">
-                    <input type="text" class="form-control" name="departmentName"
-                      [(ngModel)]="department.DepartmentName">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="inputPassword"
-                    class="col-sm-3 col-3 col-form-label">{{'Department.organizationName' | translate}}</label>
-                  <div class="col-sm-9 col-9">
-                    <select class="form-control" [(ngModel)]="department.OrganizationId" name="organizationName"
-                      (change)="SelectOrganization($event.target.value)" required>
-                      <option *ngFor="let item of allOrganization?.data" value="{{item.OrganizationId}}">
-                        {{item.OrganizationName}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row ">
-                  <label for="inputPassword"
-                    class="col-sm-3 col-3 col-form-label">{{'Department.detail' | translate}}</label>
-                  <div class="col-sm-9 col-9">
-                    <input type="text" class="form-control" name="detail" [(ngModel)]="department.Detail">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="inputPassword"
-                    class="col-sm-5 col-5 col-form-label">{{'internalPhone' | translate}}</label>
-                  <div class="col-sm-7 col-7">
-                    <input type="text" class="form-control" name="internalPhone"
-                      [(ngModel)]="department.InternalPhoneNumber">
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4 col-4 float-left margin-top-20">
-                <div class="text-center">
-                  <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
-                  <img class="rounded-circle image-cover" src="{{image}}" height="100px" width="100px" alt=""
-                    (click)="uploader.click()">
 
-                </div>
-              </div>
-            </div>
-
-
-            <div class="clearfix"></div>
-
-            <table class="table col-sm-10 col-10 offset-sm-1 margin-top-20">
-              <thead class="bg-blue-dark text-white d-block w-100">
-                <tr class="d-table w-100">
-                  <th style="width:50%;" scope="col">{{'fullname' | translate}}</th>
-                  <th style="width:50%;" scope="col">{{'Department.contact' | translate}}</th>
-                </tr>
-              </thead>
-              <tbody class="bg-violet-less text-white ht-400 d-block overflow-auto">
-                <tr *ngFor="let item of persons;let i = index" (click)="AddPerson(item,i)" [ngClass]="{'text-graylight': item.selected}" class="d-table w-100">
-                  <td style="width:50%;">{{item.PersonName}}</td>
-                  <td style="width:50%;">{{item.Contact}}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="bg-violet-less  border-radius padding d-flex">
-              <div class="bg-white float-left padding margin-left"
-                *ngFor="let item of department.DepartmentPerson;let i = index">{{item.PersonName}}<i
-                  class="far fa-times-circle margin-left link" (click)="DeletePerson(item,i)"></i></div>
-            </div>
-            <div class="text-center col-sm-12 col-12 margin-top-20">
-              <button class="btn btn-primary" data-dismiss="modal"
-                (click)="SaveOrganization()">{{'Save' | translate}}</button>
-              <button class="btn btn-danger margin-left" (click)="CloseModal()" data-dismiss="modal">{{'Cancle' | translate}}</button>
-            </div>
-          </form>
-
-        </aside>
-      </div>
-    </div>
-  </div>
+        </div>
+      </modal-content>
+      <modal-footer class="text-center">
+        <div class="text-center margin-top-20">
+            <button (click)="SaveOrganization()" data-dismiss="modal"
+            class="btn btn-primary">{{'Save' | translate}}</button>
+          <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
+        </div>
+      </modal-footer>
+    </modal>
+ 
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">

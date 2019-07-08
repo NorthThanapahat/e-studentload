@@ -5,7 +5,7 @@
   <div class="col-sm-10 col-10 float-left font-size-20  margin-bottom-10">
     <div class="col-sm-12 col-12 display-table d-flex justify-content-center margin-top-20 padding border"
       *ngFor="let item of data.persons | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
-      <div class="top-right link" (click)="EditPerson(item)" data-toggle="modal" data-target="#exampleModalCenter">
+      <div class="top-right link" (click)="EditPerson(item)">
         <i class="fas fa-edit text-bule-violet-light"></i>
       </div>
       <div class="bottom-right link margin-right-5" (click)="DeletePerson(item)" data-toggle="modal"
@@ -20,12 +20,12 @@
 
           <div class="float-left">
             <span class="float-left">
-              <span class="text-bule-violet-light  float-left">{{'Personal.employeeId' | translate}}</span>
+              <span class="text-bule-violet-light  float-left">{{'Personal.userId' | translate}}</span>
               <span class="margin-left float-left">{{item.PersonId}}</span>
             </span>
             <span class=" margin-left-20 float-left">
               <span class="text-bule-violet-light  float-left">{{'fullname' | translate}}</span>
-              <span class="margin-left float-left">{{item.PersonName}}</span>
+              <span class="margin-left float-left">{{item.title}}{{item.Fname}} {{item.Lname}}</span>
             </span>
           </div>
 
@@ -34,22 +34,22 @@
           <div class="float-left">
             <div class="float-left">
               <div class="text-bule-violet-light  float-left">{{'internalPhone' | translate}}</div>
-              <div class="margin-left float-left">{{item.Contact}}</div>
+              <div class="margin-left float-left">{{item.offi_tel}}</div>
             </div>
             <div class=" margin-left-20 float-left">
               <div class="text-bule-violet-light  float-left">{{'email' | translate}}</div>
-              <div class="margin-left float-left">somsak@gmail.com</div>
+              <div class="margin-left float-left">{{item.email}}</div>
             </div>
           </div>
           <div class="clearfix"></div>
           <div class="float-left">
             <div class="float-left">
               <div class="text-bule-violet-light  float-left">{{'department' | translate}}</div>
-              <div class="margin-left float-left">{{item.PersonDepartment}}</div>
+              <div class="margin-left float-left">{{item.depart}}</div>
             </div>
             <div class=" margin-left-20 float-left">
               <div class="text-bule-violet-light  float-left">{{'position' | translate}}</div>
-              <div class="margin-left float-left">{{item.PersonPosition}}</div>
+              <div class="margin-left float-left">{{item.position}}</div>
             </div>
           </div>
         </div>
@@ -58,8 +58,7 @@
   </div>
   <div class="col-sm-2 col-2 float-left d-flex justify-content-center">
     <div class="text-center col-sm-12 col-12 no-padding">
-      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter"
-        (click)="InsertPerson()">
+      <div class="link text-bule-violet-light" (click)="openModal()" (click)="InsertPerson()">
         <i class="fas fa-plus-circle"></i>
         {{'buttonInsert' | translate}}
       </div>
@@ -86,11 +85,11 @@
             </div>
             <div class="clearfix"></div>
             <div class="full-body">
-              <div class="float-left d-flex justify-content-start">{{item.PersonId}}</div>
+              <div class="float-left d-flex justify-content-start">{{item.EventLog}}</div>
               <div class="float-right">{{item.Time}}</div>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -102,149 +101,172 @@
       [collectionSize]="data.persons?.length"></ngb-pagination>
   </div>
 
+  <modal #myModal>
+    <modal-header class="col-12 no-padding">
+        <h5 class="modal-title col-sm-12 col-12 text-center float-left text-white" >
+          {{'Personal.addPerson' | translate}}
+        </h5>
+        <button type="button" class="close no-margin ab" (click)="CloseModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </modal-header>
+    <modal-content>
+      <div>
+        <div class="modal-content">
+          <aside class="col-sm-12 col-12 container no-margin-padding">
 
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content">
-        <aside class="col-sm-12 col-12 container no-margin-padding">
-          <div class="modal-header bg-danger ">
-            <h5 class="modal-title col-sm-12 col-12 text-center  text-white" id="exampleModalLongTitle">
-              เพิ่มรายละเอียดบุคคล
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form class="container padding">
-            <div class="col-sm-8 col-8 float-left">
-              <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ชื่อนาม-สกุล</label>
-                <div class="col-sm-9 col-9">
-                  <input type="text" class="form-control" name="name" [(ngModel)]="person.PersonName">
+            <form class="container padding">
+              <div class="col-sm-8 col-8 float-left">
+                <div class="form-group row">
+                  <label for="inputPassword"
+                    class="col-sm-3 col-3 col-form-label">{{'Personal.userId' | translate}}</label>
+                  <div class="col-sm-9 col-9">
+                    <input type="text" class="form-control" (keyup)="KeyData('userId')" [ngClass]="{'is-invalid': err.userId }" name="userId"
+                      [(ngModel)]="person.userId">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ฝ่ายงาน</label>
-                <div class="col-sm-9 col-9">
-                  <select class="form-control" name="department" [(ngModel)]="person.PersonDepartment">
-                    <option *ngFor="let item of getDepartment?.data">{{item.departmentname}}</option>
-                  </select>
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'prename' | translate}}</label>
+                  <div class="col-sm-9 col-9">
+                    <select class="form-control" name="preName" (change)="KeyData('preName')"  [ngClass]="{'is-invalid': err.preName}"
+                      [(ngModel)]="person.PreName">
+                      <option value="mr">{{'Mr' | translate}}</option>
+                      <option value="mrs">{{'Mrs' | translate}}</option>
+                      <option value="miss">{{'Miss' | translate}}</option>
+                    </select>
+                  </div>
                 </div>
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'name' | translate}}</label>
+                  <div class="col-sm-9 col-9">
+                    <input type="text" class="form-control" name="name" (keyup)="KeyData('Fname')"  [ngClass]="{'is-invalid': err.Fname}"
+                      [(ngModel)]="person.Fname">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'lastname' | translate}}</label>
+                  <div class="col-sm-9 col-9">
+                    <input type="text" class="form-control"  (keyup)="KeyData('Lname')"   [ngClass]="{'is-invalid': err.Lname}" name="lastname"
+                      [(ngModel)]="person.Lname">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'phone' | translate}}</label>
+                  <div class="col-sm-9 col-9">
+                    <input type="text" class="form-control"  (keyup)="KeyData('phone')"   [ngClass]="{'is-invalid': err.phone}" name="phone"
+                      [(ngModel)]="person.Phone">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'email' | translate}}</label>
+                  <div class="col-sm-9  col-9">
+                    <input type="text" class="form-control"  (keyup)="KeyData('email')"   [ngClass]="{'is-invalid': err.email}" name="email"
+                      [(ngModel)]="person.Email">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'department' | translate}}</label>
+                  <div class="col-sm-9 col-9">
+                    <select class="form-control"  (change)="KeyData('department')"   [ngClass]="{'is-invalid': err.department}" name="department"
+                      [(ngModel)]="person.Depart">
+                      <option *ngFor="let item of getDepartment?.data">{{item.departmentname}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'position' | translate}}</label>
+                  <div class="col-sm-9 col-9">
+                    <input type="text"  (keyup)="KeyData('position')"   [ngClass]="{'is-invalid': err.position}" class="form-control" name="position"
+                      [(ngModel)]="person.Position">
+                  </div>
+                </div>
+
               </div>
 
-              <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ตำแหน่ง</label>
-                <div class="col-sm-9 col-9">
-                  <input type="text" class="form-control" name="position" [(ngModel)]="person.PersonPosition">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">ชื่อผู้ใช้งาน</label>
-                <div class="col-sm-9 col-9">
-                  <input type="text" class="form-control" name="username" [(ngModel)]="person.NewUsername">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3 col-3 col-form-label">รหัสผ่าน</label>
-                <div class="col-sm-9  col-9">
-                  <input type="password" class="form-control" name="password" [(ngModel)]="person.NewPassword">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3  col-3 col-form-label">ยืนยันรหัสผ่าน</label>
-                <div class="col-sm-9  col-9">
-                  <input type="password" class="form-control" name="confirmpassword"
-                    [(ngModel)]="person.PersonConfirmPassword">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="float-left offset-sm-3  offset-6 col-6 col-sm-6">
-                  <input type="checkbox" class="margin-right-5 float-left" />
-                  <div class="font-size-15 text-gray">จดจำข้อมูลของฉัน</div>
-                </div>
-              </div>
-              <div class="invalid-feedback">Example invalid feedback text</div>
-            </div>
+              <div class="col-sm-4  col-4 float-left ">
+                <div class="text-center">
+                  <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
+                  <img class="rounded-circle image-cover" src="{{image}}" height="200px" width="200px" alt=""
+                    (click)="uploader.click()">
 
-            <div class="col-sm-4  col-4 float-left margin-top-10p">
-              <div class="text-center">
-                <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
-                <img class="rounded-circle image-cover" src="{{image}}" height="200px" width="200px" alt=""
-                  (click)="uploader.click()">
-
+                </div>
               </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="text-center col-sm-12  col-12">
-              <button (click)="SavePerson()" data-dismiss="modal"
-                class="btn btn-primary">{{'Save' | translate}}</button>
-              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
-            </div>
-          </form>
+              
+            </form>
 
-          <div>
-            <div class="padding">เพิ่มข้อมูลการติดต่อ</div>
-            <table class="table">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col" class="text-center">ประเภท</th>
-                  <th scope="col" class="text-center">รายละเอียดข้อมูล</th>
-                  <th scope="col" class="text-center">ข้อมูลหลัก</th>
-                  <th scope="col" class="text-center"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="form-group col-sm-12  col-12">
-                      <select class="form-control" required [(ngModel)]="contactType">
-                        <option value="1">เบอร์โทร</option>
-                        <option value="2">อีเมล์</option>
-                        <option value="3">facebook</option>
-                        <option value="4">line</option>
-                        <option value="5">instagram</option>
-                        <option value="6">twitter</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td><input class="col-form-label col-sm-12  col-12" [(ngModel)]="contactDiscription" type="text"
-                      name="" id=""></td>
-                  <td>
-                    <div class="form-group col-sm-12  col-12">
-                      <select class="form-control" [(ngModel)]="importance" required>
-                        <option value="1">ข้อมูลหลัก</option>
-                        <option value="2">ข้อมูลรอง</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td (click)="AddContact()" class="link">
-                    <i style="color: rgb(69, 172, 0)" class="padding fas fa-plus-circle fa-lg"></i>
-                  </td>
-                </tr>
-                <tr *ngFor="let item of contactList;let i = index">
-                  <td class="text-center" *ngIf="item.TypeContactId == '1'"><i class="fas fa-phone fa-2x"></i></td>
-                  <td class="text-center" *ngIf="item.TypeContactId == '2'"><i class="fas fa-envelope fa-2x"></i></td>
-                  <td class="text-center" *ngIf="item.TypeContactId == '3'"><i class="fab fa-facebook-square fa-2x"></i>
-                  </td>
-                  <td class="text-center" *ngIf="item.TypeContactId == '4'"><i class="fab fa-line fa-2x"></i></td>
-                  <td class="text-center" *ngIf="item.TypeContactId == '5'"><i class="fab fa-instagram fa-2x"></i></td>
-                  <td class="text-center" *ngIf="item.TypeContactId == '6'"><i class="fab fa-twitter-square fa-2x"></i>
-                  </td>
-                  <td class="text-center"><b>{{item.Contact}}</b></td>
-                  <td (click)="SetActiveItem(i)" class="text-center link"><i
-                      [ngClass]="{'text-yellow': item.IsActive == '1', 'text-gray':  item.IsActive == '2'}"
-                      class="fas fa-star fa-lg"></i></td>
-                </tr>
+            <!-- <div>
+                <div class="padding">เพิ่มข้อมูลการติดต่อ</div>
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col" class="text-center">ประเภท</th>
+                      <th scope="col" class="text-center">รายละเอียดข้อมูล</th>
+                      <th scope="col" class="text-center">ข้อมูลหลัก</th>
+                      <th scope="col" class="text-center"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="form-group col-sm-12  col-12">
+                          <select class="form-control" required [(ngModel)]="contactType">
+                            <option value="1">เบอร์โทร</option>
+                            <option value="2">อีเมล์</option>
+                            <option value="3">facebook</option>
+                            <option value="4">line</option>
+                            <option value="5">instagram</option>
+                            <option value="6">twitter</option>
+                          </select>
+                        </div>
+                      </td>
+                      <td><input class="col-form-label col-sm-12  col-12" [(ngModel)]="contactDiscription" type="text"
+                          name="" id=""></td>
+                      <td>
+                        <div class="form-group col-sm-12  col-12">
+                          <select class="form-control" [(ngModel)]="importance" required>
+                            <option value="1">ข้อมูลหลัก</option>
+                            <option value="2">ข้อมูลรอง</option>
+                          </select>
+                        </div>
+                      </td>
+                      <td (click)="AddContact()" class="link">
+                        <i style="color: rgb(69, 172, 0)" class="padding fas fa-plus-circle fa-lg"></i>
+                      </td>
+                    </tr>
+                    <tr *ngFor="let item of contactList;let i = index">
+                      <td class="text-center" *ngIf="item.TypeContactId == '1'"><i class="fas fa-phone fa-2x"></i></td>
+                      <td class="text-center" *ngIf="item.TypeContactId == '2'"><i class="fas fa-envelope fa-2x"></i></td>
+                      <td class="text-center" *ngIf="item.TypeContactId == '3'"><i class="fab fa-facebook-square fa-2x"></i>
+                      </td>
+                      <td class="text-center" *ngIf="item.TypeContactId == '4'"><i class="fab fa-line fa-2x"></i></td>
+                      <td class="text-center" *ngIf="item.TypeContactId == '5'"><i class="fab fa-instagram fa-2x"></i></td>
+                      <td class="text-center" *ngIf="item.TypeContactId == '6'"><i class="fab fa-twitter-square fa-2x"></i>
+                      </td>
+                      <td class="text-center"><b>{{item.Contact}}</b></td>
+                      <td (click)="SetActiveItem(i)" class="text-center link"><i
+                          [ngClass]="{'text-yellow': item.IsActive == '1', 'text-gray':  item.IsActive == '2'}"
+                          class="fas fa-star fa-lg"></i></td>
+                    </tr>
+    
+                  </tbody>
+                </table>
+              </div> -->
+          </aside>
+        </div>
 
-              </tbody>
-            </table>
-          </div>
-        </aside>
       </div>
-    </div>
-  </div>
-
+    </modal-content>
+    <modal-footer class="text-center">
+        <div class="clearfix"></div>
+        <div class="text-center col-sm-12  col-12">
+          <button (click)="SavePerson()" class="btn btn-primary">{{'Save' | translate}}</button>
+          <button class="btn btn-danger margin-left" (click)="CloseModal()">{{'Cancle' | translate}}</button>
+        </div>
+    </modal-footer>
+  </modal>
 
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -261,8 +283,8 @@
           <form class="container padding">
             <div class="col-sm-8  col-8 float-left">
               <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3  col-3 col-form-label">{{'name' | translate}}
-                  {{deletePerson?.PersonName}}</label>
+                <label for="inputPassword" class="col-sm-12  col-12 col-form-label">{{'name' | translate}}
+                  {{person?.Title}}{{person?.Fname}}   {{person?.Lname}}</label>
               </div>
             </div>
             <div class="clearfix"></div>

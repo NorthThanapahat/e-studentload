@@ -24,8 +24,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { LoginPageService } from './share/login-page/login-page.service';
 import { HomeService } from './share/api/home-service/home-service';
 import { MatDatepickerModule } from '@angular/material';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http,'../assets/i18n/','.json');
@@ -45,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     ChartModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     NgxLoadingModule.forRoot({}),
     Ng2Charts,

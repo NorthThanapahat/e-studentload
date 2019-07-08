@@ -1,14 +1,18 @@
 export class Department{
+    Fname:string = '';
+    Lname:string = '';
+    Title:string = '';
     DepartmentId:string = '';
     DepartmentName:string = '';
+    DepartmentPhone:string = '';
     OrganizationId:string = '';
     Detail:string = '';
-    InternalPhoneNumber:string = '';
+    email:string = '';
     DepartmentPhoto:string='';
-    DepartmentPerson : Array<DepartmentPerson> = [];
 }
 
 export class DepartmentPerson{
     PersonId:string;
-    PersonName:string;
+    Fname:string;
+    Lname:string;
 }

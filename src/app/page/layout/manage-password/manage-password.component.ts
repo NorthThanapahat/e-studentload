@@ -67,7 +67,7 @@ export class ManagePasswordComponent implements OnInit {
   SavePassword() {
     if (this.Validate()) {
       this.err = '';
-      this.passwordData.CreateBy = this.data.userData.data[0].UserName;
+      this.passwordData.CreateBy = this.data.userData.data[0].UserId;
       let data = "PasswordId=" + this.passwordData.PasswordId + "&ApplicationId=" + this.passwordData.ApplicationId + "&OldUsername=" + this.passwordData.OldUsername + "&NewUsername=" + this.passwordData.OldUsername + "&OldPassword=" + this.passwordData.OldPassword + "&NewPassword=" + this.passwordData.NewPassword + "&CreateBy=" + this.passwordData.CreateBy + "&IsActive=" + this.passwordData.IsActive + "&ApplicationName=" + this.passwordData.ApplicationName;
       this.api.SendRequestApiWithData(ConfigAPI.UpdatePasswordManagement, data).then((res: any) => {
         if (res.successful) {

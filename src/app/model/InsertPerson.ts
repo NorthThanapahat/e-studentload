@@ -1,18 +1,22 @@
-export class Person{
-    PersonId:"";
-    PersonName:string = '';
-    PathPhoto:string = '';
-    PersonConfirmPassword:string = '';
-    PersonPosition:string = '';
-    PersonDepartment:number;
-    CreateBy:number = 1;
-    IsActive:number = 1;
-    Importance:string = '';
-    OldUsername:string = '';
-    NewUsername:string = '';
-    OldPassword:string = '';
-    NewPassword:string = '';
-    ApplicationId:string = '';
-    Contact:string = '';
+export class Person {
+    PersonId: string = '';
+    userId: string = '';
+    PersonName: string = '';
+    PathPhoto: string = '';
+    Position: string = '';
+    Depart: string = '';
+    ApplicationId: string = '';
+    Contact: string = '';
+    PreName: string = '';
+    Fname: string = '';
+    Lname: string = '';
+    Title: string = '';
+    CreateBy:string = '';
+    CreateDate:string = '';
+    Offi_tel:string = '';
+    PermissionId:string = '';
+    Staff_status:string= '';
+    Phone: string = '';
+    Email: string = '';
 
 }

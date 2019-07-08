@@ -22,6 +22,11 @@ export class ApiProvider {
     }
 
     GetLog() {
+        this.data.applicationLog = [];
+        this.data.personLog = [];
+        this.data.organizationLog = [];
+        this.data.departmentLog = [];
+        this.data.groupLog = [];
         this.SendRequestApi(`${ConfigAPI.GetAuditLog}?token=${this.util.GetAccessToken()}&personid=${this.data.userData.data[0].PersonId}`).then((res: any) => {
             this.data.allLog = res;
 
@@ -33,7 +38,6 @@ export class ApiProvider {
                         this.data.applicationLog[i].Month = moment(this.data.applicationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
                         this.data.applicationLog[i].Date = moment(this.data.applicationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
                         this.data.applicationLog[i].Time = moment(this.data.applicationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
-                        console.log(this.data.applicationLog);
                     }
                 }
                 if (item.Manu == 'person') {
@@ -43,7 +47,6 @@ export class ApiProvider {
                         this.data.personLog[i].Month = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
                         this.data.personLog[i].Date = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
                         this.data.personLog[i].Time = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
-                        console.log(this.data.personLog);
                     }
                 }
                 if (item.Manu == 'organization') {
@@ -53,35 +56,32 @@ export class ApiProvider {
                         this.data.organizationLog[i].Month = moment(this.data.organizationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
                         this.data.organizationLog[i].Date = moment(this.data.organizationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
                         this.data.organizationLog[i].Time = moment(this.data.organizationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
-                        console.log(this.data.organizationLog);
                     }
                 }
                 if (item.Manu == 'department') {
                     this.data.departmentLog = this.util.PushItemArray(this.data.departmentLog, item);
-                    for (let i in this.data.personLog) {
-                        let date = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
+                    for (let i in this.data.departmentLog) {
+                        let date = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
                         this.data.departmentLog[i].Month = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
                         this.data.departmentLog[i].Date = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
                         this.data.departmentLog[i].Time = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
-                        console.log(this.data.departmentLog);
                     }
                 }
                 if (item.Manu == 'group') {
                     this.data.groupLog = this.util.PushItemArray(this.data.groupLog, item);
-                    for (let i in this.data.personLog) {
-                        let date = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
-                        this.data.groupLog[i].Month = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
-                        this.data.personLog[i].Date = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
-                        this.data.groupLog[i].Time = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
-                        console.log(this.data.personLog);
+                    for (let i in this.data.groupLog) {
+                        let date = moment(this.data.groupLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
+                        this.data.groupLog[i].Month = moment(this.data.groupLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
+                        this.data.groupLog[i].Date = moment(this.data.groupLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
+                        this.data.groupLog[i].Time = moment(this.data.groupLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
                     }
                 }
             }
-            console.log("getlog=>", this.data.applicationLog);
-            console.log("getlog=>", this.data.personLog);
-            console.log("getlog=>", this.data.organizationLog);
-            console.log("getlog=>", this.data.departmentLog);
-            console.log("getlog=>", this.data.groupLog);
+            console.log("this.data.applicationLog getlog=>", this.data.applicationLog);
+            console.log("this.data.personLog getlog=>", this.data.personLog);
+            console.log("this.data.organizationLog getlog=>", this.data.organizationLog);
+            console.log("this.data.departmentLog getlog=>", this.data.departmentLog);
+            console.log("this.data.groupLog getlog=>", this.data.groupLog);
 
         });
     }

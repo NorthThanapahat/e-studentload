@@ -4,5 +4,8 @@ export class Application{
     Detail:string = ''
     File: string = ''
     LinkURL: string = ''
+    AppId:string = ''
     personid: string = ''
+    passwordApplication:string = ''
+    
 }

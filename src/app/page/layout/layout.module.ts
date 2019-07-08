@@ -18,20 +18,21 @@ import { ManageRoleComponent } from './manage-role/manage-role.component';
 import { AuditLogComponent } from './audit-log/audit-log.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { TranslateModule } from '@ngx-translate/core';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { MatButtonModule, MatCardModule, MatFormFieldModule,MatNativeDateModule ,MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule } from '@angular/material';
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { MatButtonModule, MatCardModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule } from '@angular/material';
+import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ModalModule } from 'ngb-modal';
 
 @NgModule({
-  declarations: [HeaderComponent,HomeComponent,PersonComponent,LayoutComponent, DepartmentComponent, SideComponent, GroupComponent, DashboardComponent, ManagePasswordComponent, ManageDataComponent, ManageRoleComponent, AuditLogComponent],
+  declarations: [HeaderComponent, HomeComponent, PersonComponent, LayoutComponent, DepartmentComponent, SideComponent, GroupComponent, DashboardComponent, ManagePasswordComponent, ManageDataComponent, ManageRoleComponent, AuditLogComponent],
   imports: [
-    CommonModule,NgbPaginationModule, OwlDateTimeModule, 
+    ModalModule,
+    CommonModule, NgbPaginationModule, OwlDateTimeModule,
     NgxMaterialTimepickerModule,
-    OwlNativeDateTimeModule,MatButtonModule, MatCardModule, MatNativeDateModule ,MatInputModule ,MatFormFieldModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule , NgbAlertModule,TranslateModule,LayoutRoutingModule,FormsModule,ChartModule,Ng2Charts,ReactiveFormsModule,ModalModule.forRoot(),NgxLoadingModule.forRoot({})
+    OwlNativeDateTimeModule, MatButtonModule, MatCardModule, MatNativeDateModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule, NgbAlertModule, TranslateModule, LayoutRoutingModule, FormsModule, ChartModule, Ng2Charts, ReactiveFormsModule,NgxLoadingModule.forRoot({})
   ],
-  providers:[{provide:LocationStrategy,useClass:HashLocationStrategy}]
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }]
 
 })
 export class LayoutModule { }

@@ -23,6 +23,9 @@
             "4": "Audit Log"
         }
     },
+    "Mr":"นาย",
+    "Mrs":"นาง",
+    "Miss":"นางสาว",
     "Save": "บันทึก",
     "Cancle": "ยกเลิก",
     "buttonInsert": "เพิ่มข้อมูล",
@@ -30,8 +33,11 @@
         "edit": "ประวัติการแก้ไข"
     },
     "name": "ชื่อ",
+    "lastname": "นามสกุล",
     "fullname": "ชื่อ-นามสกุล",
+    "prename" : "คำนำหน้า",
     "internalPhone": "เบอร์โทรภายใน",
+    "phone":"เบอร์โทร",
     "email": "อีเมล์",
     "department": "ฝ่ายงาน",
     "position": "ตำแหน่ง",
@@ -42,16 +48,19 @@
         "historyOfLogin": "ประวัติการเข้าสู่ระบบ",
         "SystemName": "ชื่อระบบ",
         "LinkUrl": "Link Url",
+        "ApplicationId":"รหัสแอปพลิเคชั่น",
         "Details": "รายละเอียด",
         "AttachmentsFile": "แนบไฟล์เอกสาร"
     },
     "Personal": {
+        "userId":"รหัสพนักงาน",
         "employeeId": "รหัสพนักงาน",
         "name-sur":"ชื่อ-สกุล",
         "internalPhone":"เบอร์โทรภายใน",
         "email":"อีเมล์",
         "department":"ฝ่ายงาน",
-        "position":"ตำแหน่ง"
+        "position":"ตำแหน่ง",
+        "addPerson":"เพิ่มรายละเอียดบุคคล"
     },
     "Organization": {
         "addOrganization":"เพิ่มรายละเอียดหน่วยงาน",
@@ -120,6 +129,15 @@
         "PasswordConfirm":"กรอกรหัสอีกครั้ง"
     },
     "Permission":{
+        "PermissionName":"ชื่อสิทธิการใช้งาน",
+        "PermissionStatus":"สถานะการใช้งาน",
+        "ManagePermission":"จัดการสิทธิการใช้งาน",
+        "MenuName":"ชื่อเมนู",
+        "No":"ลำดับ",
+        "All":"ทั้งหมด",
+        "View":"ดู",
+        "Add":"เพิ่มข้อมูล",
+        "Delete":"ลบข้อมูล",
         "SetPermission":"กำหนดสิทธิการใช้งาน",
         "CreatePermission":"สร้างสิทธิ์การใช้งาน",
         "GroupName-Person":"ชื่อบุคคล/ชื่อกลุ่มบุคคล",

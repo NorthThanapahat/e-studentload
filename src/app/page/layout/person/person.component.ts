@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiProvider } from 'src/app/share/api/api';
 import { ConfigAPI } from 'src/app/share/api/ConfigApi';
 import { AllPerson } from 'src/app/model/allperson';
@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material';
 import { LoadingComponent } from 'src/app/modal/loading/loading.component';
 import { DataProvider } from 'src/app/share/provider/provider';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalManager } from 'ngb-modal';
 
 @Component({
   selector: 'app-person',
@@ -16,6 +18,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./person.component.css']
 })
 export class PersonComponent implements OnInit {
+  @ViewChild('myModal') myModal;
+  private modalRef;
 
   allperson: AllPerson;
   getDepartment: any;
@@ -36,11 +40,21 @@ export class PersonComponent implements OnInit {
   pageSize = 10;
   totalItem: any;
   previousPage: any;
-
+  err = {
+    userId: false,
+    preName: false,
+    Fname: false,
+    Lname: false,
+    phone: false,
+    email: false,
+    department: false,
+    position: false
+  }
   constructor(public api: ApiProvider,
     public util: UtilProvider,
     public dialog: MatDialog,
     private router: Router,
+    private modalService: ModalManager,
     public data: DataProvider) {
     this.data.page = 'person';
 
@@ -73,6 +87,22 @@ export class PersonComponent implements OnInit {
 
     }
   }
+  openModal() {
+    this.modalRef = this.modalService.open(this.myModal, {
+      size: "lg",
+      modalClass: 'mymodal',
+      hideCloseButton: true,
+      centered: false,
+      backdrop: true,
+      animation: true,
+      keyboard: false,
+      closeOnOutsideClick: true,
+      backdropClass: "modal-backdrop"
+    })
+  }
+  CloseModal(){
+    this.modalService.close(this.modalRef);
+  }
   GetAllPerson() {
     this.api.SendRequestApi(`${ConfigAPI.GetAllPerson}?token=${this.util.GetAccessToken()}`).then((res: any) => {
       if (res.successful) {
@@ -91,113 +121,122 @@ export class PersonComponent implements OnInit {
     });
   }
   SavePerson() {
-
-    // let dataInsertPersonContact = "TypeContactId=" + this.contactList.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&OldUsername=" + this.person.OldUsername + "&NewUsername=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&OldPassword=" + this.person.OldPassword + "&NewPassword=" + this.person.NewPassword;
-
-    if (this.isInsert) {
-      this.SendSavePerson(ConfigAPI.InsertPerson, "PersonName=" + this.person.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&Username=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&Password=" + this.person.NewPassword + "&COnfirmPassword=" + this.person.PersonConfirmPassword);
-    } else {
-      // this.api.SendRequestApiWithData(ConfigAPI.UpdatePerson, "PersonName=" + this.person.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&Username=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&Password=" + this.person.NewPassword + "&COnfirmPassword=" + this.person.PersonConfirmPassword).then((res: any) => {
-      //   if (res.successful) {
-      //     this.util.MessageSuccess(this.data.language);
-      //   } else {
-      //     this.util.MessageError(this.data.language);
-      //   }
-      // },(err:any)=>{
-      //   this.util.MessageError(this.data.language);
-      // });
-      this.SendSavePerson(ConfigAPI.UpdatePerson, "PersonName=" + this.person.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&PersonPosition=" + this.person.PersonPosition + "&PersonDepartment=" + this.person.PersonDepartment + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&Username=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&Password=" + this.person.NewPassword + "&ConfirmPassword=" + this.person.PersonConfirmPassword + "&PersonId=" + this.person.PersonId);
-
+    if (this.person.userId == '') {
+      this.err.userId = true;
     }
+    if (this.person.PreName == '') {
+      this.err.preName = true;
+    }
+    if (this.person.Fname == '') {
+      this.err.Fname = true;
+    }
+
+    if (this.person.Lname == '') {
+      this.err.Lname = true;
+    }
+    if (this.person.Phone == '') {
+      this.err.phone = true;
+    }
+
+    if (this.person.Email == '') {
+      this.err.email = true;
+    }
+
+    if (this.person.Depart == '') {
+      this.err.department = true;
+    }
+
+    if (this.person.Position == '') {
+      this.err.position = true;
+    }
+
+    if (this.person.userId != '' && this.person.PreName != '' && this.person.Fname != '' && this.person.Lname != '' && this.person.Phone != '' && this.person.Email != '' && this.person.Depart != '' && this.person.Position != '') {
+      if (this.isInsert) {
+        this.SendSavePerson(ConfigAPI.InsertPerson,
+          "userId=" + this.person.userId +
+          "&title=" + this.person.PreName +
+          "&Fname=" + this.person.Fname +
+          "&Lname=" + this.person.Lname +
+          "&offi_tel=" + this.person.Phone +
+          "&position=" + this.person.Depart +
+          "&depart=" + this.person.Depart +
+          "&email=" + this.person.Email +
+          "&PermissionId="+this.data.userData.data[0].PermissionId+
+          "&staff_status=''");
+      } else {
+        this.SendSavePerson(ConfigAPI.UpdatePerson,
+          "PersonId="+this.person.PersonId+ 
+          "&userId=" + this.person.userId +
+          "&title=" + this.person.PreName +
+          "&Fname=" + this.person.Fname +
+          "&Lname=" + this.person.Lname +
+          "&offi_tel=" + this.person.Phone +
+          "&position=" + this.person.Depart +
+          "&depart=" + this.person.Depart +
+          "&email=" + this.person.Email +
+          "&PermissionId="+this.data.userData.data[0].PermissionId+
+          "&staff_status=''");
+      }
+    }
+
+    // let dataInsertPersonContact = "TypeContactId=" + this.contactList.PersonName + "&PathPhoto=" + this.person.PathPhoto + "&Position=" + this.person.Position + "&Depart=" + this.person.Depart + "&CreateBy=" + this.person.CreateBy + "&IsActive=" + this.person.IsActive + "&OldUsername=" + this.person.OldUsername + "&NewUsername=" + this.person.NewUsername + "&ApplicationId=" + this.person.ApplicationId + "&OldPassword=" + this.person.OldPassword + "&NewPassword=" + this.person.NewPassword;
+
+
   }
-  ValidateInsertPerson() {
-    if (this.person.NewUsername == '') {
-      this.error = "newusername";
-      return false;
+  
+  KeyData(type){
+    console.log(type);
+    if(type == 'userId'){
+      if(this.person.userId != ''){
+        this.err.userId = false;
+      }
     }
-    if (this.person.NewPassword == '') {
-      this.error = "newpassword";
-
-      return false;
+    if(type == 'preName'){
+      if(this.person.PreName != ''){
+        this.err.preName = false;
+      }
     }
-    if (this.person.PersonName == '') {
-      this.error = "personname";
-      return false;
-
+    if(type == 'Fname'){
+      if(this.person.Fname != ''){
+        this.err.Fname = false;
+      }
     }
-    if (this.person.NewUsername == this.person.PersonConfirmPassword) {
-      this.error = "newusername";
-      return true;
+    if(type == 'Lname'){
+      if(this.person.Lname != ''){
+        this.err.Lname = false;
+      }
     }
-
+    if(type == 'phone'){
+      if(this.person.Phone != ''){
+        this.err.phone = false;
+      }
+    }
+    if(type == 'email'){
+      if(this.person.Email != ''){
+        this.err.email = false;
+      }
+    }
+    if(type == 'department'){
+      if(this.person.Depart != ''){
+        this.err.department = false;
+      }
+    }
+    if(type == 'position'){
+      if(this.person.Position != ''){
+        this.err.position = false;
+      }
+    }
   }
   SendSavePerson(url, data) {
+    this.modalService.close(this.modalRef);
     this.api.SendRequestApiWithData(url, data).then((res: any) => {
       console.log(res);
       if (res.successful) {
-
-        if (this.isInsert) {
-          var err = false;
-          if (this.contactList.length > 0) {
-            for (let contactItem of this.contactList) {
-              this.api.SendRequestApiWithData(ConfigAPI.InsertContactPerson,
-                "TypeContactId=" + contactItem.TypeContactId +
-                "&Importance=" + contactItem.Importance +
-                "&Contact=" + contactItem.Contact +
-                "&CreateBy=" + this.person.CreateBy +
-                "&IsActive=" + this.person.IsActive +
-                "&PersonId =" + this.person.PersonId).then((res: any) => {
-                  if (!res.successful) {
-                    err = true;
-                  }
-                });
-            }
-
-            if (err) {
-              this.util.MessageError(this.data.language);
-            } else {
-              this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "person");
-              this.util.MessageSuccess(this.data.language);
-              this.GetAllPerson();
-            }
-          } else {
-            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "person");
-          }
-
-
-        } else {
-          if(this.contactList.length > 0){
-            for (let contactItem of this.contactList) {
-              this.api.SendRequestApiWithData(ConfigAPI.UpdateContactPerson,
-                "TypeContactId=" + contactItem.TypeContactId +
-                "&Importance=" + contactItem.Importance +
-                "&Contact=" + contactItem.Contact +
-                "&CreateBy=" + this.person.CreateBy +
-                "&IsActive=" + this.person.IsActive +
-                "&PersonId =" + this.person.PersonId).then((res: any) => {
-                  if (!res.successful) {
-                    err = true;
-                  }
-                });
-            }
-  
-            if (err) {
-              this.util.MessageError(this.data.language);
-            } else {
-            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "person");
-              this.util.MessageSuccess(this.data.language);
-              this.GetAllPerson();
-            }
-          }else{
-            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "person");
-            
-          }
-          
-        }
-      }
-      else {
+        this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "person");
+        this.util.MessageSuccess(this.data.language);
+        this.GetAllPerson();
+      } else {
         this.util.MessageError(this.data.language);
-
       }
     }, (err: any) => {
       this.util.MessageError(this.data.language);
@@ -210,7 +249,7 @@ export class PersonComponent implements OnInit {
     this.isInsert = true;
     this.contactList = [];
     this.person = new Person();
-    this.person.PersonDepartment = this.getDepartment.data[0].departmentname;
+    this.person.Depart = this.getDepartment.data[0].departmentname;
 
     console.log(this.person);
   }
@@ -225,18 +264,40 @@ export class PersonComponent implements OnInit {
     this.contactList.push(this.contactItem);
     console.log(this.contactList);
   }
+  SetData(item){
+    this.person = new Person();
+    this.person.userId = item.UserId;
+    this.person.CreateBy = item.CreateBy;
+    this.person.CreateDate = item.CreateDate;
+    this.person.Depart = item.Depart;
+    this.person.Email = item.Email;
+    this.person.Fname = item.Fname;
+    this.person.Lname = item.Lname;
+    this.person.Phone = item.Offi_tel;
+    this.person.PermissionId = item.PermissionId;
+    this.person.PersonId = item.PersonId;
+    this.person.Position = item.Position;
+    this.person.Staff_status = item.Staff_status;
+    this.person.Title = item.Title;
+    if(item.Title === 'นาย'){
+      this.person.PreName = 'mr';
+    }else if(item.Title === 'นาง'){
+      this.person.PreName = 'mrs';
+    }else if(item.Title === 'นางสาว'){
+      this.person.PreName = 'miss';
+    }
+    console.log(this.person);
+  }
   EditPerson(item) {
     this.contactList = [];
     this.image = "assets/image/user.png";
     this.isInsert = false;
-    this.person = item;
-    this.person.CreateBy = 1;
-    this.person.IsActive = 1;
-
+    this.SetData(item);
+    this.openModal();
   }
 
   SaveDeletePerson() {
-    let data = "CreateBy=" + this.deletePerson.CreateBy + "&IsActive=" + this.deletePerson.IsActive + "&PersonId=" + this.deletePerson.PersonId + "&PersonContactId=1";
+    let data = `"staff_status="${this.person.Staff_status}&PersonId=${this.person.PersonId}`;
 
 
     this.api.SendRequestApiWithData(ConfigAPI.DeletePerson, data).then((res: any) => {
@@ -253,10 +314,8 @@ export class PersonComponent implements OnInit {
     });
   }
   DeletePerson(item) {
-    this.deletePerson = new Person();
-    this.deletePerson = item;
-    this.deletePerson.IsActive = 1;
-    this.deletePerson.CreateBy = 1;
+    this.person = new Person();
+    this.SetData(item);
     console.log(this.deletePerson);
   }
   uploadFile(value) {

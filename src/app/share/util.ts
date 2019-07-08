@@ -58,7 +58,7 @@ export class UtilProvider {
 
   PushItemArray(array: Array<any>, item) {
     let newarray = array;
-    console.log('PushItemArray=>',array+","+item)
+    console.log('PushItemArray=>', array + "," + item)
     if (newarray == undefined) {
       newarray = [];
       newarray.push(item);
@@ -66,7 +66,7 @@ export class UtilProvider {
     } else {
       newarray.push(item);
     }
-    
+
     return newarray;
   }
   DoError() {

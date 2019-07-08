@@ -6,8 +6,8 @@ export class AllPerson{
 export class AllPersonData{
     PersonId:string;
     PersonName:string;
-    PersonPosition:string;
-    PersonDepartment:number;
+    Position:string;
+    Depart:number;
     Contact:string;
     PathPhoto:string;
 }

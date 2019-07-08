@@ -178,7 +178,7 @@ export class DepartmentComponent implements OnInit {
 
 
   SaveDeletePerson() {
-    let data = "OrganizationId=" + this.organization.OrganizationId + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1";
+    let data = "OrganizationId=" + this.organization.OrganizationId + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1";
     this.api.SendRequestApiWithData(ConfigAPI.DeleteOrganization, data).then((res: any) => {
       if (res.successful) {
         this.api.InsertLog(this.data.userData.data[0].PersonId, 'Delete', "organization");

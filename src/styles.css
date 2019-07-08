@@ -72,7 +72,7 @@ html, body {
 }
 
 .ab {
-  position: absolute;
+  position: absolute !important;
 }
 
 .z-index-1000{
@@ -299,6 +299,9 @@ html, body {
 .border-bottom-1{
   border-bottom: 1px solid #001a66 !important;
 }
+.border-bottom-black-5{
+  border-bottom: 5px solid #222 !important;
+}
 .border-bottom-3{
   border-bottom: 3px solid #001a66 !important;
 }
@@ -455,6 +458,13 @@ html, body {
 }
 
 /* custom */
+
+.modal-footer{
+  justify-content: center !important;
+}
+.modal-header{
+  background: #dc3545;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -545,6 +555,14 @@ ngb-pagination ul{
 .close:hover{
   opacity: 1;
   color: white;
+}
+
+.close-modal{
+  position: absolute;
+  right: 20px;
+  color: white;
+  z-index: 999;
+  background: transparent;
 }
 .modal-xlg {
   max-width: 950px;

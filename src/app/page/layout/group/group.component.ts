@@ -196,7 +196,7 @@ export class GroupComponent implements OnInit {
     this.isInsert = true;
     this.group = new Group();
     this.group.department = this.getDepartment.data[0].DepartmentId;
-    this.group.CreateBy = this.data.userData.data[0].UserName;
+    this.group.CreateBy = this.data.userData.data[0].UserId;
     this.group.isActive = '1';
   }
   DeletePerson(item, i) {

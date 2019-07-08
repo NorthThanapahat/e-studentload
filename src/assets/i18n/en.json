@@ -22,6 +22,9 @@
             "4": "Audit Log"
         }
     },
+    "Mr":"Mr",
+    "Mrs":"Mrs",
+    "Miss":"Miss",
     "Save": "Save",
     "Cancle": "Cancle",
     "buttonInsert": "Add Application",
@@ -29,9 +32,12 @@
         "edit": "Revision history"
     },
     "name": "Name",
+    "lastname": "Lastname",
     "fullname": "Name - Surname",
+    "prename" : "PreName",
     "internalPhone": "Internal Phone Number",
     "email": "Email",
+    "phone":"Phone",
     "department": "Department",
     "position": "position",
     "externalPhone": "External Phone Number",
@@ -40,16 +46,19 @@
         "historyOfLogin": "Login History",
         "SystemName": "System Name",
         "LinkUrl": "Link Url",
+        "ApplicationId":"Application Id",
         "Details": "Details",
         "AttachmentsFile": "Attachment File"
     },
     "Personal": {
+        "userId":"User ID",
         "employeeId": "Employee ID",
         "name-sur": "Name - Surname",
         "internalPhone": "Internal Phone Number",
         "email": "Email",
         "department": "Department",
-        "position": "Position"
+        "position": "Position",
+        "addPerson":"Insert Person"
     },
     "Organization": {
         "addressOrganization": "OrganizationAddress ",
@@ -117,6 +126,15 @@
         "PasswordConfirm":"Confirm Password"
     },
     "Permission":{
+        "PermissionName":"Permission Name",
+        "PermissionStatus":"Permission Status",
+        "ManagePermission":"Manage Permission",
+        "MenuName":"Menu",
+        "No":"No",
+        "All":"All",
+        "View":"View",
+        "Add":"Add",
+        "Delete":"Delete",
         "SetPermission":"Setting Permission",
         "CreatePermission":"Create Permission",
         "GroupName-Person":"PersonName/GroupName",

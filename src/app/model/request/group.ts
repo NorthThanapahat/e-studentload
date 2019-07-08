@@ -12,8 +12,8 @@ export class Group{
 export class GroupPerson{
     PersonId:string = '';
     PersonName:string = '';
-    PersonPosition:string = '';
-    PersonDepartment:number = 0;
+    Position:string = '';
+    Depart:number = 0;
     Contact:string = '';
     PathPhoto:string = '';
 }

@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
       this.data.userData = <UserData>this.util.GetUserInfo();
     }
     console.log(this.util.GetUserInfo());
-    this.username = this.data.userData.data[0].PersonName;
+    this.username = this.data.userData.data[0].Fname + this.data.userData.data[0].Lname;
     this.translate.setDefaultLang('th');
     if (localStorage.getItem('language') == 'th' || localStorage.getItem('language') == 'en') {
       this.translate.use(localStorage.getItem('language'));

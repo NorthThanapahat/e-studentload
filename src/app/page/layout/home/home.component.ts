@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
 import { ApiProvider } from 'src/app/share/api/api';
 import { UtilProvider } from 'src/app/share/util';
 import { ConfigAPI } from 'src/app/share/api/ConfigApi';
@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Application } from 'src/app/model/request/application';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/share/api/home-service/home-service';
+import { ModalManager } from 'ngb-modal';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,9 @@ import { HomeService } from 'src/app/share/api/home-service/home-service';
   ]
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('myModal') myModal;
+  private modalRef;
+  
   isInsert = false;
   application: any;
   auditLog: any;
@@ -37,6 +41,7 @@ export class HomeComponent implements OnInit {
     public data: DataProvider,
     private homeService: HomeService,
     public translate: TranslateService,
+    private modalService: ModalManager,
     private router: Router) {
     this.data.page = 'application';
 
@@ -107,6 +112,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.modalService.close(this.modalRef);
     this.util.ShowLoading();
     console.log(this.isInsert);
     if (this.isInsert) {
@@ -114,6 +120,7 @@ export class HomeComponent implements OnInit {
         "&LinkURL=" + this.applicationItem.LinkURL +
         "&File" + this.path +
         "&Detail" + this.applicationItem.Detail +
+        "&AppId="+this.applicationItem.AppId+
         "&CreateBy=" + 1 +
         "&IsActive=" + 1
 
@@ -136,7 +143,8 @@ export class HomeComponent implements OnInit {
     } else {
       const data = "ApplicationId=" + this.applicationItem.ApplicationId + "&ApplicationName=" + this.applicationItem.ApplicationName +
         "&LinkURL=" + this.applicationItem.LinkURL +
-        "&File" + this.path +
+        "&File=" + this.path +
+        "&AppId="+this.application.AppId+
         "&Detail" + this.applicationItem.Detail +
         "&CreateBy=" + 1 +
         "&IsActive=" + 1
@@ -159,10 +167,27 @@ export class HomeComponent implements OnInit {
     }
 
   }
+  openModal() {
+    this.modalRef = this.modalService.open(this.myModal, {
+      size: "lg",
+      modalClass: 'mymodal',
+      hideCloseButton: true,
+      centered: false,
+      backdrop: true,
+      animation: true,
+      keyboard: false,
+      closeOnOutsideClick: true,
+      backdropClass: "modal-backdrop"
+    })
+  }
 
+  CloseModal(){
+    this.modalService.close(this.modalRef);
+  }
   NewApplication() {
     this.isInsert = true;
     this.applicationItem = new Application();
+    this.openModal();
   }
 
   Edit(applicaition) {

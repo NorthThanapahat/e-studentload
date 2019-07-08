@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiProvider } from 'src/app/share/api/api';
 import { ConfigAPI } from 'src/app/share/api/ConfigApi';
 import { UtilProvider } from 'src/app/share/util';
 import { DataProvider } from 'src/app/share/provider/provider';
 import { AllPerson } from 'src/app/model/allperson';
 import { Department } from 'src/app/model/request/department';
+import { ModalManager } from 'ngb-modal';
 
 @Component({
   selector: 'app-side',
@@ -12,7 +13,8 @@ import { Department } from 'src/app/model/request/department';
   styleUrls: ['./side.component.css']
 })
 export class SideComponent implements OnInit {
-
+  @ViewChild('myModal') myModal;
+  private modalRef;
   image: any;
   allperson: AllPerson;
   persons: Array<any>;
@@ -22,6 +24,7 @@ export class SideComponent implements OnInit {
   allOrganization: any;
   department: Department = new Department();
   constructor(public api: ApiProvider,
+    private modalService: ModalManager,
     public util: UtilProvider,
     public data: DataProvider) {
     this.data.page = 'department';
@@ -61,33 +64,37 @@ export class SideComponent implements OnInit {
   SelectOrganization(value) {
     console.log(value);
   }
-  AddPerson(item, i) {
-    if (!item.selected) {
-      this.department.DepartmentPerson.push(item);
-      item.selected = true;
-    }
 
-    console.log(this.allperson);
+  
+  NewDepartment(){
+    this.department = new Department();
+    this.openModal();
+  }
+  openModal() {
+    this.modalRef = this.modalService.open(this.myModal, {
+      size: "lg",
+      modalClass: 'mymodal',
+      hideCloseButton: true,
+      centered: false,
+      backdrop: true,
+      animation: true,
+      keyboard: false,
+      closeOnOutsideClick: true,
+      backdropClass: "modal-backdrop"
+    })
   }
   Edit(item) {
+    
     this.isInsert = false;
     this.department.DepartmentId = item.DepartmentId;
     this.department.DepartmentName = item.DepartmentName;
+    this.department.DepartmentPhone = item.DepartmentPhone;
     this.department.Detail = item.DepartmentDetail;
+    this.department.Fname = item.Fname;
     this.department.OrganizationId = item.OrganizationId;
-    this.department.DepartmentPerson = [];
+    this.openModal();
   }
-  DeletePerson(item, i) {
-    console.log(i);
-    this.department.DepartmentPerson.splice(i, 1);
-
-    for (let i in this.persons) {
-      if (item.PersonId == this.persons[i].PersonId) {
-        this.persons[i].selected = false;
-      }
-    }
-    console.log(this.persons);
-  }
+  
   uploadFile(value) {
     this.department.DepartmentPhoto = value.target.value;
     console.log(this.department.DepartmentPhoto);
@@ -101,12 +108,13 @@ export class SideComponent implements OnInit {
     this.department.Detail = item.DepartmentDetail;
   }
   SaveDeleteDepartment() {
-    let data = "DepartmentId=" + this.department.DepartmentId + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1";
+    let data = "DepartmentId=" + this.department.DepartmentId + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1";
+   
     this.api.SendRequestApiWithData(ConfigAPI.DeleteDepartment, data).then((res: any) => {
       if (res.successful) {
         this.GetDepartment();
         this.api.InsertLog(this.data.userData.data[0].PersonId, 'Delete', "department");
-        
+
         this.util.MessageSuccess(this.data.language);
       } else {
         this.util.MessageError(this.data.language);
@@ -118,71 +126,59 @@ export class SideComponent implements OnInit {
   Insert() {
     this.department = new Department();
     this.isInsert = true;
+    this.openModal();
   }
 
   SaveOrganization() {
     this.CloseModal();
-    let data = "DepartmentName=" + this.department.DepartmentName + "&DepartmentDetail=" + this.department.Detail + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1" + "&OrganizationId=" + this.department.OrganizationId + "&DepartmentPhone=" + this.department.InternalPhoneNumber;
+    let data = "DepartmentName=" + this.department.DepartmentName + "&DepartmentDetail=" + this.department.Detail + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1" + "&OrganizationId=" + this.department.OrganizationId + "&DepartmentPhone=" + this.department.DepartmentPhone + "&DepartmentEmail=" + this.department.email;
     if (this.isInsert) {
       this.api.SendRequestApiWithData(ConfigAPI.InsertDepartment, data).then((res: any) => {
         if (res.successful) {
-          if (this.department.DepartmentPerson.length > 0) {
-            for (let i in this.department.DepartmentPerson) {
-              let data = "DepartmentId=" + res.data[0].DepartmentId + "&personId=" + this.department.DepartmentPerson[i].PersonId + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1";
-              this.api.SendRequestApiWithData(ConfigAPI.InsertDepartmentPerson, data).then((res: any) => {
-                if (res.successful) {
-                  this.GetDepartment();
-                  this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "department");
-
-                  this.util.MessageSuccess(this.data.language);
-                } else {
-                  this.util.MessageError(this.data.language);
-                }
-              }, (err) => {
-                this.util.MessageError(this.data.language);
-
-              });
-            }
-          } else {
-            this.GetDepartment();
-            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "department");
-            this.util.MessageSuccess(this.data.language);
-          }
-
+          // if (this.department.DepartmentPerson.length > 0) {
+          //   for (let i in this.department.DepartmentPerson) {
+          //     let data = "DepartmentId=" + res.data[0].DepartmentId + "&personId=" + this.department.DepartmentPerson[i].PersonId + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1";
+          //     this.api.SendRequestApiWithData(ConfigAPI.InsertDepartmentPerson, data).then((res: any) => {
+          //       if (res.successful) {
+          this.GetDepartment();
+          this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "department");
+          this.util.MessageSuccess(this.data.language);
         } else {
           this.util.MessageError(this.data.language);
         }
-      }, (err: any) => {
-        console.log('Error===> ' + err);
+      }, (err) => {
         this.util.MessageError(this.data.language);
+
       });
+
+
     } else {
-      let data = "DepartmentId=" + this.department.DepartmentId + "&DepartmentName=" + this.department.DepartmentName + "&DepartmentDetail=" + this.department.Detail + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1" + "&OrganizationId=" + this.department.OrganizationId + "&DepartmentPhone=" + this.department.InternalPhoneNumber;
+      let data = "DepartmentId=" + this.department.DepartmentId + "&DepartmentName=" + this.department.DepartmentName + "&DepartmentDetail=" + this.department.Detail + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1" + "&OrganizationId=" + this.department.OrganizationId + "&DepartmentPhone=" + this.department.DepartmentPhone+"&DepartmentEmail="+this.department.email;
 
       this.api.SendRequestApiWithData(ConfigAPI.UpdateDepartment, data).then((res: any) => {
         if (res.successful) {
-          if (this.department.DepartmentPerson.length > 0) {
-            for (let i in this.department.DepartmentPerson) {
-              let data = "DepartmentId=" + this.department.DepartmentId + "&personId=" + this.department.DepartmentPerson[i].PersonId + "&CreateBy=" + this.data.userData.data[0].UserName + "&IsActive=1";
-              this.api.SendRequestApiWithData(ConfigAPI.InsertDepartmentPerson, data).then((res: any) => {
-                if (res.successful) {
-                  this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "department");
-                  this.GetDepartment();
-                  this.util.MessageSuccess(this.data.language);
-                } else {
-                  this.util.MessageError(this.data.language);
-                }
-              }, (err) => {
-                this.util.MessageError(this.data.language);
-
-              });
-            }
-          } else {
-            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "department");
-            this.GetDepartment();
-            this.util.MessageSuccess(this.data.language);
-          }
+          // if (this.department.DepartmentPerson.length > 0) {
+          //   for (let i in this.department.DepartmentPerson) {
+          //     let data = "DepartmentId=" + this.department.DepartmentId + "&personId=" + this.department.DepartmentPerson[i].PersonId + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1";
+          //     this.api.SendRequestApiWithData(ConfigAPI.InsertDepartmentPerson, data).then((res: any) => {
+          //       if (res.successful) {
+          this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "department");
+          this.GetDepartment();
+          this.util.MessageSuccess(this.data.language);
+        } else {
+          this.util.MessageError(this.data.language);
         }
+        //   }, (err) => {
+        //     this.util.MessageError(this.data.language);
+
+        //   });
+        // }
+        //   } else {
+        //     this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "department");
+        //     this.GetDepartment();
+        //     this.util.MessageSuccess(this.data.language);
+        //   }
+        // }
       }, (err: any) => {
         console.log('Error===> ' + err);
         this.util.MessageError(this.data.language);
@@ -191,10 +187,7 @@ export class SideComponent implements OnInit {
 
   }
 
-  CloseModal() {
-    for (let person of this.persons) {
-      person.selected = false;
-    }
+  CloseModal(){
+    this.modalService.close(this.modalRef);
   }
-
 }

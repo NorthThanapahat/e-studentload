@@ -39,8 +39,8 @@
     </div>
     <div class="clearfix"></div>
     <div *ngIf="data.application?.length == 0" class="font-size-48 margin-top-20 text-center">
-        {{'NotFoundData' | translate}}
-      </div>
+      {{'NotFoundData' | translate}}
+    </div>
     <div class="margin-left-15p" *ngIf="data.application?.length > 0">
       <div class="text-center col-3 item padding margin float-left"
         *ngFor="let item of data.application | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
@@ -61,93 +61,106 @@
       <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
         [collectionSize]="data.application?.length"></ngb-pagination>
     </div>
+    <modal #myModal>
+      <modal-header class="col-12 no-padding">
+        <h5 class="modal-title col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle"
+          (click)="NewApplication()">
+          {{'buttonInsert' | translate}}</h5>
+        <button type="button" class="close no-margin ab" (click)="CloseModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </modal-header>
+      <modal-content>
+        <div>
+          <div class="modal-content">
+            <aside class="col-sm-12 container no-margin-padding">
 
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+              <form class="container padding">
+                <div class="form-group row no-margin margin-top-20">
+                  <label for="inputPassword"
+                    class="col-sm-3 col-form-label no-padding">{{'Home.SystemName' | translate}}</label>
+                  <div class="col-sm-9 no-padding">
+                    <input type="text" class="form-control" name="applicationName"
+                      [(ngModel)]="applicationItem.ApplicationName">
+                  </div>
+                </div>
+                <div class="form-group row no-margin margin-top-20">
+                  <label for="inputPassword"
+                    class="col-sm-3 col-form-label no-padding">{{'Home.LinkUrl' | translate}}</label>
+                  <div class="col-sm-9 no-padding">
+                    <input type="text" class="form-control" name="linkUrl" [(ngModel)]="applicationItem.LinkURL">
+                  </div>
+                </div>
+                <div class="form-group row no-margin margin-top-20">
+                  <label for="inputPassword"
+                    class="col-sm-3 col-form-label no-padding">{{'Home.ApplicationId' | translate}}</label>
+                  <div class="col-sm-9  no-padding">
+                    <input type="text" class="form-control" name="AppId" [(ngModel)]="applicationItem.AppId">
+                  </div>
+                </div>
+                <div class="form-group row no-margin margin-top-20">
+                  <label for="inputPassword"
+                    class="col-sm-3 col-form-label no-padding">{{'Home.Details' | translate}}</label>
+                  <div class="col-sm-9  no-padding">
+                    <input type="text" class="form-control" name="details" [(ngModel)]="applicationItem.Detail">
+                  </div>
+                </div>
+
+                <div class="input-group row no-margin margin-top-20">
+                  <label for="inputPassword"
+                    class="col-sm-3 col-form-label no-padding">{{'Home.AttachmentsFile' | translate}}</label>
+
+                  <div class="custom-file col-sm-9">
+                    <input type="file" accept="image/*" (change)="processFile($event)" class="custom-file-input"
+                      id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="file" [(ngModel)]="path">
+                    <label class="custom-file-label" for="inputGroupFile01">{{path}}</label>
+                  </div>
+                </div>
+
+
+              </form>
+            </aside>
+          </div>
+
+        </div>
+      </modal-content>
+      <modal-footer class="text-center">
+        <div class="text-center margin-top-20">
+          <button class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">{{'Save' | translate}}</button>
+          <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
+        </div>
+      </modal-footer>
+    </modal>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-          <aside class="col-sm-12 container no-margin-padding">
+          <aside class="col-sm-12  col-12 container no-margin-padding">
             <div class="modal-header bg-danger ">
-              <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle"
-                (click)="NewApplication()">
-                {{'buttonInsert' | translate}}</h5>
+              <h5 class="modal-title col-sm-12  col-12 text-center  text-white" id="exampleModalLongTitle">
+                {{'deleteConfirm' |translate }}
+              </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <form class="container padding">
-              <div class="form-group row no-margin margin-top-20">
-                <label for="inputPassword"
-                  class="col-sm-3 col-form-label no-padding">{{'Home.SystemName' | translate}}</label>
-                <div class="col-sm-9 no-padding">
-                  <input type="text" class="form-control" name="applicationName"
-                    [(ngModel)]="applicationItem.ApplicationName">
+              <div class="col-sm-8  col-8 float-left">
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-3  col-3 col-form-label">{{'name' | translate}}
+                    {{deleteApplication?.ApplicationName}}</label>
                 </div>
               </div>
-              <div class="form-group row no-margin margin-top-20">
-                <label for="inputPassword"
-                  class="col-sm-3 col-form-label no-padding">{{'Home.LinkUrl' | translate}}</label>
-                <div class="col-sm-9 no-padding">
-                  <input type="text" class="form-control" name="linkUrl" [(ngModel)]="applicationItem.LinkURL">
-                </div>
-              </div>
-              <div class="form-group row no-margin margin-top-20">
-                <label for="inputPassword"
-                  class="col-sm-3 col-form-label no-padding">{{'Home.Details' | translate}}</label>
-                <div class="col-sm-9  no-padding">
-                  <input type="text" class="form-control" name="details" [(ngModel)]="applicationItem.Detail">
-                </div>
-              </div>
-              <div class="input-group row no-margin margin-top-20">
-                <label for="inputPassword"
-                  class="col-sm-3 col-form-label no-padding">{{'Home.AttachmentsFile' | translate}}</label>
-
-                <div class="custom-file col-sm-9">
-                  <input type="file" accept="image/*" (change)="processFile($event)" class="custom-file-input"
-                    id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="file" [(ngModel)]="path">
-                  <label class="custom-file-label" for="inputGroupFile01">{{path}}</label>
-                </div>
-              </div>
-              <div class="text-center margin-top-20">
-                <button class="btn btn-primary" data-dismiss="modal"
-                  (click)="onSubmit()">{{'Save' | translate}}</button>
+              <div class="clearfix"></div>
+              <div class="text-center col-sm-12  col-12">
+                <button (click)="ConfirmDelete()" data-dismiss="modal"
+                  class="btn btn-primary">{{'Save' | translate}}</button>
                 <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
               </div>
-
             </form>
           </aside>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content">
-        <aside class="col-sm-12  col-12 container no-margin-padding">
-          <div class="modal-header bg-danger ">
-            <h5 class="modal-title col-sm-12  col-12 text-center  text-white" id="exampleModalLongTitle">
-              {{'deleteConfirm' |translate }}
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form class="container padding">
-            <div class="col-sm-8  col-8 float-left">
-              <div class="form-group row">
-                <label for="inputPassword" class="col-sm-3  col-3 col-form-label">{{'name' | translate}}
-                  {{deleteApplication?.ApplicationName}}</label>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="text-center col-sm-12  col-12">
-              <button (click)="ConfirmDelete()" data-dismiss="modal"
-                class="btn btn-primary">{{'Save' | translate}}</button>
-              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
-            </div>
-          </form>
-        </aside>
-      </div>
-    </div>
-  </div>
-</div>
