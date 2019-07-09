@@ -20,6 +20,9 @@ export class DataProvider {
 
     password: Array<any>;
     allPassword: any;
+    
+    allPermission: any;
+    permission:Array<any>;
 
     allOrganization: any;
     organizations: Array<any>;

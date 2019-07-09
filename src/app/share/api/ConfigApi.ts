@@ -62,6 +62,8 @@ export class ConfigAPI {
     public static UpdatePasswordManagement = ConfigAPI.Base_API + "updatepasswordmanagement";
     public static GetAllpermission = ConfigAPI.Base_API + "getallpermission";
     public static Insertpermission = ConfigAPI.Base_API + "insertpermission";
+    public static Updatepermission = ConfigAPI.Base_API + "updatepermission";
+    public static UpdatepermissionManage = ConfigAPI.Base_API + "updatepermissionmanage";
     public static InsertpermissionManage = ConfigAPI.Base_API + "insertpermissionmanage";
     
     

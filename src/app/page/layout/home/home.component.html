@@ -45,7 +45,9 @@
       <div class="text-center col-3 item padding margin float-left"
         *ngFor="let item of data.application | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
         <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
-        <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">{{item.ApplicationName}}</div>
+        <a href="http://{{item.LinkURL}}">
+          <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">{{item.ApplicationName}}</div>
+        </a>
         <div class="margin-top-20">
           <i (click)="Edit(item)" data-toggle="modal" data-target="#exampleModalCenter"
             class="fas fa-edit text-bule-violet-light"></i>

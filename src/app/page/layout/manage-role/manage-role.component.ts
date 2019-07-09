@@ -17,7 +17,13 @@ export class ManageRoleComponent implements OnInit {
   application: any;
   checkAll: boolean = false;
   permission: any;
+  page = 1;
+  pageSize = 10;
+  totalItem: any;
+  previousPage: any;
+  isInsert = false;
   permissionItem: any = {
+    id:'',
     name: '',
     status: ''
   };
@@ -150,11 +156,15 @@ export class ManageRoleComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.GetAllpermission();
+  }
+  GetAllpermission() {
     this.api.SendRequestApi(`${ConfigAPI.GetAllpermission}?token=${this.util.GetAccessToken()}`).then((res: any) => {
       console.log(res);
 
       if (res.successful) {
+        this.data.allPermission = res;
+        this.data.permission = res.data;
         this.permission = res;
       } else {
         // if (res.code == '-2146233088') {
@@ -172,30 +182,79 @@ export class ManageRoleComponent implements OnInit {
     }
 
     if (!this.err.name && !this.err.status) {
-      let data = `PermissionName=${this.permissionItem.name}&IsActive=${this.permissionItem.status}&CreateBy=${this.data.userData.data[0].PersonId}`;
-      this.api.SendRequestApiWithData(ConfigAPI.Insertpermission, data).then((res: any) => {
-        console.log(res);
-        if (res.successful) {
-          for (let item of this.application) {
-            let data = `View=${item.isViewChecked}&Add=${item.isAddChecked}&Edit=${item.isEditChecked}&Delete=${item.isDeleteChecked}&Import=1&Export=0&IsActive=1&CreateBy=${this.data.userData.data[0].PersonId}&PermissionId=${res.data[0].PermissionId}&ApplicationId=${item.ApplicationId}`;
-            this.api.SendRequestApiWithData(ConfigAPI.InsertpermissionManage, data).then((res: any) => {
-              if (res.successful) {
-                this.util.MessageSuccess(this.data.language);
-              } else {
+      if (this.isInsert) {
+        let data = `PermissionName=${this.permissionItem.name}&IsActive=${this.permissionItem.status}&CreateBy=${this.data.userData.data[0].PersonId}`;
+        this.api.SendRequestApiWithData(ConfigAPI.Insertpermission, data).then((res: any) => {
+          console.log(res);
+          var err = false;
+          this.GetAllpermission();
+          if (res.successful) {
+            for (let item of this.application) {
+              let data = `View=${item.isViewChecked}&Add=${item.isAddChecked}&Edit=${item.isEditChecked}&Delete=${item.isDeleteChecked}&Import=1&Export=0&IsActive=1&CreateBy=${this.data.userData.data[0].PersonId}&PermissionId=${res.data[0].PermissionId}&ApplicationId=${item.ApplicationId}`;
+              this.api.SendRequestApiWithData(ConfigAPI.InsertpermissionManage, data).then((res: any) => {
+                if (res.successful) {
+                  err = false;
+                } else {
+                  err = true;
+                }
+              }, (err) => {
                 this.util.MessageError(this.data.language);
-              }
-            }, (err) => {
+              })
+            }
+            if (err) {
               this.util.MessageError(this.data.language);
-            })
+            } else {
+              this.util.MessageSuccess(this.data.language);
+            }
+
           }
-        }
-      });
+        });
+      }else{
+        let data = `PermissionId=${this.permissionItem.id}&PermissionName=${this.permissionItem.name}&IsActive=${this.permissionItem.status}&CreateBy=${this.data.userData.data[0].PersonId}`;
+        this.api.SendRequestApiWithData(ConfigAPI.Updatepermission, data).then((res: any) => {
+          console.log(res);
+          var err = false;
+          this.GetAllpermission();
+          
+          if (res.successful) {
+            for (let item of this.application) {
+              let data = `View=${item.isViewChecked}&Add=${item.isAddChecked}&Edit=${item.isEditChecked}&Delete=${item.isDeleteChecked}&Import=1&Export=0&IsActive=1&CreateBy=${this.data.userData.data[0].PersonId}&PermissionId=${this.permissionItem.PermissionId}&ApplicationId=${item.ApplicationId}`;
+              this.api.SendRequestApiWithData(ConfigAPI.UpdatepermissionManage, data).then((res: any) => {
+                if (res.successful) {
+                  err = false;
+                } else {
+                  err = true;
+                }
+              }, (err) => {
+                this.util.MessageError(this.data.language);
+              })
+            }
+            if(err){
+              this.util.MessageError(this.data.language);
+            }else{
+              this.util.MessageSuccess(this.data.language);
+            }
+  
+          }
+        });
+      }
+
     }
 
     this.CloseModal();
   }
   Edit(item) {
+    this.isInsert = false;
     console.log(item);
+    this.permissionItem.id = item.PermissionId;
+    this.permissionItem.name = item.PermissionName;
+    this.permissionItem.status = item.IsActive;
+    this.openModal();
   }
-
+  NewPermission() {
+    this.isInsert = true;
+    this.permissionItem.name = '';
+    this.permissionItem.status = '';
+    this.openModal();
+  }
 }

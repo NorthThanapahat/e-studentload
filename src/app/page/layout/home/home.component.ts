@@ -194,6 +194,7 @@ export class HomeComponent implements OnInit {
     this.path = '';
     this.isInsert = false;
     this.applicationItem = <Application>applicaition;
+    this.openModal();
   }
   Delete(application) {
     this.deleteApplication = <Application>application;

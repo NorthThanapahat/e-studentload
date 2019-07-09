@@ -48,6 +48,7 @@ export class ApiProvider {
                         this.data.personLog[i].Date = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
                         this.data.personLog[i].Time = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
                     }
+                   
                 }
                 if (item.Manu == 'organization') {
                     this.data.organizationLog = this.util.PushItemArray(this.data.organizationLog, item);
@@ -66,6 +67,7 @@ export class ApiProvider {
                         this.data.departmentLog[i].Date = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
                         this.data.departmentLog[i].Time = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
                     }
+                
                 }
                 if (item.Manu == 'group') {
                     this.data.groupLog = this.util.PushItemArray(this.data.groupLog, item);

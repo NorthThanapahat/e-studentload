@@ -124,6 +124,9 @@ html, body {
   height: 200px;
 }
 
+.mxh-400{
+  max-height: 400px;
+}
 .mh-450{
   min-height: 450px;
 }
@@ -458,7 +461,9 @@ html, body {
 }
 
 /* custom */
-
+.scroll-y{
+  overflow-y:scroll; 
+}
 .modal-footer{
   justify-content: center !important;
 }

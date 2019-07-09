@@ -2,9 +2,8 @@
   <div class="col-sm-12 no-padding">
     <div class="text-white text-center justify-content-center no-padding">
       <h4 class="bg-danger padding">{{'Permission.SetPermission' | translate}}</h4>
-      <div class="ht-200 bg-white"></div>
     </div>
-    <button class="col-sm-4 btn btn-success margin-left float-right margin-bottom-10" (click)="openModal()"
+    <button class="col-sm-4 btn btn-success margin-left float-right margin-bottom-10" (click)="NewPermission()"
       data-toggle="modal" data-target="#exampleModalCenter">{{'Permission.CreatePermission' | translate}}</button>
     <div class="clearfix"></div>
     <div class="container no-padding">
@@ -22,7 +21,7 @@
               </tr>
             </thead>
             <tbody class="text-center">
-              <tr *ngFor="let item of permission?.data">
+              <tr *ngFor="let item of data.permission | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
                 <td class="text-center">{{item.PermissionName}}</td>
                 <td class="text-center">{{item.MenuName}}</td>
                 <td class="text-center">{{item.PermissionType}}</td>
@@ -32,16 +31,14 @@
               </tr>
             </tbody>
           </table>
-
-
-
         </div>
-        <div class="col-sm-4 offset-sm-4 display-table margin-top-20 margin-bottom-10">
-          <button class="btn btn-primary margin-left float-left">{{'Save' | translate}}</button>
-          <button class="btn btn-danger margin-right float-right" data-dismiss="modal">{{'Cancle' | translate}}</button>
+        <div class="clearfix"></div>
+        <div class="col-12 justify-content-center mb-5 margin-top-10">
+          <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
+            [collectionSize]="data.permission?.length"></ngb-pagination>
         </div>
       </div>
-
+      
       <modal #myModal>
         <modal-header class="col-12 no-padding">
           <h5 class="modal-title col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle">

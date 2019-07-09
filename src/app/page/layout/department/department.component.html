@@ -61,19 +61,22 @@
           {{'history.edit' | translate}}
           <i class="fas fa-edit"></i>
         </div>
-        <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-15">
-          <div class="full-body display-table  padding border-bottom-1" *ngFor="let item of data?.organizationLog">
-            <div class="full-body">
-              <div class="float-left d-flex justify-content-start">{{item.Date}}</div>
-              <div class="float-right">{{item.Month}}</div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="full-body">
-              <div class="float-left d-flex justify-content-start">{{item.PersonId}}</div>
-              <div class="float-right">{{item.Time}}</div>
+        <div class="scroll-y d-block mxh-400 float-left w-100">
+          <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-15">
+            <div class="full-body display-table  padding border-bottom-1" *ngFor="let item of data?.organizationLog">
+              <div class="full-body">
+                <div class="float-left d-flex justify-content-start">{{item.Date}}</div>
+                <div class="float-right">{{item.Month}}</div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="full-body">
+                <div class="float-left d-flex justify-content-start">{{item.PersonId}}</div>
+                <div class="float-right">{{item.Time}}</div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
