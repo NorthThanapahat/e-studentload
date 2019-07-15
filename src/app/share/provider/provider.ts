@@ -72,13 +72,17 @@ export class DataProvider {
             return this.password.filter((item) => {
                 return item.ApplicationName.toLowerCase().indexOf(value.toLowerCase()) > -1 || item.OldUsername.toLowerCase().indexOf(value.toLowerCase()) > -1;
             })
+        }else if(this.page == 'manage-role'){
+            return this.permission.filter((item)=>{
+                return item.PermissionName.toLowerCase().indexOf(value.toLowerCase())>-1 ;
+            })
         }
     }
 }
 export class Log {
     CreateDate:string;
     EventLog:string;
-    Manu:string;
+    Menu:string;
     PersonId:string;
     UserLogId:string;
     Date:string;

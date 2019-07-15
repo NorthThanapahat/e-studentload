@@ -13,7 +13,7 @@ import { DataProvider } from 'src/app/share/provider/provider';
 })
 export class GroupComponent implements OnInit {
   allGroup: any;
-  allperson: AllPerson;
+  allperson: any;
   persons: Array<any>;
   group: Group = new Group();
   getDepartment: any;
@@ -71,7 +71,7 @@ export class GroupComponent implements OnInit {
             var isErr = false;
 
             for (let i in this.group.GroupPerson) {
-              let data = "GroupId=" + this.group.GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
+              let data = "GroupId=" + res.data[0].GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
               this.api.SendRequestApiWithData(ConfigAPI.InsertGroupPerson, data).then((res: any) => {
                 if (!res.successful) {
                   isErr = true;
@@ -159,7 +159,7 @@ export class GroupComponent implements OnInit {
       item.selected = true;
     }
 
-    console.log(this.allperson);
+    console.log(this.group.GroupPerson);
   }
   Edit(item) {
     this.isInsert = false;

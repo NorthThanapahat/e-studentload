@@ -16,6 +16,7 @@
         "6": "Dashboard",
         "7": {
             "name": "Setting",
+            "0": "Change Password",
             "1": "Password Management",
             "2": "Data Reserving",
             "3": "Permission Management",
@@ -166,5 +167,24 @@
         "datestart":"Date Start for backup data",
         "time":"Time Start for backup data",
         "frequency":"Frequency for backup data"
+    },
+    "ChangePassword":{
+        "title":"Change Password",
+        "newpassword":"New Password",
+        "oldpassword":"Old Password",
+        "confirmpassword":"Confirm Password"
+    },
+    "News":{
+        "Menu":"Information News",
+        "AddNews":"Add News",
+        "Date":"Date",
+        "Topic":"Topic",
+        "Details":"Detail",
+        "Status":"Status",
+        "Complete":"Complete",
+        "Pending":"Pending",
+        "InProgress":"In Progress",
+        "Edit":"Edit",
+        "Delete":"Delete"
     }
 }

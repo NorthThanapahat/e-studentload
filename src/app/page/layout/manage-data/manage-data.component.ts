@@ -13,43 +13,43 @@ export class ManageDataComponent implements OnInit {
   startDate: Date;
   startDateStr: string;
   isSetStartDate: boolean;
-  time:string;
-  dateAmt:string;
-  frequency:string;
+  dateStart:Date;
   today: Date;
-  dataSave:any;
+  dataBackup = {
+    dateAmt: '',
+    startDate: '',
+    time:'',
+    frequency:''
+  };
   date: any = {
     value: ''
   };
-  
+
   constructor(public data: DataProvider, private api: ApiProvider, public util: UtilProvider) {
     this.data.page = 'manage-data';
     this.today = new Date();
+    if (localStorage.getItem('savedata') != undefined || !isNull(JSON.parse(localStorage.getItem('savedata')))) {
+      this.dataBackup = JSON.parse(localStorage.getItem('savedata'));
+      this.dateStart = this.util.ConvertStringToDatePicker(this.dataBackup.startDate,'YYYY-MM-DD HH:mm:ss');
+      console.log(this.dateStart);
+      this.startDateStr = this.dataBackup.startDate;
+    }
+    console.log(this.dataBackup);
+
   }
 
   ngOnInit() {
-    if(!isNull(JSON.parse(localStorage.getItem('savedata')))){
-      this.dataSave = JSON.parse(localStorage.getItem('savedata'));
-      console.log(this.dataSave);
-      this.dateAmt = this.dataSave.dateAmt;
-      this.time = this.dataSave.time;
-      this.date.value = this.dataSave.date;
-    }else{
-      this.dataSave = {
-        save:'0'
-      }
-    }
-    
+  
   }
-  Save(){
+  Save() {
     let data = {
-      dateAmt:this.dateAmt,
-      startDate:this.startDateStr,
-      time:this.time,
-      frequency:this.frequency,
-      save:'1'
+      dateAmt: this.dataBackup.dateAmt,
+      startDate: this.startDateStr,
+      time: this.dataBackup.time,
+      frequency: this.dataBackup.frequency
     }
-    localStorage.setItem('savedata',JSON.stringify(data));
+    localStorage.setItem('savedata', JSON.stringify(data));
+    console.log(localStorage.getItem('savedata'));
     this.util.MessageSuccess(this.data.language);
   }
   addEvent(type, date, value) {

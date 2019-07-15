@@ -6,7 +6,7 @@ export class Group{
     CreateBy:string = '';
     GroupId:string = '';
     GroupMemberId:string = '';
-    GroupPerson:Array<GroupPerson> = [];
+    GroupPerson:Array<any> = [];
 }
 
 export class GroupPerson{

@@ -8,7 +8,7 @@
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-6 col-form-label">{{'Manage-Data.dateamount' | translate}}</label>
           <div class="col-sm-6">
-            <input type="number" size="2" class="form-control bg-toolight number" [(ngModel)]="dateAmt">
+            <input type="number" size="2" class="form-control bg-toolight number" [(ngModel)]="dataBackup.dateAmt">
           </div>
         </div>
         <div class="form-group row">
@@ -17,7 +17,7 @@
             <mat-form-field class="w-100">
               <mat-label class="font-size-15">{{'Dashboard.startdate' | translate}}</mat-label>
               <input (dateInput)="addEvent('input','start', $event.target.value)"  [min]="today"
-                (dateChange)="addEvent('change','start', $event.target.value)" class="font-size-15 text-center form-control bg-toolight" [value]="date.value"
+                (dateChange)="addEvent('change','start', $event.target.value)" [(ngModel)]="dateStart" class="font-size-15 text-center form-control bg-toolight" [value]="date.value"
                 matInput [matDatepicker]="StartDate" placeholder="date">
               <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
               <mat-datepicker #StartDate></mat-datepicker>
@@ -27,14 +27,14 @@
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-6 col-form-label">{{'Manage-Data.time' | translate}}</label>
           <div class="col-sm-6">
-            <input class="text-center form-control bg-toolight" [disabled]= "dataSave.save == '1'" [ngxTimepicker]="picker" [(ngModel)]="time" [format]="24"   readonly>
+            <input class="text-center form-control bg-toolight" [ngxTimepicker]="picker" [(ngModel)]="dataBackup.time" [format]="24"   readonly>
             <ngx-material-timepicker #picker></ngx-material-timepicker>
           </div>
         </div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-6 col-form-label">{{'Manage-Data.frequency' | translate}}</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control bg-toolight" [disabled]= "dataSave.save == '1'" name="frequency" [(ngModel)]="frequency">
+            <input type="text" class="form-control bg-toolight" name="frequency" [(ngModel)]="dataBackup.frequency">
           </div>
         </div>
         <div class="col-sm-6 offset-sm-3 display-table margin-top-20">

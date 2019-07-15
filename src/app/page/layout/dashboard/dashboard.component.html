@@ -1,10 +1,10 @@
 <div class="full-body ">
-  <!-- <div class="col-sm-2 no-padding side-menu bule-violet text-center">
+  <div class="col-sm-2 d-none d-md-block col-12 no-padding side-menu bule-violet text-center" style="z-index: 999;">
     <div class="full-body text-white margin-bottom-10">
-      <i class="far fa-user-circle fa-5x  padding"></i>
-      <div class="col-12 ">
-        <span class="border-bottom-3-white"> Nara Taya</span>
-      </div>
+        <i class="far fa-user-circle fa-5x  padding"></i>
+        <div class="col-12 ">
+          <span class="border-bottom-3-white">{{data.userData.data[0].Fname}} {{data.userData.data[0].Lname}}</span>
+        </div>
       <div class="d-flex w-100 bg-white text-bule-violet-light link padding justify-content-center margin-top-30"
         data-toggle="collapse" href="#collapseSideMenu" role="button" aria-expanded="false"
         aria-controls="collapseSideMenu">
@@ -14,69 +14,236 @@
         <i class="fas fa-chevron-down float-left margin-left margin-top-5"></i>
       </div>
       <div class="collapse show" id="collapseSideMenu">
-        <div class="d-flex w-100  bg-white text-bule-violet-light link padding justify-content-center margin-top-5">
+        <div [ngClass]="{'  bg-white ': menu == '1',' text-bule-violet-light':menu == '1'}" (click)="DashboardMenu('1')"
+          class="d-flex w-100  bg-violet-less text-white link padding justify-content-center margin-top-5">
           <div class="float-left">
-            <b>สถิติผู้ใช้งาน</b>
+            <b>{{'Dashboard.sidemenu1' | translate}}</b>
           </div>
         </div>
-        <div class="d-flex w-100  bg-violet-less text-white link padding justify-content-center margin-top-5">
+        <div [ngClass]="{'  bg-white  text-bule-violet-light': menu == '2'}" (click)="DashboardMenu('2')"
+          class="d-flex w-100  bg-violet-less text-white link padding justify-content-center margin-top-5">
           <div class="float-left">
-            <b>การใช้งานระบบ</b>
+            <b>{{'Dashboard.sidemenu2' | translate}}</b>
+          </div>
+        </div>
+        <div [ngClass]="{'  bg-white  text-bule-violet-light': menu == '3'}" (click)="DashboardMenu('3')"
+          class="d-flex w-100 padding-20 bg-violet-less text-white link  justify-content-center margin-top-5">
+          <div class="float-left">
+            <b>{{'News.Menu' | translate}}</b>
           </div>
         </div>
       </div>
     </div>
-  </div> -->
-
-
-  <div class="col-sm-10 float-right margin-top-20 padding">
-    <div class="col-sm-10 float-left">
-      <div class="bg-danger row col-sm-12 text-center text-white padding justify-content-center">
+  </div>
+  <div class="d-block d-sm-none col-12">
+      <div [ngClass]="{'  bg-white ': menu == '1',' text-bule-violet-light':menu == '1'}" (click)="DashboardMenu('1')"
+      class="d-flex w-100  bg-violet-less text-white link padding justify-content-center margin-top-5">
+      <div class="float-left">
+        <b>{{'Dashboard.sidemenu1' | translate}}</b>
+      </div>
+    </div>
+    <div [ngClass]="{'  bg-white  text-bule-violet-light': menu == '2'}" (click)="DashboardMenu('2')"
+      class="d-flex w-100  bg-violet-less text-white link padding justify-content-center margin-top-5">
+      <div class="float-left">
+        <b>{{'Dashboard.sidemenu2' | translate}}</b>
+      </div>
+    </div>
+    <div  [ngClass]="{'  bg-white  text-bule-violet-light': menu == '3'}" (click)="DashboardMenu('3')"
+      class="d-flex w-100 padding-20 bg-violet-less text-white link  justify-content-center margin-top-5">
+      <div class="float-left">
+        <b>{{'News.Menu' | translate}}</b>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{'col-sm-12': menu == '3'}" class="col-sm-10 col-12 float-right margin-top-20 padding">
+    <div [ngClass]="{'col-sm-12': menu == '3'}" class="col-sm-10 col-12 float-left">
+      <div class="bg-danger row col-sm-12 col-12 text-center text-white padding justify-content-center">
         <h5>{{'Dashboard.title' | translate}}</h5>
       </div>
-      <div class="padding margin-top-20 ">
-        <div class="col-sm-6 float-left text-right">
-          <div class="form-group row">
-            <div class="col-sm-12">
+      <div *ngIf="menu == '1' || menu == '2'" class="w-100">
+        <div class="padding margin-top-20 row">
+          <div class="row float-left text-center col-sm-7 col-12">
+            <div class="form-group col-sm-5 col-12">
               <mat-form-field>
                 <mat-label class="font-size-15">{{'Dashboard.startdate' | translate}}</mat-label>
-                <input  (dateInput)="addEvent('input','start', $event.target.value)" [max]="today" (dateChange)="addEvent('change','start', $event.target.value)"  class="font-size-15" [value]="date.value" matInput [matDatepicker]="StartDate" placeholder="date">
-                <mat-datepicker-toggle matSuffix  [for]="StartDate"></mat-datepicker-toggle>
+                <input (dateInput)="addEvent('input','start', $event.target.value)" [max]="today"
+                  (dateChange)="addEvent('change','start', $event.target.value)" class="font-size-15"
+                  [value]="date.value" matInput [matDatepicker]="StartDate" placeholder="date">
+                <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
                 <mat-datepicker #StartDate></mat-datepicker>
               </mat-form-field>
             </div>
-          </div>
-        </div>
-        <div class="col-sm-6 float-left">
-          <div class="form-group row">
-            <div class="col-sm-12">
+            <div class="form-group col-sm-5 col-12">
               <mat-form-field style="z-index: 99999">
                 <mat-label class="font-size-15">{{'Dashboard.enddate' | translate}}</mat-label>
-                <input [disabled]="!isSetStartDate" [min]="startDate" [max]="today" (dateInput)="addEvent('input','end', $event.target.value)" (dateChange)="addEvent('change','end', $event.target.value)" class="font-size-15" [value]="date.value" matInput [matDatepicker]="endDate" placeholder="date">
+                <input [disabled]="!isSetStartDate" [min]="startDate" [max]="today"
+                  (dateInput)="addEvent('input','end', $event.target.value)"
+                  (dateChange)="addEvent('change','end', $event.target.value)" class="font-size-15" [value]="date.value"
+                  matInput [matDatepicker]="endDate" placeholder="date">
                 <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                 <mat-datepicker #endDate></mat-datepicker>
               </mat-form-field>
             </div>
-          </div>
-        </div>
-      </div>
-      <chart class="margin-top-20 d-table col-12" style="height: 350px;" [type]="typeChart" [data]="dataChart"
-        [options]="optionsChart"></chart>
-        <div class="margin-top-30  justify-content-center">
-            <div *ngFor="let item of colors">
-              <div class="float-left col-sm-2">
-                <i class="fas fa-circle text-{{item.key}} float-left"></i>
-                <div class=" float-left">{{item.legend}} </div>
-    
-              </div>
+
+            <div class="form-group col-sm-2 col-12" *ngIf="menu == '1'"> <br>
+              <button mat-raised-button (click)="GetDataStatisticPersonal()" [disabled]="!isSetStartDate && endDateStr">
+                <i class="glyphicon fas fa-search text-gray"></i> </button>
+            </div>
+
+
+            <div class="form-group  col-sm-2 col-12" *ngIf="menu == '2'"> <br>
+              <button mat-raised-button (click)="GetRepostUserLog()" [disabled]="!isSetStartDate && endDateStr"><i
+                  class="glyphicon fas fa-search text-gray"></i></button>
             </div>
           </div>
-      
-    </div>
-    
+        </div>
 
-    <div class="col-sm-2 float-right">
-      <div
+        <chart class="margin-top-20 d-table row col" style="height: 350px;" [type]="typeChart" [data]="dataChart"
+          [options]="optionsChart"></chart>
+        <!-- 
+              <div class="margin-top-30  justify-content-center">
+                <div *ngFor="let item of colors">
+                  <div class="float-left col-sm-2">
+                    <i class="fas fa-circle text-{{item.key}} float-left"></i>
+                    <div class=" float-left">{{item.legend}} </div>
+        
+                  </div>
+                </div>
+              </div> -->
+
+
+
+
+        <mat-card *ngIf="dataResult">
+          <mat-card-title>รายละเอียด</mat-card-title>
+          <mat-card-content>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>{{ this.isUserLog == true ? 'PersonId':'PersonName'}}</th>
+                    <th>CreateDate</th>
+                    <!-- <th>Raw Data</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of dataResult; let i = index" class="no-top-border">
+                    <td>{{i+1}}</td>
+                    <td>{{this.isUserLog == true ? item.PersonId : item.Fname+" "+item.Lname}}</td>
+                    <td>{{item.CreateDate | date: 'dd-MM-yyyy'}}</td>
+                    <!-- <td><small>
+                              <pre>{{item | json}}</pre>
+                            </small>
+                          </td> -->
+                  </tr>
+                </tbody>
+
+
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+
+      </div>
+
+      <div *ngIf="menu == '3'" class="border margin-top-10 padding">
+        <div *ngIf="submenu == 3.1">
+          <div class="padding d-table w-100">
+            <div class=" float-right link padding  text-white btn btn-success" (click)="AddNews()">
+              <i class="fas fa-plus-circle text-white"></i>
+              {{'News.AddNews' | translate}}
+            </div>
+          </div>
+          <div class="margin-top-10 table-responsive">
+            <table class="table">
+              <thead class="bg-danger text-white">
+                <tr>
+                  <th scope="col">{{'News.Date' | translate}}</th>
+                  <th scope="col">{{'News.Topic'| translate}}</th>
+                  <th scope="col">{{'News.Details' | translate}}</th>
+                  <th scope="col">{{'News.Status' | translate}}</th>
+                  <th scope="col">{{'News.Edit' | translate}}</th>
+                  <th scope="col">{{'News.Delete' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of newsList  | slice: (data.pageNum-1) * 5 : (data.pageNum-1) * 5 + 5">
+                  <th>{{item.StrDate}}</th>
+                  <td>{{item.TopicNew}}</td>
+                  <td>{{item.DetailNew}}</td>
+                  <td *ngIf="item.IsActive == ''"></td>
+                  <td *ngIf="item.IsActive == '2'">{{'News.Complete' | translate}}</td>
+                  <td *ngIf="item.IsActive == '0'">{{'News.Pending' | translate}}</td>
+                  <td *ngIf="item.IsActive == '1'">{{'News.InProgress' | translate}}</td>
+                  <td><span (click)="EditNews(item)"
+                      class="bg-primary link text-white padding">{{'News.Edit' | translate}}</span></td>
+                  <td><span (click)="DeleteNews(item)" data-toggle="modal" data-target="#deleteModal"
+                      class="bg-danger link text-white padding">{{'News.Delete' | translate}}</span></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="clearfix"></div>
+          <div class="col-12 justify-content-center">
+            <ngb-pagination [(page)]="data.pageNum" [pageSize]="5" [maxSize]="5" [collectionSize]="newsList?.length">
+            </ngb-pagination>
+          </div>
+        </div>
+        <div *ngIf="submenu == 3.2">
+          <div>
+            <div class="col-12 col-sm-7">
+              <div class="form-group padding col-12 col-sm-5 float-left">
+                <mat-form-field>
+                  <mat-label class="font-size-15">{{'Dashboard.startdate' | translate}}</mat-label>
+                  <input [ngClass]="{'is-invalid': err.news.startDate}" [(ngModel)]="startDateNews"
+                    (dateInput)="addEvent('input','start', $event.target.value)"
+                    (dateChange)="addEvent('change','start', $event.target.value)" class="font-size-15 form-control"
+                    [value]="date.value" matInput [matDatepicker]="StartDate" placeholder="date">
+                  <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+                  <mat-datepicker #StartDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="form-group padding col-12 col-sm-5 float-left">
+                <mat-form-field style="z-index: 99999">
+                  <mat-label class="font-size-15">{{'Dashboard.enddate' | translate}}</mat-label>
+                  <input [ngClass]="{'is-invalid': err.news.endDate}" [(ngModel)]="endDateNews"
+                    [disabled]="!isSetStartDate" [min]="startDate"
+                    (dateInput)="addEvent('input','end', $event.target.value)"
+                    (dateChange)="addEvent('change','end', $event.target.value)" class="font-size-15 form-control"
+                    [value]="date.value" matInput [matDatepicker]="endDate" placeholder="date">
+                  <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                  <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">{{'News.Topic' | translate}}<span
+                  class="text-danger">*</span></label>
+              <input type="text" [ngClass]="{'is-invalid': err.news.header}" class="form-control" id="header"
+                [(ngModel)]="News.header" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">{{'News.Details' | translate}}<span
+                  class="text-danger">*</span></label>
+              <textarea type="text" rows="3" [ngClass]="{'is-invalid': err.news.details}" [(ngModel)]="News.details"
+                class="form-control" id="detail" placeholder=""></textarea>
+            </div>
+          </div>
+          <div class="text-center col-sm-12  col-12">
+            <button (click)="Save()" class="btn btn-primary">{{'Save' | translate}}</button>
+            <button (click)="CancleAddNews()" class="btn btn-danger margin-left">{{'Cancle' | translate}}</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-sm-2 float-right" *ngIf="menu == '1' || menu == '2'">
+      <div (click)="exportAsXLSX()"
         class="display-table  d-flex justify-content-center  border-radius text-bule-violet-light padding margin-top-10">
         <i class="fas fa-arrow-circle-up text-green  font-size-25 float-left"></i>
         <div class="float-left margin-left  font-size-20">Export</div>
@@ -104,6 +271,36 @@
             src="assets/image/horizontal-bars-chart-of-business.png" alt="">
           <div class="margin-left">{{'Dashboard.column' | translate}}</div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <aside class="col-sm-12  col-12 container no-margin-padding">
+          <div class="modal-header bg-danger ">
+            <h5 class="modal-title col-sm-12  col-12 text-center  text-white" id="exampleModalLongTitle">
+              {{'deleteConfirm' |translate }}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="container padding">
+            <div class="col-sm-8  col-8 float-left">
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3  col-3 col-form-label">{{'name' | translate}}
+                  {{News?.header}}</label>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="text-center col-sm-12  col-12">
+              <button (click)="SaveDeleteNews()" data-dismiss="modal"
+                class="btn btn-primary">{{'Save' | translate}}</button>
+              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
+            </div>
+          </form>
+        </aside>
       </div>
     </div>
   </div>

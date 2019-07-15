@@ -102,6 +102,9 @@ html, body {
   width: 100%;
 }
 
+.wt-50{
+  width: 50px;
+}
 .wt-100 {
   width: 100px;
 }
@@ -267,6 +270,10 @@ html, body {
 .padding-side {
   padding: 10px 25px 10px 25px;
 }
+.padding-side0{
+  padding: 0 10px;
+}
+
 
 /* align */
 
@@ -405,7 +412,7 @@ html, body {
 }
 
 .text-bule-violet-light {
-  color: #0400ac;
+  color: #0400ac !important;
 }
 
 /* background */
@@ -461,6 +468,16 @@ html, body {
 }
 
 /* custom */
+.text-ellipsis{
+  text-overflow: ellipsis;
+  /* margin: 0; */
+  /* padding: 0; */
+  white-space: nowrap;
+  overflow: hidden;
+}
+.imglogo{
+  width: 100% !important;
+}
 .scroll-y{
   overflow-y:scroll; 
 }
@@ -651,4 +668,15 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+.min-w-80>th{
+  min-width: 80px;
+}
 
+@media only screen and (max-width:600px){
+  h2{
+    font-size: 30px;
+  }
+  .margin-left-15p ,.margin-left-20 ,.margin-left-30p{
+    margin: 0;
+  }
+}

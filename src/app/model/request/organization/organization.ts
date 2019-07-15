@@ -2,6 +2,8 @@ export class Organizaion {
     CreateBy: string = '';
     CreateDate:string = '';
     IsActive: string = '';
+    phone:string = '';
+    email:string = '';
     OrganizationAddressAlley: string = '';
     OrganizationAddressDistrict: string = '';
     OrganizationAddressHouseNo: string = '';

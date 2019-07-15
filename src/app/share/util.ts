@@ -39,7 +39,10 @@ export class UtilProvider {
   }
 
   Logout() {
-    localStorage.clear();
+    localStorage.removeItem('userinfo');
+    localStorage.removeItem('language');
+    localStorage.removeItem('isLoggedin');
+    localStorage.removeItem('accesstoken');
     localStorage.setItem("language", 'th');
   }
 
@@ -55,10 +58,15 @@ export class UtilProvider {
   ConvertISODate(date) {
     return moment(date, 'YYYY-MM-DDTHH:mm:ssTZD').format('YYYY-MM-DD HH:mm:ss');
   }
+  ConvertStringToDatePicker(string,format) {
+    return new Date(moment(string,format).format('YYYY-MM-DDTHH:mm:ss'));
+  }
+  ConvertFormatDate(text,formatString,formatConvertstring){
+    return moment(text,formatString).format(formatConvertstring);
 
+  }
   PushItemArray(array: Array<any>, item) {
     let newarray = array;
-    console.log('PushItemArray=>', array + "," + item)
     if (newarray == undefined) {
       newarray = [];
       newarray.push(item);

@@ -59,13 +59,19 @@ export class ConfigAPI {
 
 
     public static GetPasswordManagement = ConfigAPI.Base_API + "getpasswordmanagement";
+    public static UpdatePassword = ConfigAPI.Base_API + "updatepassword";
     public static UpdatePasswordManagement = ConfigAPI.Base_API + "updatepasswordmanagement";
     public static GetAllpermission = ConfigAPI.Base_API + "getallpermission";
     public static Insertpermission = ConfigAPI.Base_API + "insertpermission";
     public static Updatepermission = ConfigAPI.Base_API + "updatepermission";
     public static UpdatepermissionManage = ConfigAPI.Base_API + "updatepermissionmanage";
     public static InsertpermissionManage = ConfigAPI.Base_API + "insertpermissionmanage";
+    public static GetNews = ConfigAPI.Base_API + "getnews";
+    public static InsertNews = ConfigAPI.Base_API + "insertnews";
+    public static UpdateNews = ConfigAPI.Base_API + "updatenews";
+    public static DeleteNews = ConfigAPI.Base_API + "deletenews";
     
+    public static GetAllApplication = ConfigAPI.Base_API + "getallapplication";
     
 
 }

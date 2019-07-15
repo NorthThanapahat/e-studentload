@@ -71,8 +71,11 @@
         <div class="form-group no-margin row col-sm-4 float-left">
           <label for="inputPassword" class="col-sm-4 col-form-label">Action : </label>
           <div class="col-sm-8">
-            <select class="form-control" required>
+            <select class="form-control" [(ngModel)]="action" name="action" required>
               <option>All</option>
+              <option>Insert</option>
+              <option>Update</option>
+              <option>Delete</option>
             </select>
           </div>
         </div>
@@ -96,40 +99,24 @@
             </tr>
           </thead>
           <tbody class="bg-toolight">
-            <tr>
-              <td>2016 07 12 13:30:17</td>
-              <td>User Login</td>
-              <td>ระบบ ERP</td>
-              <td>User Login</td>
-              <td>user01@gmail.com</td>
+            <tr *ngFor="let item of logDataSelect | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
+              <td>{{item.CreateDate}}</td>
+              <td>{{item.EventLog}}</td>
+              <td>{{item.Menu}}</td>
+              <td></td>
+              <td></td>
             </tr>
-            <tr>
-              <td>2016 07 12 13:30:17</td>
-              <td>User Login</td>
-              <td>ระบบ Helpdesk</td>
-              <td>User Login</td>
-              <td>user02@gmail.com</td>
-            </tr>
-            <tr>
-              <td>2016 07 12 13:30:17</td>
-              <td>User Login</td>
-              <td>ระบบสามัญ</td>
-              <td>User Login</td>
-              <td>user03@gmail.com</td>
-            </tr>
-            <tr>
-              <td>2016 07 12 13:30:17</td>
-              <td>User Login</td>
-              <td>Appinta</td>
-              <td>User Login</td>
-              <td>user03@gmail.com</td>
-            </tr>
+           
           </tbody>
         </table>
       </div>
 
     </div>
-
+    <div class="clearfix"></div>
+    <div class="col-12 justify-content-center mb-5">
+      <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
+        [collectionSize]="logDataSelect.length"></ngb-pagination>
+    </div>
 
   </div>
 </div>

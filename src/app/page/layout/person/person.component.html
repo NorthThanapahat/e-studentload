@@ -2,7 +2,52 @@
   <div *ngIf="data.persons?.length == 0" class="col-sm-10 float-left font-size-48 margin-top-10p text-center">
     {{'NotFoundData' | translate}}
   </div>
-  <div class="col-sm-10 col-10 float-left font-size-20  margin-bottom-10">
+  <div class="col-sm-2 col-12 float-right d-flex justify-content-center">
+      <div class="text-center col-sm-12 col-12 no-padding">
+        <div class="link text-bule-violet-light margin-top-20" (click)="InsertPerson()">
+          <i class="fas fa-plus-circle"></i>
+          {{'buttonInsert' | translate}}
+        </div>
+        <input type="file" name="" id="" #excelImport (change)="ImportExcel($event)" [(ngModel)]="files" accept=".xlsx" hidden>
+        <div (click)="excelImport.click()"
+          class="display-table link  d-flex justify-content-center  border-radius text-bule-violet-light padding  margin-top-10">
+          <i class="fas fa-arrow-circle-down font-size-25 float-left"></i>
+          
+          <div class="float-left margin-left  font-size-20" >Import</div>
+  
+        </div>
+        <div (click)="ExportExcel()"
+          class="display-table  d-flex justify-content-center link border-radius text-bule-violet-light padding margin-top-10">
+          <i class="fas fa-arrow-circle-up text-green  font-size-25 float-left"></i>
+          <div class="float-left margin-left  font-size-20">Export</div>
+        </div>
+        <div class="d-none d-md-block col-sm-12 col-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
+          <div class="bg-white col-sm-12 col-12 margin-top-30 float-left">
+            {{'history.edit' | translate}}
+            
+          </div>
+          <div class="scroll-y d-block mxh-400 float-left w-100">
+            <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-15">
+              <div class="full-body display-table  padding border-bottom-1 overflow-auto" *ngFor="let item of data?.personLog">
+                <div class="full-body">
+                  <div class="float-left d-flex justify-content-start">{{item.Date}}</div>
+                  <div class="float-right">{{item.Month}}</div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="full-body">
+                  <div class="float-left d-flex justify-content-start">{{item.EventLog}}</div>
+                  <div class="float-right">{{item.Time}}</div>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+          
+        </div>
+      </div>
+  
+    </div>
+  <div class="col-sm-10 col-12 float-left font-size-20  margin-bottom-10">
     <div class="col-sm-12 col-12 display-table d-flex justify-content-center margin-top-20 padding border"
       *ngFor="let item of data.persons | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
       <div class="top-right link" (click)="EditPerson(item)">
@@ -12,20 +57,20 @@
         data-target="#deleteModal">
         <i class="fas fa-trash text-bule-violet-light"></i>
       </div>
-      <div class="padding">
-        <div class="margin-top-10 float-left">
+      <div class="padding col-12 col-sm-6 ">
+        <div class="margin-top-10 float-left col-12 col-sm-4 text-center">
           <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
         </div>
-        <div class="float-left margin-left margin-top-5p">
+        <div class="float-left margin-left margin-top-5p col-sm-7">
 
           <div class="float-left">
             <span class="float-left">
               <span class="text-bule-violet-light  float-left">{{'Personal.userId' | translate}}</span>
-              <span class="margin-left float-left">{{item.PersonId}}</span>
+              <span class="margin-left float-left">{{item.UserId}}</span>
             </span>
             <span class=" margin-left-20 float-left">
               <span class="text-bule-violet-light  float-left">{{'fullname' | translate}}</span>
-              <span class="margin-left float-left">{{item.title}}{{item.Fname}} {{item.Lname}}</span>
+              <span class="margin-left float-left">{{item.Title}}{{item.Fname}} {{item.Lname}}</span>
             </span>
           </div>
 
@@ -34,70 +79,29 @@
           <div class="float-left">
             <div class="float-left">
               <div class="text-bule-violet-light  float-left">{{'internalPhone' | translate}}</div>
-              <div class="margin-left float-left">{{item.offi_tel}}</div>
+              <div class="margin-left float-left">{{item.Offi_tel}}</div>
             </div>
-            <div class=" margin-left-20 float-left">
+            <div class="margin-left-20 float-left">
               <div class="text-bule-violet-light  float-left">{{'email' | translate}}</div>
-              <div class="margin-left float-left">{{item.email}}</div>
+              <div class="margin-left float-left">{{item.Email}}</div>
             </div>
           </div>
           <div class="clearfix"></div>
           <div class="float-left">
             <div class="float-left">
               <div class="text-bule-violet-light  float-left">{{'department' | translate}}</div>
-              <div class="margin-left float-left">{{item.depart}}</div>
+              <div class="margin-left float-left">{{item.Depart}}</div>
             </div>
             <div class=" margin-left-20 float-left">
               <div class="text-bule-violet-light  float-left">{{'position' | translate}}</div>
-              <div class="margin-left float-left">{{item.position}}</div>
+              <div class="margin-left float-left">{{item.Position}}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-2 col-2 float-left d-flex justify-content-center">
-    <div class="text-center col-sm-12 col-12 no-padding">
-      <div class="link text-bule-violet-light" (click)="openModal()" (click)="InsertPerson()">
-        <i class="fas fa-plus-circle"></i>
-        {{'buttonInsert' | translate}}
-      </div>
-      <div
-        class="display-table  d-flex justify-content-center  border-radius text-bule-violet-light padding  margin-top-10">
-        <i class="fas fa-arrow-circle-down font-size-25 float-left"></i>
-        <div class="float-left margin-left  font-size-20">Import</div>
-      </div>
-      <div
-        class="display-table  d-flex justify-content-center  border-radius text-bule-violet-light padding margin-top-10">
-        <i class="fas fa-arrow-circle-up text-green  font-size-25 float-left"></i>
-        <div class="float-left margin-left  font-size-20">Export</div>
-      </div>
-      <div class="col-sm-12 col-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
-        <div class="bg-white col-sm-12 col-12 margin-top-30 float-left">
-          {{'history.edit' | translate}}
-          <i class="fas fa-edit"></i>
-        </div>
-        <div class="scroll-y d-block hxh-400 float-left w-100">
-          <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-15">
-            <div class="full-body display-table  padding border-bottom-1 overflow-auto" *ngFor="let item of data?.personLog">
-              <div class="full-body">
-                <div class="float-left d-flex justify-content-start">{{item.Date}}</div>
-                <div class="float-right">{{item.Month}}</div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="full-body">
-                <div class="float-left d-flex justify-content-start">{{item.EventLog}}</div>
-                <div class="float-right">{{item.Time}}</div>
-              </div>
-            </div>
   
-          </div>
-        </div>
-        
-      </div>
-    </div>
-
-  </div>
   <div class="clearfix"></div>
   <div class="col-12 justify-content-center mb-5">
     <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
@@ -122,15 +126,24 @@
               <div class="col-sm-8 col-8 float-left">
                 <div class="form-group row">
                   <label for="inputPassword"
-                    class="col-sm-3 col-3 col-form-label">{{'Personal.userId' | translate}}</label>
-                  <div class="col-sm-9 col-9">
+                    class="col-sm-4 col-4 col-form-label">{{'Personal.userId' | translate}}</label>
+                  <div class="col-sm-8 col-8">
                     <input type="text" class="form-control" (keyup)="KeyData('userId')" [ngClass]="{'is-invalid': err.userId }" name="userId"
                       [(ngModel)]="person.userId">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'prename' | translate}}</label>
-                  <div class="col-sm-9 col-9">
+                    <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'Permission.PermissionName' | translate}}</label>
+                    <div class="col-sm-8 col-8">
+                      <select class="form-control" name="permission" (change)="KeyData('permission')"  [ngClass]="{'is-invalid': err.permission}"
+                        [(ngModel)]="person.PermissionId">
+                        <option *ngFor="let item of permission"  value="{{item.PermissionId}}">{{item.PermissionName}}</option>
+                      </select>
+                    </div>
+                  </div>
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'prename' | translate}}</label>
+                  <div class="col-sm-8 col-8">
                     <select class="form-control" name="preName" (change)="KeyData('preName')"  [ngClass]="{'is-invalid': err.preName}"
                       [(ngModel)]="person.PreName">
                       <option value="mr">{{'Mr' | translate}}</option>
@@ -140,38 +153,38 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'name' | translate}}</label>
-                  <div class="col-sm-9 col-9">
+                  <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'name' | translate}}</label>
+                  <div class="col-sm-8 col-8">
                     <input type="text" class="form-control" name="name" (keyup)="KeyData('Fname')"  [ngClass]="{'is-invalid': err.Fname}"
                       [(ngModel)]="person.Fname">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'lastname' | translate}}</label>
-                  <div class="col-sm-9 col-9">
+                  <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'lastname' | translate}}</label>
+                  <div class="col-sm-8 col-8">
                     <input type="text" class="form-control"  (keyup)="KeyData('Lname')"   [ngClass]="{'is-invalid': err.Lname}" name="lastname"
                       [(ngModel)]="person.Lname">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'phone' | translate}}</label>
-                  <div class="col-sm-9 col-9">
+                  <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'phone' | translate}}</label>
+                  <div class="col-sm-8 col-8">
                     <input type="text" class="form-control"  (keyup)="KeyData('phone')"   [ngClass]="{'is-invalid': err.phone}" name="phone"
                       [(ngModel)]="person.Phone">
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'email' | translate}}</label>
-                  <div class="col-sm-9  col-9">
+                  <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'email' | translate}}</label>
+                  <div class="col-sm-8  col-8">
                     <input type="text" class="form-control"  (keyup)="KeyData('email')"   [ngClass]="{'is-invalid': err.email}" name="email"
                       [(ngModel)]="person.Email">
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'department' | translate}}</label>
-                  <div class="col-sm-9 col-9">
+                  <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'department' | translate}}</label>
+                  <div class="col-sm-8 col-8">
                     <select class="form-control"  (change)="KeyData('department')"   [ngClass]="{'is-invalid': err.department}" name="department"
                       [(ngModel)]="person.Depart">
                       <option *ngFor="let item of getDepartment?.data">{{item.departmentname}}</option>
@@ -180,8 +193,8 @@
                 </div>
 
                 <div class="form-group row">
-                  <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'position' | translate}}</label>
-                  <div class="col-sm-9 col-9">
+                  <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'position' | translate}}</label>
+                  <div class="col-sm-8 col-8">
                     <input type="text"  (keyup)="KeyData('position')"   [ngClass]="{'is-invalid': err.position}" class="form-control" name="position"
                       [(ngModel)]="person.Position">
                   </div>

@@ -1,32 +1,5 @@
 <div class="fullbody">
-  <!-- <div class="col-sm-2 no-padding side-menu bule-violet text-center">
-    <div class="full-body text-white margin-bottom-10">
-      <div class="bg-white padding-bottom-30 padding-top-30 ">
-        <i class="far fa-user-circle font-size-60 text-bule-violet padding"></i>
-        <div class="col-12 ">
-          <span class="border-bottom-3 text-bule-violet">{{data.userData.data[0].PersonName}}</span>
-        </div>
-      </div>
-
-      <div class="w-100">
-        <div class="w-100 text-left padding text-white">{{'Home.historyOfLogin' | translate}}</div>
-        <div class="text-bule-violet">
-          <div class="w-100 text-left padding bg-light margin-top-10 margin-bottom-10"
-            *ngFor="let item of auditLog?.data">
-            <i class="fas fa-user-circle font-size-25 text-danger d-inline"></i> {{item.PersonId}}
-            <div class="d-inline margin-left">
-              <div class="d-inline">{{item.CreateDate}}</div>
-              <div class="d-inline float-right">09:32:16</div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-  </div> -->
-
+  
   <div class="col-sm-10 float-right margin-top-30 padding">
 
     <div>
@@ -41,12 +14,12 @@
     <div *ngIf="data.application?.length == 0" class="font-size-48 margin-top-20 text-center">
       {{'NotFoundData' | translate}}
     </div>
-    <div class="margin-left-15p" *ngIf="data.application?.length > 0">
-      <div class="text-center col-3 item padding margin float-left"
+    <div class="margin-left-15p col-12 d-table" *ngIf="data.application?.length > 0">
+      <div class="text-center col-5 col-sm-3 item padding margin float-left"
         *ngFor="let item of data.application | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
-        <img class="margin-top-15p" width="50px" height="50px" src="assets/image/copy.png" alt="">
-        <a href="http://{{item.LinkURL}}">
-          <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary">{{item.ApplicationName}}</div>
+        <img class="margin-top-10" width="50px" height="50px" src="assets/image/copy.png" alt="">
+        <a target="_blank" rel="noopener noreferrer" href="http://{{item.LinkURL}}">
+          <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary text-ellipsis">{{item.ApplicationName}}</div>
         </a>
         <div class="margin-top-20">
           <i (click)="Edit(item)" data-toggle="modal" data-target="#exampleModalCenter"
@@ -65,7 +38,7 @@
     </div>
     <modal #myModal>
       <modal-header class="col-12 no-padding">
-        <h5 class="modal-title col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle"
+        <h5 class="modal-title  col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle"
           (click)="NewApplication()">
           {{'buttonInsert' | translate}}</h5>
         <button type="button" class="close no-margin ab" (click)="CloseModal()">

@@ -31,51 +31,50 @@ export class ApiProvider {
             this.data.allLog = res;
 
             for (let item of res.data) {
-                if (item.Manu == 'application') {
+                if (item.Menu == 'application') {
                     this.data.applicationLog = this.util.PushItemArray(this.data.applicationLog, item);
                     for (let i in this.data.applicationLog) {
-                        let date = moment(this.data.applicationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
-                        this.data.applicationLog[i].Month = moment(this.data.applicationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
-                        this.data.applicationLog[i].Date = moment(this.data.applicationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
-                        this.data.applicationLog[i].Time = moment(this.data.applicationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
+                        let date = moment(this.data.applicationLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a');
+                        this.data.applicationLog[i].Month = moment(this.data.applicationLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('MMM');
+                        this.data.applicationLog[i].Date = moment(this.data.applicationLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('DD/MM/YYYY');
+                        this.data.applicationLog[i].Time = moment(this.data.applicationLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('HH:mm');
                     }
                 }
-                if (item.Manu == 'person') {
+                if (item.Menu == 'person') {
                     this.data.personLog = this.util.PushItemArray(this.data.personLog, item);
                     for (let i in this.data.personLog) {
-                        let date = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
-                        this.data.personLog[i].Month = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
-                        this.data.personLog[i].Date = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
-                        this.data.personLog[i].Time = moment(this.data.personLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
+                        let date = moment(this.data.personLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a');
+                        this.data.personLog[i].Month = moment(this.data.personLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('MMM');
+                        this.data.personLog[i].Date = moment(this.data.personLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('DD/MM/YYYY');
+                        this.data.personLog[i].Time = moment(this.data.personLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('HH:mm');
                     }
-                   
+
                 }
-                if (item.Manu == 'organization') {
+                if (item.Menu == 'organization') {
                     this.data.organizationLog = this.util.PushItemArray(this.data.organizationLog, item);
                     for (let i in this.data.organizationLog) {
-                        let date = moment(this.data.organizationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
-                        this.data.organizationLog[i].Month = moment(this.data.organizationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
-                        this.data.organizationLog[i].Date = moment(this.data.organizationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
-                        this.data.organizationLog[i].Time = moment(this.data.organizationLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
+                        let date = moment(this.data.organizationLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a');
+                        this.data.organizationLog[i].Month = moment(this.data.organizationLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('MMM');
+                        this.data.organizationLog[i].Date = moment(this.data.organizationLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('DD/MM/YYYY');
+                        this.data.organizationLog[i].Time = moment(this.data.organizationLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('HH:mm');
                     }
                 }
-                if (item.Manu == 'department') {
+                if (item.Menu == 'department') {
                     this.data.departmentLog = this.util.PushItemArray(this.data.departmentLog, item);
                     for (let i in this.data.departmentLog) {
-                        let date = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
-                        this.data.departmentLog[i].Month = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
-                        this.data.departmentLog[i].Date = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
-                        this.data.departmentLog[i].Time = moment(this.data.departmentLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
+                        let date = moment(this.data.departmentLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a');
+                        this.data.departmentLog[i].Month = moment(this.data.departmentLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('MMM');
+                        this.data.departmentLog[i].Date = moment(this.data.departmentLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('DD/MM/YYYY');
+                        this.data.departmentLog[i].Time = moment(this.data.departmentLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('HH:mm');
                     }
-                
+
                 }
-                if (item.Manu == 'group') {
+                if (item.Menu == 'group') {
                     this.data.groupLog = this.util.PushItemArray(this.data.groupLog, item);
                     for (let i in this.data.groupLog) {
-                        let date = moment(this.data.groupLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM');
-                        this.data.groupLog[i].Month = moment(this.data.groupLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('MMM');
-                        this.data.groupLog[i].Date = moment(this.data.groupLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('DD/MM/YYYY');
-                        this.data.groupLog[i].Time = moment(this.data.groupLog[i].CreateDate, 'D/M/YYYY HH:mm:ss AM').format('HH:mm');
+                        this.data.groupLog[i].Month = moment(this.data.groupLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('MMM');
+                        this.data.groupLog[i].Date = moment(this.data.groupLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('DD/MM/YYYY');
+                        this.data.groupLog[i].Time = moment(this.data.groupLog[i].CreateDate, 'MM/DD/YYYY HH:mm:ss a').format('HH:mm');
                     }
                 }
             }
@@ -89,7 +88,7 @@ export class ApiProvider {
     }
 
     InsertLog(PersonId, EventLog, Menu) {
-        let insertlog = `PersonId=${PersonId}&EventLog=${EventLog}&Manu=${Menu}`;
+        let insertlog = `PersonId=${PersonId}&EventLog=${EventLog}&Menu=${Menu}`;
         this.SendRequestApiWithData(ConfigAPI.InsertLog, insertlog).then((res: any) => {
             this.GetLog();
             console.log(res);
@@ -103,11 +102,17 @@ export class ApiProvider {
             let headers = new HttpHeaders();
             headers = headers.append("Accept", '*/*');
             headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-            data = data + "&token=" + this.util.GetAccessToken();
+            if (url != ConfigAPI.Login)
+                data = data + "&token=" + this.util.GetAccessToken();
             console.log(url + "===> ", data);
             this.http.post(url, data, { headers: headers })
-                .subscribe(res => {
+                .subscribe((res: any) => {
                     console.log(url + ' response ===>', res);
+                    if (!res.successful) {
+                        if (res.code == '-2146233088') {
+                            this.util.DoError();
+                        }
+                    }
                     resolve(res);
                 }, (err) => {
                     reject(err);

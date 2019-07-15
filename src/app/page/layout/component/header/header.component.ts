@@ -85,6 +85,13 @@ export class HeaderComponent implements OnInit {
         }else{
           this.data.password = this.data.allPassword.data;
         }
+      }else if(this.data.page == 'manage-role'){
+        if(value != ''){
+          this.data.permission = this.data.filterItem(value);
+          console.log(this.data.permission);
+        }else{
+          this.data.permission = this.data.allPermission.data;
+        }
       }
     
       
@@ -106,7 +113,7 @@ export class HeaderComponent implements OnInit {
   }
 
   Logout() {
-    localStorage.clear();
+    this.util.Logout();
     this.router.navigate(['login']);
   }
 }

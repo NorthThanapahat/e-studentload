@@ -1,10 +1,10 @@
-<div class="container col-sm-12">
+<div class="container col-sm-12 col-12">
 
-  <div class="col-sm-10 float-left font-size-20">
-    <div class="padding">
-      <table class="table col-sm-10 offset-sm-1">
+  <div class="col-sm-10 col-12 float-left font-size-20">
+    <div class="padding table-responsive">
+      <table class="table col-sm-10 col-12 offset-sm-1">
         <thead class="bg-blue-dark text-white">
-          <tr>
+          <tr class="min-w-80">
             <th class="text-center" scope="col">{{'group.no' | translate}}</th>
             <th class="text-center" scope="col">{{'group.groupname' | translate}}</th>
             <th class="text-center" scope="col">{{'group.createby' | translate}}</th>
@@ -48,7 +48,7 @@
       <div class="col-sm-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
         <div class="bg-white col-sm-12 margin-top-50p float-left">
           {{'history.edit' | translate}}
-          <i class="fas fa-edit"></i>
+         
         </div>
         <div class="scroll-y d-block mxh-400 float-left w-100">
           <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-15">
@@ -59,7 +59,7 @@
               </div>
               <div class="clearfix"></div>
               <div class="full-body">
-                <div class="float-left d-flex justify-content-start">{{item.PersonId}}</div>
+                <div class="float-left d-flex justify-content-start">{{item.EventLog}}</div>
                 <div class="float-right">{{item.Time}}</div>
               </div>
             </div>
@@ -116,25 +116,27 @@
 
 
             <div class="clearfix"></div>
+            <div class="table-responsive">
+              <table class="table col-sm-10 col-12 offset-sm-1 margin-top-20">
+                <thead class="bg-blue-dark text-white d-block w-100">
+                  <tr class="d-table w-100">
+                    <th style="width:50%;" scope="col">{{'fullname' | translate}}</th>
+                    <th style="width:50%;" scope="col">{{'Department.contact' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-violet-less text-white ht-400 d-block overflow-auto">
+                  <tr *ngFor="let item of allperson?.data" (click)="AddPerson(item)"
+                    [ngClass]="{'text-graylight': item.selected}" class="d-table w-100">
+                    <td style="width:50%;">{{item.Fname}} {{item.Lname}}</td>
+                    <td style="width:50%;">{{item.Offi_tel}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-            <table class="table col-sm-10 col-10 offset-sm-1 margin-top-20">
-              <thead class="bg-blue-dark text-white d-block w-100">
-                <tr class="d-table w-100">
-                  <th style="width:50%;" scope="col">{{'fullname' | translate}}</th>
-                  <th style="width:50%;" scope="col">{{'Department.contact' | translate}}</th>
-                </tr>
-              </thead>
-              <tbody class="bg-violet-less text-white ht-400 d-block overflow-auto">
-                <tr *ngFor="let item of allperson?.data" (click)="AddPerson(item)"
-                  [ngClass]="{'text-graylight': item.selected}" class="d-table w-100">
-                  <td style="width:50%;">{{item.PersonName}}</td>
-                  <td style="width:50%;">{{item.Contact}}</td>
-                </tr>
-              </tbody>
-            </table>
             <div class="bg-violet-less  border-radius padding d-flex">
               <div class="bg-white float-left padding margin-left" *ngFor="let item of group.GroupPerson;let i = index">
-                {{item.PersonName}}<i class="far fa-times-circle margin-left link" (click)="DeletePerson(item,i)"></i>
+                  {{item.Fname}} {{item.Lname}}<i class="far fa-times-circle margin-left link" (click)="DeletePerson(item,i)"></i>
               </div>
             </div>
             <div class="text-center col-sm-12 margin-top-20">

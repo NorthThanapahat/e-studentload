@@ -11,6 +11,7 @@ export class UserDataDetails {
     PermissionId:string;
     PersonId:string;
     UserId:string;
+    password:string;
     depart:string;
     email:string;
     offi_tel:string;

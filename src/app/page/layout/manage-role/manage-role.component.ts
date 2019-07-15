@@ -120,18 +120,24 @@ export class ManageRoleComponent implements OnInit {
   }
   GetAllApplication() {
 
-    let data = {
-      personid: this.data.userData.data[0].PersonId,
-      accesstoken: this.util.GetAccessToken()
-    }
-    this.homeService.GetApplication(data).subscribe((res: any) => {
+ 
+    this.api.SendRequestApi(ConfigAPI.GetAllApplication).then((res: any) => {
       this.util.HideLoading();
 
       console.log(res);
       if (res.successful) {
         this.application = res.data;
-        this.data.allApplication = res;
-        this.data.application = res.data;
+      
+        this.application.push({ApplicationName:"Application"});
+        this.application.push({ApplicationName:"Person"});
+        this.application.push({ApplicationName:"Organization"});
+        this.application.push({ApplicationName:"Department"});
+        this.application.push({ApplicationName:"Group"});
+        this.application.push({ApplicationName:"Dashboard"});
+        this.application.push({ApplicationName:"ManagePassword"});
+        this.application.push({ApplicationName:"BackupData"});
+        this.application.push({ApplicationName:"ManagePermission"});
+        this.application.push({ApplicationName:"AuditLog"});
         for (let item of this.application) {
           item.isEditChecked = '0';
           item.isViewChecked = '0';

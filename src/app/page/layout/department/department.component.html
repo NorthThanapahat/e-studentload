@@ -1,349 +1,202 @@
-<div class="container col-sm-12">
-  <div *ngIf="data.organizations?.length == 0" class="col-sm-10 float-left font-size-48 margin-top-10p text-center">
+<div class="container col-sm-12 col-12">
+  <div *ngIf="data.department?.length == 0" class="col-10 col-sm-10 float-left font-size-48 margin-top-10p text-center">
     {{'NotFoundData' | translate}}
   </div>
-  <div class="col-sm-10 float-left font-size-20" *ngIf="data.organizations?.length > 0">
-    <div class="col-sm-12 display-table d-flex  margin-top-20 padding border"
-      *ngFor="let item of data.organizations | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
-      <div class="margin-left-30p">
-        <div class="top-right link" data-toggle="modal" data-target="#exampleModalCenter"
-          (click)="UpdateOrganization(item)">
-          <i class="fas fa-edit text-bule-violet-light"></i>
-        </div>
-        <div class="bottom-right link margin-right-5" data-toggle="modal" data-target="#deleteModal"
-          (click)="DeleteOrganization(item)">
-          <i class="fas fa-trash text-bule-violet-light"></i>
-        </div>
-        <div class="padding">
-          <div class="margin-top-5p float-left margin-right-5">
-            <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
-          </div>
-          <div class="float-left margin-left margin-top-5p font-size-20">
-            <div class="display-table">
-              <div class="text-bule-violet-light  float-left">{{'Organization.organizationName' | translate}}</div>
-              <div class="margin-left float-left"><b>{{item.OrganizationName}}</b></div>
-            </div>
-            <div class="display-table">
-              <div class="text-bule-violet-light  float-left">{{'Organization.tel' | translate}}</div>
-              <div class="margin-left float-left">{{item.OrganizationPhone}}</div>
-            </div>
-            <div class="display-table">
-              <div class="text-bule-violet-light  float-left">{{'Organization.fax' | translate}}</div>
-              <div class="margin-left float-left">{{item.OrganizationFax}}</div>
-            </div>
-            <div class="display-table"><b> </b>
-              <div class="text-bule-violet-light  float-left">{{'Organization.address' | translate}}</div>
-              <div class="margin-left float-left">{{'Organization.houseNo' | translate}}
-                {{item.OrganizationAddressHouseNo}}
-                {{'Organization.road' | translate}} {{item.OrganizationAddressRoad}}
-                {{'Organization.alley' | translate}} {{item.OrganizationAddressAlley}} <br>
-                {{'Organization.subDistrict' | translate}} {{item.OrganizationAddressSubdistrict}}
-                {{'Organization.district' | translate}} {{item.OrganizationAddressDistrict}}
-                {{item.OrganizationAddressProvince}} {{item.OrganizationAddressZipcode}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="col-sm-2 float-left d-flex justify-content-center">
-    <div class="text-center col-sm-12 no-padding">
-      <div class="link text-bule-violet-light" data-toggle="modal" data-target="#exampleModalCenter"
-        (click)="Organization()">
+  <div class="col-sm-2 col-12 float-right d-flex justify-content-center">
+    <div class="text-center col-sm-12 col-12 no-padding">
+      <div class="link text-bule-violet-light" (click)="Insert()">
         <i class="fas fa-plus-circle"></i>
         {{'buttonInsert' | translate}}
       </div>
 
-      <div class="col-sm-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
-        <div class="bg-white col-sm-12 margin-top-50p float-left">
+      <div
+        class="d-none d-md-block col-sm-12 col-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
+        <div class="bg-white col-12 col-sm-12 margin-top-50p float-left">
           {{'history.edit' | translate}}
-          <i class="fas fa-edit"></i>
+          
         </div>
         <div class="scroll-y d-block mxh-400 float-left w-100">
-          <div class="col-sm-12 text-white display-table bule-violet-light-white padding font-size-15">
-            <div class="full-body display-table  padding border-bottom-1" *ngFor="let item of data?.organizationLog">
+          <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-15">
+            <div class="full-body display-table  padding border-bottom-1" *ngFor="let item of data?.departmentLog">
               <div class="full-body">
                 <div class="float-left d-flex justify-content-start">{{item.Date}}</div>
                 <div class="float-right">{{item.Month}}</div>
               </div>
               <div class="clearfix"></div>
               <div class="full-body">
-                <div class="float-left d-flex justify-content-start">{{item.PersonId}}</div>
+                <div class="float-left d-flex justify-content-start">{{item.EventLog}}</div>
                 <div class="float-right">{{item.Time}}</div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
   </div>
+  <div *ngIf="data.department?.length > 0" class="col-sm-10 col-12 float-left font-size-20">
+    <div class="col-sm-12 col-12 display-table d-flex justify-content-center margin-top-20 padding border"
+      *ngFor="let item of data.department  | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
+      <div class="top-right link">
+        <i class="fas fa-edit text-bule-violet-light" (click)="Edit(item)"></i>
+      </div>
+      <div class="bottom-right link margin-right-5" data-toggle="modal" data-target="#deleteModal"
+        (click)="DeleteDepartment(item)">
+        <i class="fas fa-trash text-bule-violet-light"></i>
+      </div>
+      <div class="padding col-sm-5">
+        <div class="margin-top-5p float-left margin-right-5 col-12 col-sm-4 text-center">
+          <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
+        </div>
+        <div class="float-left margin-left col-sm-7 margin-top-5p font-size-20">
+          <div class="display-table">
+            <div class="text-bule-violet-light  float-left">{{'fullname' | translate}}</div>
+            <div class="margin-left float-left"><b>{{item.Title}}{{item.Fname}} {{item.Lname}}</b></div>
+          </div>
+          <div class="display-table">
+            <div class="text-bule-violet-light  float-left">{{'externalPhone' | translate}}</div>
+            <div class="margin-left float-left">{{item.DepartmentPhone}}</div>
+          </div>
+          <div class="display-table">
+            <div class="text-bule-violet-light  float-left">{{'email' | translate}}</div>
+            <div class="margin-left float-left">{{item.DepartmentDetail}}</div>
+          </div>
+          <div class="display-table"><b> </b>
+            <div class="float-left">
+              <div class="text-bule-violet-light  float-left">{{'department' | translate}}</div>
+              <div class="margin-left float-left">{{item.DepartmentName}}</div>
+            </div>
+            <div class=" margin-left-20 float-left">
+                <div class="text-bule-violet-light  float-left">{{'position' | translate}}</div>
+                <div class="margin-left float-left">{{item.Position}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+
+    </div>
+  </div>
+
+
   <div class="clearfix"></div>
   <div class="col-12 justify-content-center margin-top-10">
     <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
-      [collectionSize]="data.organizations?.length"></ngb-pagination>
+      [collectionSize]="data.department?.length"></ngb-pagination>
   </div>
-  <div class="modal fade " data-keyboard="false" data-backdrop="static" id="exampleModalCenter" tabindex="-1"
-    role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xlg" role="document">
-      <div class="modal-content">
-        <aside class="col-sm-12 container no-margin-padding">
-          <div class="modal-header bg-danger ">
-            <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">
-              {{'Organization.addOrganization' | translate}}
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form class="container padding font-size-20">
-            <div class="col-sm-12">
-              <div class="row">
-                <div class="col-sm-6 float-left">
+
+  <modal #myModal>
+    <modal-header class="col-12 no-padding">
+      <h5 class="modal-title col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle">
+        {{'Department.AddDepartmentData' | translate}}</h5>
+      <button type="button" class="close no-margin ab" (click)="CloseModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </modal-header>
+    <modal-content>
+      <div>
+        <div class="modal-content">
+          <aside class="col-sm-12 container no-margin-padding">
+
+            <form class="container padding">
+              <div class="bule-violet-light-less col-sm-12 col-12 d-flex padding">
+                <div class="col-sm-12 col-12 float-left">
                   <div class="form-group row">
                     <label for="inputPassword"
-                      class="col-sm-4 col-form-label">{{'Organization.organizationName' | translate}}</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control " name="organizationName"
-                        [(ngModel)]="organization.OrganizationName">
+                      class="col-sm-3 col-3 col-form-label">{{'Department.departmentName' | translate}}</label>
+                    <div class="col-sm-9 col-9">
+                      <input type="text" class="form-control" name="departmentName"
+                        [(ngModel)]="department.DepartmentName">
                     </div>
                   </div>
-                </div>
-                <div class="col-sm-6 float-left">
                   <div class="form-group row">
                     <label for="inputPassword"
-                      class="col-sm-5 text-right col-form-label">{{'Organization.tin' | translate}}</label>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control" name="numberofOrganization"
-                        [(ngModel)]="organization.TaxpayerIdentificationNumber">
+                      class="col-sm-3 col-3 col-form-label">{{'Department.organizationName' | translate}}</label>
+                    <div class="col-sm-9 col-9">
+                      <select class="form-control" [(ngModel)]="department.OrganizationId" name="organizationName"
+                        (change)="SelectOrganization($event.target.value)" required>
+                        <option *ngFor="let item of allOrganization?.data" value="{{item.OrganizationId}}">
+                          {{item.OrganizationName}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label for="inputPassword"
+                      class="col-sm-3 col-3 col-form-label">{{'Department.detail' | translate}}</label>
+                    <div class="col-sm-9 col-9">
+                      <input type="text" class="form-control" name="detail" [(ngModel)]="department.Detail">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputPassword"
+                      class="col-sm-3 col-3 col-form-label">{{'internalPhone' | translate}}</label>
+                    <div class="col-sm-9 col-9">
+                      <input type="text" class="form-control" name="DepartmentPhone"
+                        [(ngModel)]="department.DepartmentPhone">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-3 col-3 col-form-label">{{'email' | translate}}</label>
+                    <div class="col-sm-9 col-9">
+                      <input type="text" class="form-control" name="email" [(ngModel)]="department.email">
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputPassword"
-                  class="col-sm-2 col-form-label">{{'Organization.detailOrganization' | translate}}</label>
-                <div class="col-sm-9">
-                  <textarea class="form-control" name="organizationDetails"
-                    [(ngModel)]="organization.OrganizationDetail" id="" cols="30" rows="3"></textarea>
-                </div>
-              </div>
-
-              <div>
-                <h5>{{'Organization.addressOrganization' | translate}}</h5>
-                <div class="row">
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-4 col-form-label">{{'Organization.houseNo' | translate}}</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control " name="houseNoAdd"
-                          [(ngModel)]="organization.OrganizationAddressHouseNo">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-5 text-right col-form-label">{{'Organization.road' | translate}}</label>
-                      <div class="col-sm-7">
-                        <input type="text" class="form-control" name="roadAdd"
-                          [(ngModel)]="organization.OrganizationAddressRoad">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-4 col-form-label">{{'Organization.alleyAdd' | translate}}</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control " name="alleyAdd"
-                          [(ngModel)]="organization.OrganizationAddressAlley">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-5 text-right col-form-label">{{'Organization.province' | translate}}</label>
-                      <div class="col-sm-7">
-                        <select class="form-control" name="provinceAdd"
-                          (change)="ProvinceSeletect($event.target.value,'OrganizationAddress')"
-                          [(ngModel)]="provinceSelect.Add" required>
-                          <option *ngFor="let item of data.province" value="{{item.pid}}|{{item.name}}">{{item.name}}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-4 col-form-label">{{'Organization.districtAdd' | translate}}</label>
-                      <div class="col-sm-8">
-                        <select class="form-control" name="districtAdd"
-                          (change)="DistrictSelect($event.target.value,'OrganizationAddress')"
-                          [(ngModel)]="districtSelect.Add" required>
-                          <option *ngFor="let item of districtList.Add" value="{{item.pid}}|{{item.name}}">{{item.name}}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-5 text-right col-form-label">{{'Organization.subDistrictAdd' | translate}}</label>
-                      <div class="col-sm-7">
-                        <select class="form-control" name="subDistrictAdd"
-                          (change)="SubDistrictSelect($event.target.value,'OrganizationAddress')"
-                          [(ngModel)]="subDistrictSelect.Add" required>
-                          <option *ngFor="let item of subDistrictList.Add" value="{{item.pid}}|{{item.name}}">
-                            {{item.name}}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-4 col-form-label">{{'Organization.zipcode' | translate}}</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control " name="zipcodeAdd"
-                          [(ngModel)]="organization.OrganizationAddressZipcode">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 float-left">
-                  </div>
-                </div>
+                <!-- <div class="col-sm-4 col-4 float-left margin-top-20">
+                        <div class="text-center">
+                          <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
+                          <img class="rounded-circle image-cover" src="{{image}}" height="100px" width="100px" alt=""
+                            (click)="uploader.click()">
+        
+                        </div>
+                      </div> -->
               </div>
 
-              <div>
-                <h5>{{'Organization.addressforDoc' | translate}}</h5>
-                <div class="row">
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-4 col-form-label">{{'Organization.houseNo' | translate}}</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control " name="houseNoDoc"
-                          [(ngModel)]="organization.SendingAddressHouseNo">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-5 text-right col-form-label">{{'Organization.road' | translate}}</label>
-                      <div class="col-sm-7">
-                        <input type="text" class="form-control" name="roadDoc"
-                          [(ngModel)]="organization.SendingAddressRoad">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-4 col-form-label">{{'Organization.alleyAdd' | translate}}</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control " name="alleyDoc"
-                          [(ngModel)]="organization.SendingAddressAlley">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-5 text-right col-form-label">{{'Organization.province' | translate}}</label>
-                      <div class="col-sm-7">
-                        <select class="form-control" name="provinceDoc"
-                          (change)="ProvinceSeletect($event.target.value,'AddressForDocument')"
-                          [(ngModel)]="provinceSelect.Doc" required>
-                          <option *ngFor="let item of data.province" value="{{item.pid}}|{{item.name}}">{{item.name}}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-4 col-form-label">{{'Organization.districtAdd' | translate}}</label>
-                      <div class="col-sm-8">
-                        <select class="form-control" name="districtDoc"
-                          (change)="DistrictSelect($event.target.value,'AddressForDocument')"
-                          [(ngModel)]="districtSelect.Doc" required>
-                          <option *ngFor="let item of districtList.Doc" value="{{item.pid}}|{{item.name}}">{{item.name}}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-5 text-right col-form-label">{{'Organization.subDistrictAdd' | translate}}</label>
-                      <div class="col-sm-7">
-                        <select class="form-control" name="subDistrictDoc"
-                          (change)="SubDistrictSelect($event.target.value,'AddressForDocument')"
-                          [(ngModel)]="subDistrictSelect.Doc" required>
-                          <option *ngFor="let item of subDistrictList.Doc" value="{{item.pid}}|{{item.name}}">
-                            {{item.name}}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6 float-left">
-                    <div class="form-group row">
-                      <label for="inputPassword"
-                        class="col-sm-4 col-form-label">{{'Organization.zipcode' | translate}}</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control " name="zipcodeDoc"
-                          [(ngModel)]="organization.SendingAddressZipcode">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 float-left">
 
-                  </div>
-                </div>
+              <div class="clearfix"></div>
 
-              </div>
-            </div>
+              <!-- <table class="table col-sm-10 col-10 offset-sm-1 margin-top-20">
+                      <thead class="bg-blue-dark text-white d-block w-100">
+                        <tr class="d-table w-100">
+                          <th style="width:50%;" scope="col">{{'fullname' | translate}}</th>
+                          <th style="width:50%;" scope="col">{{'Department.contact' | translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-violet-less text-white ht-400 d-block overflow-auto">
+                        <tr *ngFor="let item of persons;let i = index" (click)="AddPerson(item,i)" [ngClass]="{'text-graylight': item.selected}" class="d-table w-100">
+                          <td style="width:50%;">{{item.Fname}} {{item.Lname}}</td>
+                          <td style="width:50%;">{{item.offi_tel}}</td>
+                        </tr>
+                      </tbody>
+                    </table> -->
+              <!-- <div class="bg-violet-less  border-radius padding d-flex">
+                      <div class="bg-white float-left padding margin-left"
+                        *ngFor="let item of department.DepartmentPerson;let i = index">{{item.Fname}} {{item.Lname}}<i
+                          class="far fa-times-circle margin-left link" (click)="DeletePerson(item,i)"></i></div>
+                    </div> -->
 
-            <div class="text-center col-sm-12">
-              <button class="btn btn-primary" data-dismiss="modal"
-                (click)="SaveOrganization()">{{'Save' | translate}}</button>
-              <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
-            </div>
-          </form>
-        </aside>
+            </form>
+          </aside>
+        </div>
+
       </div>
-    </div>
-  </div>
+    </modal-content>
+    <modal-footer class="text-center">
+      <div class="text-center margin-top-20">
+        <button (click)="SaveOrganization()" data-dismiss="modal"
+          class="btn btn-primary">{{'Save' | translate}}</button>
+        <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
+      </div>
+    </modal-footer>
+  </modal>
+
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <aside class="col-sm-12  col-12 container no-margin-padding">
           <div class="modal-header bg-danger ">
             <h5 class="modal-title col-sm-12  col-12 text-center  text-white" id="exampleModalLongTitle">
-              {{'deleteConfirm' |translate }}
+              คุณต้องการลบหรือไม่
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -353,12 +206,12 @@
             <div class="col-sm-8  col-8 float-left">
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-3  col-3 col-form-label">{{'name' | translate}}
-                  {{organization?.OrganizationName}}</label>
+                  {{department?.DepartmentName}}</label>
               </div>
             </div>
             <div class="clearfix"></div>
             <div class="text-center col-sm-12  col-12">
-              <button (click)="SaveDeletePerson()" data-dismiss="modal"
+              <button (click)="SaveDeleteDepartment()" data-dismiss="modal"
                 class="btn btn-primary">{{'Save' | translate}}</button>
               <button class="btn btn-danger margin-left" data-dismiss="modal">{{'Cancle' | translate}}</button>
             </div>

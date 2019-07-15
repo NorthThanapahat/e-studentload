@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
       this.loginService.GetUserInfo({ accesstoken: res.access_token }).subscribe((userinfoRes: any) => {
         console.log(userinfoRes);
         this.data.userData = <UserData>userinfoRes;
+        this.data.userData.data[0].password = this.password;
         this.util.SetUserInfo(this.data.userData);
         console.log(this.util.GetUserInfo());
 
