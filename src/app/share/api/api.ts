@@ -96,7 +96,16 @@ export class ApiProvider {
             console.log(err);
         });
     }
-
+    SendImagePostData(url,data){
+        const fd = new FormData();
+        fd.append('file',data.image,data.image.name);
+        fd.append('PersonId',data.PersonId);
+        fd.append('IsActive',data.IsActive);
+        let headers = new HttpHeaders();
+        headers = headers.append("Accept", '*/*');
+        headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+       return  this.http.post(url,fd)
+    }
     SendRequestApiWithData(url, data) {
         return new Promise((resolve, reject) => {
             let headers = new HttpHeaders();

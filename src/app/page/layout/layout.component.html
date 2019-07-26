@@ -1,11 +1,12 @@
 <app-header class="nav-header"></app-header>
 
+
 <div style="z-index: 999;"  class="col-sm-2 d-none d-md-block no-padding side-menu bule-violet text-center"
   *ngIf="data.page == 'application'">
 
   <div class="full-body text-white margin-bottom-10" *ngIf="data.page == 'application'">
     <div class="bg-white padding-bottom-30 padding-top-30 ">
-      <i class="far fa-user-circle font-size-60 text-bule-violet padding"></i>
+      <i class="far fa-user-circle font-size-60 text-bule-violet padding" (click)="util.GoPerson(data.userData.data[0].PersonId,'userProfile')"></i>
       <div class="col-12 ">
         <span class="border-bottom-3 text-bule-violet">{{data.userData.data[0].Fname}}
           {{data.userData.data[0].Lname}}</span>
@@ -33,6 +34,7 @@
   </div>
 </div>
 <section>
+  
   <nav style="z-index: 1000;" class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler wt-50 padding-side0" type="button" data-toggle="collapse"
@@ -42,47 +44,52 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav navbar-center margin-auto">
-        <li (click)="Page('home')" [ngClass]="{'active': click == 'home'}" [routerLink]="[ '/home']"
+        <li (click)="Page('home')" *ngIf="data.userData.data[0].PermissionMenu.hasApplication" [ngClass]="{'active': data.page == 'application'}" [routerLink]="[ '/home']"
           class="nav-item link">
           <a class="nav-link">{{'Menu.1' | translate}}</a>
         </li>
-        <li class="nav-item link" [routerLink]="[ '/person']" (click)="Page('person')"
-          [ngClass]="{'active': click == 'person'}">
+        <li class="nav-item link" *ngIf="data.userData.data[0].PermissionMenu.hasPerson" [routerLink]="[ '/person']" (click)="Page('person')"
+          [ngClass]="{'active': data.page == 'person' }">
           <a class="nav-link">{{'Menu.2' | translate}}</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="data.userData.data[0].PermissionMenu.hasOrganization || data.userData.data[0].PermissionMenu.hasDepartment || data.userData.data[0].PermissionMenu.hasGroup">
           <a class="nav-link dropdown-toggle" href="#" [ngClass]="{'active': click == 'department'}" id="navbarDropdown"
             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{'Menu.3' | translate}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" (click)="Page('department')"
+            <a class="dropdown-item" *ngIf="data.userData.data[0].PermissionMenu.hasOrganization" (click)="Page('department')"
               [routerLink]="[ '/organization']">{{'Menu.3' | translate}}</a>
-            <a class="dropdown-item" (click)="Page('department')" [routerLink]="[ '/department']">{{'Menu.4' | translate}}</a>
-            <a class="dropdown-item" (click)="Page('department')"
+            <a class="dropdown-item" *ngIf="data.userData.data[0].PermissionMenu.hasDepartment" (click)="Page('department')" [routerLink]="[ '/department']">{{'Menu.4' | translate}}</a>
+            <a class="dropdown-item" *ngIf="data.userData.data[0].PermissionMenu.hasGroup" (click)="Page('department')"
               [routerLink]="[ '/group']">{{'Menu.5' | translate}}</a>
           </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="data.userData.data[0].PermissionMenu.hasDashboard">
           <a class="nav-link" (click)="Page('dashboard')" [ngClass]="{'active': click == 'dashboard'}"
             [routerLink]="[ '/dashboard']">{{'Menu.6' | translate}}</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="data.userData.data[0].PermissionMenu.hasChangePassword 
+        || data.userData.data[0].PermissionMenu.hasPasswordManage 
+        || data.userData.data[0].PermissionMenu.hasBackUp 
+        || data.userData.data[0].PermissionMenu.hasPermission
+        || data.userData.data[0].PermissionMenu.hasAuditLog
+        ">
           <a class="nav-link dropdown-toggle" href="#" [ngClass]="{'active': click == 'setting'}" id="navbarDropdown"
             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{'Menu.7.name' | translate}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" (click)="Page('setting')"
+            <a class="dropdown-item" *ngIf="data.userData.data[0].PermissionMenu.hasChangePassword" (click)="Page('setting')"
               [routerLink]="[ '/change-password']">{{'Menu.7.0' | translate}}</a>
-            <a class="dropdown-item" (click)="Page('setting')"
+            <a class="dropdown-item" (click)="Page('setting')" *ngIf="data.userData.data[0].PermissionMenu.hasPasswordManage"
               [routerLink]="[ '/manage-password']">{{'Menu.7.1' | translate}}</a>
-            <a class="dropdown-item" (click)="Page('setting')"
+            <a class="dropdown-item" (click)="Page('setting')" *ngIf="data.userData.data[0].PermissionMenu.hasBackUp"
               [routerLink]="[ '/manage-data']">{{'Menu.7.2' | translate}}</a>
-            <a class="dropdown-item" (click)="Page('setting')"
+            <a class="dropdown-item" (click)="Page('setting')" *ngIf="data.userData.data[0].PermissionMenu.hasPermission"
               [routerLink]="[ '/manage-role']">{{'Menu.7.3' | translate}}</a>
-            <a class="dropdown-item" (click)="Page('setting')"
+            <a class="dropdown-item" (click)="Page('setting')" *ngIf="data.userData.data[0].PermissionMenu.hasAuditLog"
               [routerLink]="[ '/audit-log']">{{'Menu.7.4' | translate}}</a>
           </div>
         </li>

@@ -86,6 +86,19 @@ export class DashboardComponent implements OnInit {
       console.log(res);
       if (res.successful) {
         this.newsList = res.data;
+        let today = new Date()
+        for(let itemNews of res.data){
+          let StrDate = new Date(itemNews.StrDate);
+          let EndDate = new Date(itemNews.EndDate);
+          // console.log(new Date(itemNews.StrDate));
+          if(today >= StrDate && today <= EndDate){
+            itemNews.IsActive = '1';
+          }else if(today< StrDate){
+            itemNews.IsActive = '0';
+          }else if(today > EndDate){
+            itemNews.IsActive = '2';
+          }
+        }
       }
     }, (err) => {
 

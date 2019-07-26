@@ -1,6 +1,8 @@
 {
 
     "NotFoundData":"ไม่พบข้อมูล",
+    "CreatePassword":"สร้างรหัสผ่าน",
+    "passwordDescription":"ตัวอย่าง : P@ss1234 ต้องความยาวอย่างน้อย 8 ตัวอักษร และต้องมีทั้งตัวพิมพ์ใหญ่ ตัวพิมพ์เล็ก ตัวเลข และอักขระพิเศษ ~!@#$%^&**()_" ,
     "Login":{
         "username":"ชื่อผู้เข้าใช้งานหรืออีเมล์",
         "password":"รหัสผ่าน",
@@ -24,9 +26,9 @@
             "4": "Audit Log"
         }
     },
-    "Mr":"นาย",
-    "Mrs":"นาง",
-    "Miss":"นางสาว",
+    "mr":"นาย",
+    "mrs":"นาง",
+    "miss":"นางสาว",
     "Save": "บันทึก",
     "Cancle": "ยกเลิก",
     "buttonInsert": "เพิ่มข้อมูล",
@@ -38,14 +40,19 @@
     "fullname": "ชื่อ-นามสกุล",
     "prename" : "คำนำหน้า",
     "internalPhone": "เบอร์โทรภายใน",
-    "phone":"เบอร์โทร",
+    "phone":"เบอร์โทรศัพท์",
     "email": "อีเมล์",
     "department": "ฝ่ายงาน",
+    "organization":"หน่วยงาน",
+    "detail":"รายละเอียด",
     "position": "ตำแหน่ง",
     "externalPhone": "เบอร์โทรภายนอก",
     "deleteConfirm":"คุณต้องการลบหรือไม่",
+    "no":"ลำดับ",
     
     "Home": {
+        "AddApplication":"เพิ่มข้อมูลแอพพลิเคชั่น",
+        "EditApplication":"แก้ไขข้อมูลแอพพลิเคชั่น",
         "historyOfLogin": "ประวัติการเข้าสู่ระบบ",
         "SystemName": "ชื่อระบบ",
         "LinkUrl": "Link Url",
@@ -61,10 +68,13 @@
         "email":"อีเมล์",
         "department":"ฝ่ายงาน",
         "position":"ตำแหน่ง",
-        "addPerson":"เพิ่มรายละเอียดบุคคล"
+        "AddPerson":"เพิ่มรายละเอียดบุคคล",
+        "EditPerson":"แก้ไขรายละเอียดบุคคล",
+        "UserProfile":"แก้ไขข้อมูลส่วนตัว"
     },
     "Organization": {
         "addOrganization":"เพิ่มรายละเอียดหน่วยงาน",
+        "editOrganization":"แก้ไขรายละเอียดหน่วยงาน",
         "addressOrganization":"ที่ตั้งหน่วยงาน",
         "addressforDoc":"ที่อยู่สำหรับจัดส่งเอกสาร",
         "organizationName":"ชื่อหน่วยงาน",
@@ -90,6 +100,7 @@
     },
     "Department":{
         "AddDepartmentData" : "เพิ่มรายละเอียดข้อมูลฝ่ายงาน",
+        "EditDepartmentData" : "แก้ไขรายละเอียดข้อมูลฝ่ายงาน",
         "departmentName":"ชื่อฝ่ายงาน",
         "organizationName":"ชื่อหน่วยงาน",
         "detail":"รายละเอียด",
@@ -103,8 +114,10 @@
         "detail":"รายละเอียด",
         "status":"สถานะ",
         "edit":"แก้ไข",
+        "details":"รายละเอียดกลุ่มงาน",
         "delete":"ลบ",
         "AddGroupData":"เพิ่มรายละเอียดกลุ่มงาน",
+        "EditGroupData":"แก้ไขรายละเอียดกลุ่มงาน",
         "groupName":"ชื่อกลุ่ม",
         "department":"ฝ่ายงาน",
         "other":"อื่นๆ"

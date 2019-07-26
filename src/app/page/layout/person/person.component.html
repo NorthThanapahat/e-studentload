@@ -3,57 +3,60 @@
     {{'NotFoundData' | translate}}
   </div>
   <div class="col-sm-2 col-12 float-right d-flex justify-content-center">
-      <div class="text-center col-sm-12 col-12 no-padding">
-        <div class="link text-bule-violet-light margin-top-20" (click)="InsertPerson()">
-          <i class="fas fa-plus-circle"></i>
-          {{'buttonInsert' | translate}}
-        </div>
-        <input type="file" name="" id="" #excelImport (change)="ImportExcel($event)" [(ngModel)]="files" accept=".xlsx" hidden>
-        <div (click)="excelImport.click()"
-          class="display-table link  d-flex justify-content-center  border-radius text-bule-violet-light padding  margin-top-10">
-          <i class="fas fa-arrow-circle-down font-size-25 float-left"></i>
-          
-          <div class="float-left margin-left  font-size-20" >Import</div>
-  
-        </div>
-        <div (click)="ExportExcel()"
-          class="display-table  d-flex justify-content-center link border-radius text-bule-violet-light padding margin-top-10">
-          <i class="fas fa-arrow-circle-up text-green  font-size-25 float-left"></i>
-          <div class="float-left margin-left  font-size-20">Export</div>
-        </div>
-        <div class="d-none d-md-block col-sm-12 col-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
-          <div class="bg-white col-sm-12 col-12 margin-top-30 float-left">
-            {{'history.edit' | translate}}
-            
-          </div>
-          <div class="scroll-y d-block mxh-400 float-left w-100">
-            <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-15">
-              <div class="full-body display-table  padding border-bottom-1 overflow-auto" *ngFor="let item of data?.personLog">
-                <div class="full-body">
-                  <div class="float-left d-flex justify-content-start">{{item.Date}}</div>
-                  <div class="float-right">{{item.Month}}</div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="full-body">
-                  <div class="float-left d-flex justify-content-start">{{item.EventLog}}</div>
-                  <div class="float-right">{{item.Time}}</div>
-                </div>
-              </div>
-    
-            </div>
-          </div>
-          
-        </div>
+    <div class="text-center col-sm-12 col-12 no-padding">
+      <div class="link text-bule-violet-light margin-top-20" *ngIf="data.personPermission.Add == '1'" (click)="InsertPerson()">
+        <i class="fas fa-plus-circle"></i>
+        {{'buttonInsert' | translate}}
       </div>
-  
+      <input type="file" name="" id="" #excelImport (change)="ImportExcel($event)" [(ngModel)]="files" accept=".xlsx"
+        hidden>
+      <div (click)="excelImport.click()" *ngIf="data.personPermission.Import == '1'" 
+        class="display-table link  d-flex justify-content-center  border-radius text-bule-violet-light padding  margin-top-10">
+        <i class="fas fa-arrow-circle-down font-size-25 float-left"></i>
+
+        <div class="float-left margin-left  font-size-20">Import</div>
+
+      </div>
+      <div (click)="ExportExcel()" *ngIf="data.personPermission.Export == '1'" 
+        class="display-table  d-flex justify-content-center link border-radius text-bule-violet-light padding margin-top-10">
+        <i class="fas fa-arrow-circle-up text-green  font-size-25 float-left"></i>
+        <div class="float-left margin-left  font-size-20">Export</div>
+      </div>
+      <div
+        class="d-none d-md-block col-sm-12 col-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
+        <div class="bg-white col-sm-12 col-12 margin-top-30 float-left">
+          {{'history.edit' | translate}}
+
+        </div>
+        <div class="scroll-y d-block mxh-400 float-left w-100">
+          <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-15">
+            <div class="full-body display-table  padding border-bottom-1 overflow-auto"
+              *ngFor="let item of data?.personLog">
+              <div class="full-body">
+                <div class="float-left d-flex justify-content-start">{{item.Date}}</div>
+                <div class="float-right">{{item.Month}}</div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="full-body">
+                <div class="float-left d-flex justify-content-start">{{item.EventLog}}</div>
+                <div class="float-right">{{item.Time}}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
     </div>
+
+  </div>
   <div class="col-sm-10 col-12 float-left font-size-20  margin-bottom-10">
     <div class="col-sm-12 col-12 display-table d-flex justify-content-center margin-top-20 padding border"
       *ngFor="let item of data.persons | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
-      <div class="top-right link" (click)="EditPerson(item)">
+      <div class="top-right link" *ngIf="data.personPermission.Edit == '1'"  (click)="EditPerson(item)">
         <i class="fas fa-edit text-bule-violet-light"></i>
       </div>
-      <div class="bottom-right link margin-right-5" (click)="DeletePerson(item)" data-toggle="modal"
+      <div class="bottom-right link margin-right-5" *ngIf="data.personPermission.Delete == '1'"  (click)="DeletePerson(item)" data-toggle="modal"
         data-target="#deleteModal">
         <i class="fas fa-trash text-bule-violet-light"></i>
       </div>
@@ -62,26 +65,25 @@
           <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
         </div>
         <div class="float-left margin-left margin-top-5p col-sm-7">
-
           <div class="float-left">
             <span class="float-left">
               <span class="text-bule-violet-light  float-left">{{'Personal.userId' | translate}}</span>
               <span class="margin-left float-left">{{item.UserId}}</span>
             </span>
-            <span class=" margin-left-20 float-left">
+            <div class="clearfix"></div>
+            <span class="float-left">
               <span class="text-bule-violet-light  float-left">{{'fullname' | translate}}</span>
-              <span class="margin-left float-left">{{item.Title}}{{item.Fname}} {{item.Lname}}</span>
+              <span class="margin-left float-left"><span translate="{{item.Title}}"></span>{{item.Fname}} {{item.Lname}}</span>
             </span>
           </div>
-
           <div class="clearfix"></div>
-
           <div class="float-left">
             <div class="float-left">
               <div class="text-bule-violet-light  float-left">{{'internalPhone' | translate}}</div>
               <div class="margin-left float-left">{{item.Offi_tel}}</div>
             </div>
-            <div class="margin-left-20 float-left">
+            <div class="clearfix"></div>
+            <div class="float-left">
               <div class="text-bule-violet-light  float-left">{{'email' | translate}}</div>
               <div class="margin-left float-left">{{item.Email}}</div>
             </div>
@@ -101,7 +103,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="clearfix"></div>
   <div class="col-12 justify-content-center mb-5">
     <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
@@ -110,12 +112,13 @@
 
   <modal #myModal>
     <modal-header class="col-12 no-padding">
-        <h5 class="modal-title col-sm-12 col-12 text-center float-left text-white" >
-          {{'Personal.addPerson' | translate}}
-        </h5>
-        <button type="button" class="close no-margin ab" (click)="CloseModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <h5 class="modal-title col-sm-12 col-12 text-center float-left text-white">
+        <span *ngIf="isInsert">{{'Personal.AddPerson' | translate}}</span>
+        <span *ngIf="!isInsert">{{'Personal.EditPerson' | translate}}</span>
+      </h5>
+      <button type="button" class="close no-margin ab" (click)="CloseModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </modal-header>
     <modal-content>
       <div>
@@ -128,65 +131,67 @@
                   <label for="inputPassword"
                     class="col-sm-4 col-4 col-form-label">{{'Personal.userId' | translate}}</label>
                   <div class="col-sm-8 col-8">
-                    <input type="text" class="form-control" (keyup)="KeyData('userId')" [ngClass]="{'is-invalid': err.userId }" name="userId"
-                      [(ngModel)]="person.userId">
+                    <input type="text" class="form-control" (keyup)="KeyData('userId')"
+                      [ngClass]="{'is-invalid': err.userId }" [disabled]="data.UserItem.isUserProfile" name="userId" [(ngModel)]="person.UserId">
                   </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'Permission.PermissionName' | translate}}</label>
-                    <div class="col-sm-8 col-8">
-                      <select class="form-control" name="permission" (change)="KeyData('permission')"  [ngClass]="{'is-invalid': err.permission}"
-                        [(ngModel)]="person.PermissionId">
-                        <option *ngFor="let item of permission"  value="{{item.PermissionId}}">{{item.PermissionName}}</option>
-                      </select>
-                    </div>
+                  <label for="inputPassword"
+                    class="col-sm-4 col-4 col-form-label">{{'Permission.PermissionName' | translate}}</label>
+                  <div class="col-sm-8 col-8">
+                    <select class="form-control" name="permission" [disabled]="data.UserItem.isUserProfile" (change)="KeyData('permission')"
+                      [ngClass]="{'is-invalid': err.permission}" [(ngModel)]="person.PermissionId">
+                      <option *ngFor="let item of permission" value="{{item.PermissionId}}">{{item.PermissionName}}
+                      </option>
+                    </select>
                   </div>
+                </div>
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'prename' | translate}}</label>
                   <div class="col-sm-8 col-8">
-                    <select class="form-control" name="preName" (change)="KeyData('preName')"  [ngClass]="{'is-invalid': err.preName}"
-                      [(ngModel)]="person.PreName">
-                      <option value="mr">{{'Mr' | translate}}</option>
-                      <option value="mrs">{{'Mrs' | translate}}</option>
-                      <option value="miss">{{'Miss' | translate}}</option>
+                    <select class="form-control" name="preName" [disabled]="data.UserItem.isUserProfile" (change)="KeyData('preName')"
+                      [ngClass]="{'is-invalid': err.preName}" [(ngModel)]="person.PreName">
+                      <option value="mr">{{'mr' | translate}}</option>
+                      <option value="mrs">{{'mrs' | translate}}</option>
+                      <option value="miss">{{'miss' | translate}}</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'name' | translate}}</label>
                   <div class="col-sm-8 col-8">
-                    <input type="text" class="form-control" name="name" (keyup)="KeyData('Fname')"  [ngClass]="{'is-invalid': err.Fname}"
-                      [(ngModel)]="person.Fname">
+                    <input type="text" class="form-control"  [disabled]="data.UserItem.isUserProfile" name="name" (keyup)="KeyData('Fname')"
+                      [ngClass]="{'is-invalid': err.Fname}" [(ngModel)]="person.Fname">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'lastname' | translate}}</label>
                   <div class="col-sm-8 col-8">
-                    <input type="text" class="form-control"  (keyup)="KeyData('Lname')"   [ngClass]="{'is-invalid': err.Lname}" name="lastname"
-                      [(ngModel)]="person.Lname">
+                    <input type="text" class="form-control" [disabled]="data.UserItem.isUserProfile" (keyup)="KeyData('Lname')"
+                      [ngClass]="{'is-invalid': err.Lname}" name="lastname" [(ngModel)]="person.Lname">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'phone' | translate}}</label>
                   <div class="col-sm-8 col-8">
-                    <input type="text" class="form-control"  (keyup)="KeyData('phone')"   [ngClass]="{'is-invalid': err.phone}" name="phone"
-                      [(ngModel)]="person.Phone">
+                    <input type="text" class="form-control"  (keyup)="KeyData('phone')"
+                      [ngClass]="{'is-invalid': err.phone}" name="phone" [(ngModel)]="person.Phone">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'email' | translate}}</label>
                   <div class="col-sm-8  col-8">
-                    <input type="text" class="form-control"  (keyup)="KeyData('email')"   [ngClass]="{'is-invalid': err.email}" name="email"
-                      [(ngModel)]="person.Email">
+                    <input type="text" class="form-control" (keyup)="KeyData('email')"
+                      [ngClass]="{'is-invalid': err.email}" name="email" [(ngModel)]="person.Email">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'department' | translate}}</label>
                   <div class="col-sm-8 col-8">
-                    <select class="form-control"  (change)="KeyData('department')"   [ngClass]="{'is-invalid': err.department}" name="department"
-                      [(ngModel)]="person.Depart">
+                    <select class="form-control" [disabled]="data.UserItem.isUserProfile" (change)="KeyData('department')"
+                      [ngClass]="{'is-invalid': err.department}" name="department" [(ngModel)]="person.Depart">
                       <option *ngFor="let item of getDepartment?.data">{{item.departmentname}}</option>
                     </select>
                   </div>
@@ -195,8 +200,8 @@
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-4 col-4 col-form-label">{{'position' | translate}}</label>
                   <div class="col-sm-8 col-8">
-                    <input type="text"  (keyup)="KeyData('position')"   [ngClass]="{'is-invalid': err.position}" class="form-control" name="position"
-                      [(ngModel)]="person.Position">
+                    <input type="text" [disabled]="data.UserItem.isUserProfile" (keyup)="KeyData('position')" [ngClass]="{'is-invalid': err.position}"
+                      class="form-control" name="position" [(ngModel)]="person.Position">
                   </div>
                 </div>
 
@@ -204,13 +209,13 @@
 
               <div class="col-sm-4  col-4 float-left ">
                 <div class="text-center">
-                  <input type="file" name="" id="" #uploader (change)="uploadFile($event)" hidden>
+                  <input type="file" name="" id="" #uploader (change)="uploadFile($event)" accept="image/*" hidden>
                   <img class="rounded-circle image-cover" src="{{image}}" height="200px" width="200px" alt=""
                     (click)="uploader.click()">
 
                 </div>
               </div>
-              
+
             </form>
 
             <!-- <div>
@@ -276,14 +281,63 @@
       </div>
     </modal-content>
     <modal-footer class="text-center">
-        <div class="clearfix"></div>
-        <div class="text-center col-sm-12  col-12">
-          <button (click)="SavePerson()" class="btn btn-primary">{{'Save' | translate}}</button>
-          <button class="btn btn-danger margin-left" (click)="CloseModal()">{{'Cancle' | translate}}</button>
-        </div>
+      <div class="clearfix"></div>
+      <div class="text-center col-sm-12  col-12">
+        <button (click)="SavePerson()" class="btn btn-primary">{{'Save' | translate}}</button>
+        <button class="btn btn-danger margin-left" (click)="CloseModal()">{{'Cancle' | translate}}</button>
+      </div>
     </modal-footer>
   </modal>
+  <modal #permissionModal>
+    <modal-header class="col-12 no-padding">
+      <h5 class="modal-title col-sm-12 col-12 text-center float-left text-white">
+        <span *ngIf="isInsert && !data.UserItem.isUserProfile">{{'Personal.AddPerson' | translate}}</span>
+        <span *ngIf="!isInsert && !data.UserItem.isUserProfile">{{'Personal.EditPerson' | translate}}</span>
+        <span *ngIf="data.UserItem.isUserProfile">{{'Personal.UserProfile' | translate}}</span>
+      </h5>
+      <button type="button" class="close no-margin ab" (click)="CloseModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </modal-header>
+    <modal-content>
+      <div>
+        <div class="modal-content">
+          <aside class="col-sm-12 col-12 container no-margin-padding">
 
+            <form class="container padding">
+              <div class="col-sm-8 col-8 float-left">
+
+                <div class="form-group row">
+                  <label for="inputPassword"
+                    class="col-sm-4 col-4 col-form-label">{{'Permission.PermissionName' | translate}}</label>
+                  <div class="col-sm-8 col-8">
+                    <select class="form-control" name="permission" (change)="KeyData('permission')"
+                      [ngClass]="{'is-invalid': err.permission}"  [(ngModel)]="permissionSelect">
+                      <option *ngFor="let item of permission" value="{{item.PermissionId}}">{{item.PermissionName}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+
+              </div>
+
+
+            </form>
+
+          </aside>
+        </div>
+
+      </div>
+    </modal-content>
+    <modal-footer class="text-center">
+      <div class="clearfix"></div>
+      <div class="text-center col-sm-12  col-12">
+        <button (click)="SavePermission()" class="btn btn-primary">{{'Save' | translate}}</button>
+        <button class="btn btn-danger margin-left" (click)="ClosePermissionModal()">{{'Cancle' | translate}}</button>
+      </div>
+    </modal-footer>
+  </modal>
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
@@ -300,7 +354,7 @@
             <div class="col-sm-8  col-8 float-left">
               <div class="form-group row">
                 <label for="inputPassword" class="col-sm-12  col-12 col-form-label">{{'name' | translate}}
-                  {{person?.Title}}{{person?.Fname}}   {{person?.Lname}}</label>
+                  {{person?.Title}}{{person?.Fname}} {{person?.Lname}}</label>
               </div>
             </div>
             <div class="clearfix"></div>

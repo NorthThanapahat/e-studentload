@@ -1,13 +1,14 @@
 export class Person {
     PersonId: string = '';
-    userId: string = '';
+    UserId: string = '';
     PersonName: string = '';
-    PathPhoto: string = '';
+    PathPhoto:any;
     Position: string = '';
     Depart: string = '';
     ApplicationId: string = '';
     Contact: string = '';
     PreName: string = '';
+    prefixName:string = '';
     Fname: string = '';
     Lname: string = '';
     Title: string = '';
@@ -18,5 +19,6 @@ export class Person {
     Staff_status:string= '';
     Phone: string = '';
     Email: string = '';
+    IsActive:string = '';
 
 }

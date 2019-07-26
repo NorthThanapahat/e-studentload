@@ -49,11 +49,27 @@ export class DepartmentComponent implements OnInit {
       });
     });
   }
+  Expand(item) {
+    if (item.expand) {
+      item.expand = false;
+    } else {
+      item.expand = true;
+    }
+  }
   GetDepartment() {
     this.api.SendRequestApi(`${ConfigAPI.GetAllDepartment}?token=${this.util.GetAccessToken()}`).then((res: any) => {
       if (res.successful) {
         this.data.allDepartment = res;
         this.data.department = res.data;
+        for (let item of this.data.department) {
+          item.expand = false;
+          this.api.SendRequestApi(`${ConfigAPI.GetPersonDepartment}?DepartmentName=${item.DepartmentName}&token=${this.util.GetAccessToken()}`).then((res:any)=>{
+            item.person = [];
+            item.person = res.data;
+          },(err)=>{});
+
+        }
+        console.log("Getperson=>",this.data.department);
       } else {
         // if (res.code == '-2146233088') {
         //   this.util.DoError();
@@ -65,8 +81,8 @@ export class DepartmentComponent implements OnInit {
     console.log(value);
   }
 
-  
-  NewDepartment(){
+
+  NewDepartment() {
     this.department = new Department();
     this.openModal();
   }
@@ -84,7 +100,7 @@ export class DepartmentComponent implements OnInit {
     })
   }
   Edit(item) {
-    
+
     this.isInsert = false;
     this.department.DepartmentId = item.DepartmentId;
     this.department.DepartmentName = item.DepartmentName;
@@ -94,7 +110,7 @@ export class DepartmentComponent implements OnInit {
     this.department.OrganizationId = item.OrganizationId;
     this.openModal();
   }
-  
+
   uploadFile(value) {
     this.department.DepartmentPhoto = value.target.value;
     console.log(this.department.DepartmentPhoto);
@@ -109,7 +125,7 @@ export class DepartmentComponent implements OnInit {
   }
   SaveDeleteDepartment() {
     let data = "DepartmentId=" + this.department.DepartmentId + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1";
-   
+
     this.api.SendRequestApiWithData(ConfigAPI.DeleteDepartment, data).then((res: any) => {
       if (res.successful) {
         this.GetDepartment();
@@ -153,7 +169,7 @@ export class DepartmentComponent implements OnInit {
 
 
     } else {
-      let data = "DepartmentId=" + this.department.DepartmentId + "&DepartmentName=" + this.department.DepartmentName + "&DepartmentDetail=" + this.department.Detail + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1" + "&OrganizationId=" + this.department.OrganizationId + "&DepartmentPhone=" + this.department.DepartmentPhone+"&DepartmentEmail="+this.department.email;
+      let data = "DepartmentId=" + this.department.DepartmentId + "&DepartmentName=" + this.department.DepartmentName + "&DepartmentDetail=" + this.department.Detail + "&CreateBy=" + this.data.userData.data[0].UserId + "&IsActive=1" + "&OrganizationId=" + this.department.OrganizationId + "&DepartmentPhone=" + this.department.DepartmentPhone + "&DepartmentEmail=" + this.department.email;
 
       this.api.SendRequestApiWithData(ConfigAPI.UpdateDepartment, data).then((res: any) => {
         if (res.successful) {
@@ -187,7 +203,7 @@ export class DepartmentComponent implements OnInit {
 
   }
 
-  CloseModal(){
+  CloseModal() {
     this.modalService.close(this.modalRef);
   }
 }

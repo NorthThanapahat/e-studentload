@@ -26,7 +26,9 @@ import { ExcelService } from './dashboard/exportAsExcelFile';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { DepartmentComponent } from './department/department.component';
+import { SplitPipe } from 'src/app/share/pipe/split.pipe';
 
+import { NgMarqueeModule } from 'ng-marquee';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { DepartmentComponent } from './department/department.component';
     ManageDataComponent,
     ManageRoleComponent,
     ChangePasswordComponent,
+    SplitPipe,
     AuditLogComponent],
   imports: [
     ModalModule,
@@ -56,6 +59,7 @@ import { DepartmentComponent } from './department/department.component';
     MatInputModule,
     MatFormFieldModule,
     MatCheckboxModule,
+    NgMarqueeModule,
     MatDatepickerModule,
     MatRadioModule,
     MatSelectModule,

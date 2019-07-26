@@ -1,12 +1,12 @@
 <div class="fullbody">
-  
-  <div class="col-sm-10 float-right margin-top-30 padding">
+
+  <div class="col-sm-10 col-12 float-right margin-top-30 padding">
 
     <div>
       <h2 class="float-left">Your Application</h2>
-      <div class="float-right link" data-toggle="modal" data-target="#exampleModalCenter" (click)="NewApplication()">
+      <div class="float-right link" data-toggle="modal" data-target="#exampleModalCenter" *ngIf="data.applicationPermission.Add == '1'" (click)="NewApplication()">
         <i class="fas fa-plus-circle"></i>
-        {{'buttonInsert' | translate}}
+        {{'Home.AddApplication' | translate}}
 
       </div>
     </div>
@@ -15,32 +15,89 @@
       {{'NotFoundData' | translate}}
     </div>
     <div class="margin-left-15p col-12 d-table" *ngIf="data.application?.length > 0">
-      <div class="text-center col-5 col-sm-3 item padding margin float-left"
-        *ngFor="let item of data.application | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
-        <img class="margin-top-10" width="50px" height="50px" src="assets/image/copy.png" alt="">
-        <a target="_blank" rel="noopener noreferrer" href="http://{{item.LinkURL}}">
-          <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary text-ellipsis">{{item.ApplicationName}}</div>
-        </a>
-        <div class="margin-top-20">
-          <i (click)="Edit(item)" data-toggle="modal" data-target="#exampleModalCenter"
-            class="fas fa-edit text-bule-violet-light"></i>
-          <i data-toggle="modal" data-target="#deleteModal" (click)="Delete(item)"
-            class="fas link fa-trash text-bule-violet-light margin-left-20"></i>
+      <div id="logon_username">{{data.userData.data[0].UserId}}</div>
+        <div class="text-center col-5 col-sm-3 item padding margin float-left"
+          *ngFor="let item of data.application | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
+          <img class="margin-top-10" width="50px" height="50px" src="assets/image/copy.png" alt="">
+          <a class="sso_application" (click)="SendGetService(item)" target="_blank" rel="noopener noreferrer" href="{{item.LinkURL}}">
+            <div class="btn-radius margin-top-10 col-8 offset-2 btn-primary text-ellipsis">{{item.ApplicationName}}
+            </div>
+          </a>
+          <div class="margin-top-20">
+            <i *ngIf="data.applicationPermission.Edit == '1'" (click)="Edit(item)" data-toggle="modal" data-target="#exampleModalCenter"
+              class="fas fa-edit text-bule-violet-light"></i>
+            <i  *ngIf="data.applicationPermission.Delete == '1'" data-toggle="modal" data-target="#deleteModal" (click)="Delete(item)"
+              class="fas link fa-trash text-bule-violet-light margin-left-20"></i>
 
+          </div>
         </div>
       </div>
 
+
     </div>
     <div class="clearfix"></div>
+
     <div class="col-12 justify-content-center">
       <ngb-pagination [(page)]="data.pageNum" [pageSize]="data.pageSize" [maxSize]="5"
         [collectionSize]="data.application?.length"></ngb-pagination>
     </div>
+    <div class="col-6  offset-3 margin-top-10p border padding">
+      <ng-marquee duration="30">
+        <mark *ngFor="let item of newsList">
+         <b>{{item.Topic}} :</b> {{item.Content}}
+        </mark>
+      </ng-marquee>
+    </div>
+    <modal style="z-index: 999999" #passwordModal>
+        <modal-header class="col-12 no-padding">
+          <h5 class="modal-title  col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle">
+            <span >{{'CreatePassword' | translate}}</span>
+          </h5>
+          <button type="button" class="close no-margin ab" (click)="CloseModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </modal-header>
+        <modal-content>
+          <div>
+            <div class="modal-content">
+              <aside class="col-sm-12 container no-margin-padding">
+      
+                <form class="container padding">
+                  <div class="form-group row no-margin margin-top-20">
+                    <label for="inputPassword"
+                      class="col-sm-3 col-form-label no-padding">{{'Login.password' | translate}}</label>
+                    <div class="col-sm-9 no-padding">
+                      <input type="password" class="form-control" [ngClass]="{'is-invalid': err.newPassword}" name="newPassword"
+                        [(ngModel)]="newPassword">
+                    </div>
+                  </div>
+                  <div class="form-group row no-margin margin-top-20">
+                    <label for="inputPassword"
+                      class="col-sm-3 col-form-label no-padding">{{'ChangePassword.confirmpassword' | translate}}</label>
+                    <div class="col-sm-9 no-padding">
+                      <input type="password" class="form-control" [ngClass]="{'is-invalid': err.confirmPassword}" name="confirmPassword"
+                        [(ngModel)]="confirmPassword">
+                    </div>
+                  </div>
+                </form>
+              </aside>
+            </div>
+      
+          </div>
+        </modal-content>
+        <modal-footer class="text-center">
+          <div class="text-center margin-top-20">
+            <button class="btn btn-primary" data-dismiss="modal" (click)="SavePassword()">{{'Save' | translate}}</button>
+            <button class="btn btn-danger margin-left" (click)="CloseModal()" data-dismiss="modal">{{'Cancle' | translate}}</button>
+          </div>
+        </modal-footer>
+      </modal>
     <modal #myModal>
       <modal-header class="col-12 no-padding">
-        <h5 class="modal-title  col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle"
-          (click)="NewApplication()">
-          {{'buttonInsert' | translate}}</h5>
+        <h5 class="modal-title  col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle">
+          <span *ngIf="isInsert">{{'Home.AddApplication' | translate}}</span>
+          <span *ngIf="!isInsert">{{'Home.EditApplication' | translate}}</span>
+        </h5>
         <button type="button" class="close no-margin ab" (click)="CloseModal()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -55,7 +112,7 @@
                   <label for="inputPassword"
                     class="col-sm-3 col-form-label no-padding">{{'Home.SystemName' | translate}}</label>
                   <div class="col-sm-9 no-padding">
-                    <input type="text" class="form-control" name="applicationName"
+                    <input type="text" class="form-control" name="applicationName"  [ngClass]="{'is-invalid': err.application.applicationName}"
                       [(ngModel)]="applicationItem.ApplicationName">
                   </div>
                 </div>
@@ -63,21 +120,21 @@
                   <label for="inputPassword"
                     class="col-sm-3 col-form-label no-padding">{{'Home.LinkUrl' | translate}}</label>
                   <div class="col-sm-9 no-padding">
-                    <input type="text" class="form-control" name="linkUrl" [(ngModel)]="applicationItem.LinkURL">
+                    <input type="text" class="form-control" name="linkUrl" [ngClass]="{'is-invalid': err.application.applicationLink}" [(ngModel)]="applicationItem.LinkURL">
                   </div>
                 </div>
                 <div class="form-group row no-margin margin-top-20">
                   <label for="inputPassword"
                     class="col-sm-3 col-form-label no-padding">{{'Home.ApplicationId' | translate}}</label>
                   <div class="col-sm-9  no-padding">
-                    <input type="text" class="form-control" name="AppId" [(ngModel)]="applicationItem.AppId">
+                    <input type="text" class="form-control" name="AppId"  [ngClass]="{'is-invalid': err.application.applicationId}"  [(ngModel)]="applicationItem.AppId">
                   </div>
                 </div>
                 <div class="form-group row no-margin margin-top-20">
                   <label for="inputPassword"
                     class="col-sm-3 col-form-label no-padding">{{'Home.Details' | translate}}</label>
                   <div class="col-sm-9  no-padding">
-                    <input type="text" class="form-control" name="details" [(ngModel)]="applicationItem.Detail">
+                    <input type="text" class="form-control" name="details"  [ngClass]="{'is-invalid': err.application.applicationDetails}"  [(ngModel)]="applicationItem.Detail">
                   </div>
                 </div>
 
@@ -86,7 +143,7 @@
                     class="col-sm-3 col-form-label no-padding">{{'Home.AttachmentsFile' | translate}}</label>
 
                   <div class="custom-file col-sm-9">
-                    <input type="file" accept="image/*" (change)="processFile($event)" class="custom-file-input"
+                    <input type="file" accept="image/*" (change)="processFile($event)"   [ngClass]="{'is-invalid': err.application.applicationFile}"  class="custom-file-input"
                       id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="file" [(ngModel)]="path">
                     <label class="custom-file-label" for="inputGroupFile01">{{path}}</label>
                   </div>

@@ -33,12 +33,15 @@ export class GroupComponent implements OnInit {
         this.data.allGroup = res;
         this.data.group = res.data;
         this.api.SendRequestApi(`${ConfigAPI.GetAllPerson}?token=${this.util.GetAccessToken()}`).then((res: any) => {
-          this.allperson = <AllPerson>res;
-          this.persons = res.data;
-          for (let item of this.persons) {
-            item.selected = false;
+          if (res.successful) {
+            this.allperson = <AllPerson>res;
+            this.persons = res.data;
+            for (let item of this.persons) {
+              item.selected = false;
+            }
+            console.log(this.allperson);
           }
-          console.log(this.allperson);
+
         });
       } else {
         // if (res.code == '-2146233088') {
@@ -62,93 +65,99 @@ export class GroupComponent implements OnInit {
   }
   SaveGroup() {
     this.CloseModal();
-    if (this.isInsert) {
-      let data = "GroupName=" + this.group.groupName + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
+    if (this.group.groupName == '' || this.group.GroupDetails == '') {
+      this.util.MessageIncompleteForm(this.data.language);
+    } else {
 
-      this.api.SendRequestApiWithData(ConfigAPI.InsertGroup, data).then((res: any) => {
-        if (res.successful) {
-          if (this.group.GroupPerson.length > 0) {
-            var isErr = false;
+      if (this.isInsert) {
+        let data = "GroupName=" + this.group.groupName + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
 
-            for (let i in this.group.GroupPerson) {
-              let data = "GroupId=" + res.data[0].GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
-              this.api.SendRequestApiWithData(ConfigAPI.InsertGroupPerson, data).then((res: any) => {
-                if (!res.successful) {
-                  isErr = true;
-                }
-              });
+        this.api.SendRequestApiWithData(ConfigAPI.InsertGroup, data).then((res: any) => {
+          if (res.successful) {
+            if (this.group.GroupPerson.length > 0) {
+              var isErr = false;
 
-            }
-            if (isErr) {
-              this.GetGroup();
-              this.util.MessageError(this.data.language);
+              for (let i in this.group.GroupPerson) {
+                let data = "GroupId=" + res.data[0].GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
+                this.api.SendRequestApiWithData(ConfigAPI.InsertGroupPerson, data).then((res: any) => {
+                  if (!res.successful) {
+                    isErr = true;
+                  }
+                });
+
+              }
+              if (isErr) {
+                this.GetGroup();
+                this.util.MessageError(this.data.language);
+              } else {
+                this.GetGroup();
+                this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "group");
+                this.util.MessageSuccess(this.data.language);
+              }
             } else {
               this.GetGroup();
-              this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "group");
               this.util.MessageSuccess(this.data.language);
+              this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "group");
+
             }
+
+
+
           } else {
-            this.GetGroup();
-            this.util.MessageSuccess(this.data.language);
-            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Insert', "group");
+            this.util.MessageError(this.data.language);
 
           }
-
-
-
-        } else {
+        }, (err) => {
           this.util.MessageError(this.data.language);
 
-        }
-      }, (err) => {
-        this.util.MessageError(this.data.language);
+        });
+      } else {
+        let data = "GroupId=" + this.group.GroupId + "&GroupMemberId=" + this.group.GroupMemberId + "&GroupName=" + this.group.groupName + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
 
-      });
-    } else {
-      let data = "GroupId=" + this.group.GroupId + "&GroupMemberId=" + this.group.GroupMemberId + "&GroupName=" + this.group.groupName + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
+        this.api.SendRequestApiWithData(ConfigAPI.UpdateGroup, data).then((res: any) => {
+          if (res.successful) {
+            if (this.group.GroupPerson.length > 0) {
+              var isErr = false;
 
-      this.api.SendRequestApiWithData(ConfigAPI.UpdateGroup, data).then((res: any) => {
-        if (res.successful) {
-          if (this.group.GroupPerson.length > 0) {
-            var isErr = false;
+              for (let i in this.group.GroupPerson) {
+                let data = "GroupId=" + this.group.GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
+                this.api.SendRequestApiWithData(ConfigAPI.UpdateGroupPerson, data).then((res: any) => {
+                  if (!res.successful) {
+                    isErr = true;
+                  }
+                });
 
-            for (let i in this.group.GroupPerson) {
-              let data = "GroupId=" + this.group.GroupId + "&personId=" + this.group.GroupPerson[i].PersonId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
-              this.api.SendRequestApiWithData(ConfigAPI.UpdateGroupPerson, data).then((res: any) => {
-                if (!res.successful) {
-                  isErr = true;
-                }
-              });
+              }
+              if (isErr) {
+                this.GetGroup();
+                this.util.MessageError(this.data.language);
+              } else {
+                this.GetGroup();
+                this.util.MessageSuccess(this.data.language);
+                this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "group");
 
-            }
-            if (isErr) {
-              this.GetGroup();
-              this.util.MessageError(this.data.language);
+              }
             } else {
               this.GetGroup();
-              this.util.MessageSuccess(this.data.language);
               this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "group");
 
+              this.util.MessageSuccess(this.data.language);
             }
+
+
+
           } else {
-            this.GetGroup();
-            this.api.InsertLog(this.data.userData.data[0].PersonId, 'Update', "group");
+            this.util.MessageError(this.data.language);
 
-            this.util.MessageSuccess(this.data.language);
           }
-
-
-
-        } else {
+        }, (err) => {
           this.util.MessageError(this.data.language);
 
-        }
-      }, (err) => {
-        this.util.MessageError(this.data.language);
-
-      });
+        });
+      }
     }
   }
+
   DepartmentSelete(value) {
     console.log(value);
   }
@@ -169,6 +178,7 @@ export class GroupComponent implements OnInit {
     this.group.isActive = item.IsActive;
     this.group.CreateBy = item.CreateBy;
     this.group.GroupMemberId = item.GroupMemberId;
+    this.GetGroupPerson(this.group.GroupId);
   }
   SaveDeleteGroup() {
     let data = "GroupMemberId=" + this.group.GroupMemberId + "&GroupId=" + this.group.GroupId + "&CreateBy=" + this.group.CreateBy + "&IsActive=" + this.group.isActive;
@@ -176,8 +186,27 @@ export class GroupComponent implements OnInit {
       if (res.successful) {
         this.GetGroup();
         this.api.InsertLog(this.data.userData.data[0].PersonId, 'Delete', "group");
-        
+
         this.util.MessageSuccess(this.data.language);
+      } else {
+        this.util.MessageError(this.data.language);
+      }
+    }, (err) => {
+      this.util.MessageError(this.data.language);
+    });
+  }
+  GetGroupPerson(groupId) {
+    this.api.SendRequestApi(`${ConfigAPI.GetGroupPerson}?GroupId=${groupId}&token=${this.util.GetAccessToken()}`).then((res: any) => {
+      if (res.successful) {
+        this.group.GroupPerson = res.data;
+
+        for (let i in this.group.GroupPerson) {
+          for (let j in this.allperson.data) {
+            if (this.group.GroupPerson[i].PersonId == this.allperson.data[j].PersonId) {
+              this.allperson.data[j].selected = true;
+            }
+          }
+        }
       } else {
         this.util.MessageError(this.data.language);
       }

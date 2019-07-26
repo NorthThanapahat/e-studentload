@@ -4,7 +4,7 @@
   </div>
   <div class="col-sm-2 col-12 float-right d-flex justify-content-center">
     <div class="text-center col-sm-12 col-12 no-padding">
-      <div class="link text-bule-violet-light" (click)="Insert()">
+      <div class="link text-bule-violet-light"  *ngIf="data.departmentPermission.Add == '1'"  (click)="Insert()">
         <i class="fas fa-plus-circle"></i>
         {{'buttonInsert' | translate}}
       </div>
@@ -13,7 +13,7 @@
         class="d-none d-md-block col-sm-12 col-12 bule-violet-light margin-top-10 display-table no-padding text-bule-violet-light">
         <div class="bg-white col-12 col-sm-12 margin-top-50p float-left">
           {{'history.edit' | translate}}
-          
+
         </div>
         <div class="scroll-y d-block mxh-400 float-left w-100">
           <div class="col-sm-12 col-12 text-white display-table bule-violet-light-white padding font-size-15">
@@ -35,47 +35,77 @@
 
   </div>
   <div *ngIf="data.department?.length > 0" class="col-sm-10 col-12 float-left font-size-20">
-    <div class="col-sm-12 col-12 display-table d-flex justify-content-center margin-top-20 padding border"
+    <div
+      class="col-sm-8 col-8 offset-2 offset-sm-2 display-table text-center justify-content-center margin-top-20 padding border"
       *ngFor="let item of data.department  | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
-      <div class="top-right link">
-        <i class="fas fa-edit text-bule-violet-light" (click)="Edit(item)"></i>
-      </div>
-      <div class="bottom-right link margin-right-5" data-toggle="modal" data-target="#deleteModal"
-        (click)="DeleteDepartment(item)">
-        <i class="fas fa-trash text-bule-violet-light"></i>
-      </div>
-      <div class="padding col-sm-5">
-        <div class="margin-top-5p float-left margin-right-5 col-12 col-sm-4 text-center">
-          <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
+      <div class="col-12 d-flex-justify-content-center">
+        <div class="top-right link">
+          <i class="fas fa-edit text-bule-violet-light" *ngIf="data.departmentPermission.Edit == '1'"  (click)="Edit(item)"></i>
         </div>
-        <div class="float-left margin-left col-sm-7 margin-top-5p font-size-20">
-          <div class="display-table">
-            <div class="text-bule-violet-light  float-left">{{'fullname' | translate}}</div>
-            <div class="margin-left float-left"><b>{{item.Title}}{{item.Fname}} {{item.Lname}}</b></div>
-          </div>
-          <div class="display-table">
-            <div class="text-bule-violet-light  float-left">{{'externalPhone' | translate}}</div>
-            <div class="margin-left float-left">{{item.DepartmentPhone}}</div>
-          </div>
-          <div class="display-table">
-            <div class="text-bule-violet-light  float-left">{{'email' | translate}}</div>
-            <div class="margin-left float-left">{{item.DepartmentDetail}}</div>
-          </div>
-          <div class="display-table"><b> </b>
-            <div class="float-left">
+        <div class="bottom-right link margin-right-5" *ngIf="data.departmentPermission.Delete == '1'"  data-toggle="modal" data-target="#deleteModal"
+          (click)="DeleteDepartment(item)">
+          <i class="fas fa-trash text-bule-violet-light"></i>
+        </div>
+        <div class="padding col-sm-6 offset-sm-3 border-radius-dark">
+          <!-- <div class="margin-top-5p float-left margin-right-5 col-12 col-sm-4 text-center">
+            <i class="fas fa-user-circle fa-7x text-bule-violet"></i>
+          </div> -->
+          <div class="float-left margin-left col-sm-12 margin-top-5p font-size-20">
+            <div class="display-table">
               <div class="text-bule-violet-light  float-left">{{'department' | translate}}</div>
-              <div class="margin-left float-left">{{item.DepartmentName}}</div>
+              <div class="margin-left float-left"><b>{{item.DepartmentName}}</b></div>
             </div>
-            <div class=" margin-left-20 float-left">
-                <div class="text-bule-violet-light  float-left">{{'position' | translate}}</div>
-                <div class="margin-left float-left">{{item.Position}}</div>
+            <div class="display-table">
+              <div class="text-bule-violet-light  float-left">{{'organization' | translate}}</div>
+              <div class="margin-left float-left">{{item.OrganizationName}}</div>
+            </div>
+            <div class="display-table">
+              <div class="text-bule-violet-light  float-left">{{'detail' | translate}}</div>
+              <div class="margin-left float-left">{{item.DepartmentDetail}}</div>
+            </div>
+            <div class="display-table">
+              <div class="text-bule-violet-light  float-left">{{'internalPhone' | translate}}</div>
+              <div class="margin-left float-left">{{item.DepartmentPhone}}</div>
+            </div>
+            <div class="display-table">
+              <div class="text-bule-violet-light  float-left">{{'email' | translate}}</div>
+              <div class="margin-left float-left">{{item.DepartmentEmail}}</div>
             </div>
           </div>
+          <div (click)="Expand(item)" class="float-right margin-right">
+            <i class="fas fa-chevron-{{item.expand?'down':'up'}}"></i>
+          </div>
+          <div class="clearfix"></div>
+
         </div>
       </div>
-     
 
+      <div *ngIf="item.expand" class="table-responsive margin-top-10">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">{{'no' | translate }}</th>
+              <th scope="col">{{'fullname' | translate }}</th>
+              <th scope="col">{{'phone' | translate }}</th>
+              <th scope="col">{{'email' | translate }}</th>
+              <th scope="col">{{'position' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let personItem of item?.person;let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td><span translate="{{personItem.Title}}"></span>{{personItem.Fname}} {{personItem.Lname}}</td>
+              <td>{{personItem.Offi_tel}}</td>
+              <td>{{personItem.Email}}</td>
+              <td>{{personItem.Position}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
     </div>
+
   </div>
 
 
@@ -88,7 +118,9 @@
   <modal #myModal>
     <modal-header class="col-12 no-padding">
       <h5 class="modal-title col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle">
-        {{'Department.AddDepartmentData' | translate}}</h5>
+        <span *ngIf="isInsert">{{'Department.AddDepartmentData' | translate}}</span>
+        <span *ngIf="!isInsert">{{'Department.EditDepartmentData' | translate}}</span>
+      </h5>
       <button type="button" class="close no-margin ab" (click)="CloseModal()">
         <span aria-hidden="true">&times;</span>
       </button>

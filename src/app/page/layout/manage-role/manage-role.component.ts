@@ -15,6 +15,7 @@ export class ManageRoleComponent implements OnInit {
   @ViewChild('myModal') myModal;
   private modalRef;
   application: any;
+  applicationChecked: Array<any>;
   checkAll: boolean = false;
   permission: any;
   page = 1;
@@ -23,7 +24,7 @@ export class ManageRoleComponent implements OnInit {
   previousPage: any;
   isInsert = false;
   permissionItem: any = {
-    id:'',
+    id: '',
     name: '',
     status: ''
   };
@@ -39,6 +40,7 @@ export class ManageRoleComponent implements OnInit {
     public util: UtilProvider
   ) {
     this.data.page = 'manage-role';
+    this.applicationChecked = [];
     this.GetAllApplication();
   }
 
@@ -61,7 +63,7 @@ export class ManageRoleComponent implements OnInit {
       backdropClass: "modal-backdrop"
     })
   }
-  Check(event, item, type) {
+  Check(event, item, type, index) {
     console.log("event Check=> ", event);
     console.log("item Check=> ", item);
     console.log("type Check=> ", type);
@@ -118,26 +120,16 @@ export class ManageRoleComponent implements OnInit {
     }
     console.log(item);
   }
+
   GetAllApplication() {
 
- 
     this.api.SendRequestApi(ConfigAPI.GetAllApplication).then((res: any) => {
       this.util.HideLoading();
+
 
       console.log(res);
       if (res.successful) {
         this.application = res.data;
-      
-        this.application.push({ApplicationName:"Application"});
-        this.application.push({ApplicationName:"Person"});
-        this.application.push({ApplicationName:"Organization"});
-        this.application.push({ApplicationName:"Department"});
-        this.application.push({ApplicationName:"Group"});
-        this.application.push({ApplicationName:"Dashboard"});
-        this.application.push({ApplicationName:"ManagePassword"});
-        this.application.push({ApplicationName:"BackupData"});
-        this.application.push({ApplicationName:"ManagePermission"});
-        this.application.push({ApplicationName:"AuditLog"});
         for (let item of this.application) {
           item.isEditChecked = '0';
           item.isViewChecked = '0';
@@ -193,10 +185,50 @@ export class ManageRoleComponent implements OnInit {
         this.api.SendRequestApiWithData(ConfigAPI.Insertpermission, data).then((res: any) => {
           console.log(res);
           var err = false;
-          this.GetAllpermission();
           if (res.successful) {
             for (let item of this.application) {
-              let data = `View=${item.isViewChecked}&Add=${item.isAddChecked}&Edit=${item.isEditChecked}&Delete=${item.isDeleteChecked}&Import=1&Export=0&IsActive=1&CreateBy=${this.data.userData.data[0].PersonId}&PermissionId=${res.data[0].PermissionId}&ApplicationId=${item.ApplicationId}`;
+              if (item.isViewChecked == '1' || item.isAddChecked == '1' || item.isEditChecked == '1' || item.isDeleteChecked == '1') {
+                let data = `View=${item.isViewChecked}&Add=${item.isAddChecked}&Edit=${item.isEditChecked}&Delete=${item.isDeleteChecked}&Import=1&Export=0&IsActive=1&CreateBy=${this.data.userData.data[0].PersonId}&PermissionId=${res.data[0].PermissionId}&ApplicationId=${item.ApplicationId}`;
+                this.api.SendRequestApiWithData(ConfigAPI.InsertpermissionManage, data).then((res: any) => {
+                  if (res.successful) {
+                    err = false;
+                  } else {
+                    err = true;
+                  }
+                }, (err) => {
+                  this.util.MessageError(this.data.language);
+                })
+              }
+            }
+            if (err) {
+              this.util.MessageError(this.data.language);
+            } else {
+              this.util.MessageSuccess(this.data.language);
+              this.GetAllpermission();
+
+            }
+
+          }
+        });
+      } else {
+        var err = false;
+        for (let item of this.application) {
+          if (item.PermissionManageId != undefined || (item.PermissionManageId == undefined && (item.isViewChecked == '1' || item.isAddChecked == '1' || item.isEditChecked == '1' || item.isDeleteChecked == '1'))) {
+            if (item.PermissionManageId != undefined) {
+              let data = `PermissionManageId = ${item.PermissionManageId}&ApplicationId=${item.ApplicationId}&View=${item.isViewChecked}&Import=1&Export=0&Add=${item.isAddChecked}&Edit=${item.isEditChecked}&Delete=${item.isDeleteChecked}&PermissionId=${this.permissionItem.id}&PermissionName=${this.permissionItem.name}&IsActive=${this.permissionItem.status}&CreateBy=${this.data.userData.data[0].PersonId}`;
+              this.api.SendRequestApiWithData(ConfigAPI.Updatepermission, data).then((res: any) => {
+                console.log(res);
+
+                if (res.successful) {
+                  err = false;
+                } else {
+                  err = true;
+                }
+              }, (err1) => {
+
+              });
+            } else if(item.PermissionManageId == undefined && (item.isViewChecked == '1' || item.isAddChecked == '1' || item.isEditChecked == '1' || item.isDeleteChecked == '1')){
+              let data = `View=${item.isViewChecked}&Add=${item.isAddChecked}&Edit=${item.isEditChecked}&Delete=${item.isDeleteChecked}&Import=1&Export=0&IsActive=1&CreateBy=${this.data.userData.data[0].PersonId}&PermissionId=${this.permissionItem.id}&ApplicationId=${item.ApplicationId}`;
               this.api.SendRequestApiWithData(ConfigAPI.InsertpermissionManage, data).then((res: any) => {
                 if (res.successful) {
                   err = false;
@@ -207,44 +239,16 @@ export class ManageRoleComponent implements OnInit {
                 this.util.MessageError(this.data.language);
               })
             }
-            if (err) {
-              this.util.MessageError(this.data.language);
-            } else {
-              this.util.MessageSuccess(this.data.language);
-            }
 
           }
-        });
-      }else{
-        let data = `PermissionId=${this.permissionItem.id}&PermissionName=${this.permissionItem.name}&IsActive=${this.permissionItem.status}&CreateBy=${this.data.userData.data[0].PersonId}`;
-        this.api.SendRequestApiWithData(ConfigAPI.Updatepermission, data).then((res: any) => {
-          console.log(res);
-          var err = false;
+        }
+        if (err) {
+          this.util.MessageError(this.data.language);
+        } else {
+          this.util.MessageSuccess(this.data.language);
           this.GetAllpermission();
-          
-          if (res.successful) {
-            for (let item of this.application) {
-              let data = `View=${item.isViewChecked}&Add=${item.isAddChecked}&Edit=${item.isEditChecked}&Delete=${item.isDeleteChecked}&Import=1&Export=0&IsActive=1&CreateBy=${this.data.userData.data[0].PersonId}&PermissionId=${this.permissionItem.PermissionId}&ApplicationId=${item.ApplicationId}`;
-              this.api.SendRequestApiWithData(ConfigAPI.UpdatepermissionManage, data).then((res: any) => {
-                if (res.successful) {
-                  err = false;
-                } else {
-                  err = true;
-                }
-              }, (err) => {
-                this.util.MessageError(this.data.language);
-              })
-            }
-            if(err){
-              this.util.MessageError(this.data.language);
-            }else{
-              this.util.MessageSuccess(this.data.language);
-            }
-  
-          }
-        });
+        }
       }
-
     }
 
     this.CloseModal();
@@ -255,12 +259,57 @@ export class ManageRoleComponent implements OnInit {
     this.permissionItem.id = item.PermissionId;
     this.permissionItem.name = item.PermissionName;
     this.permissionItem.status = item.IsActive;
+    this.util.ShowLoading();
+    this.api.SendRequestApi(ConfigAPI.GetAllApplication).then(async (res: any) => {
+
+
+      console.log(res);
+      if (res.successful) {
+        this.application = res.data;
+        for (let item of this.application) {
+          item.isEditChecked = '0';
+          item.isViewChecked = '0';
+          item.isAddChecked = '0';
+          item.isDeleteChecked = '0';
+        }
+        await this.api.SendRequestApi(`${ConfigAPI.GetPermissionManage}?PermissionId=${this.permissionItem.id}&token=${this.util.GetAccessToken()}`).then((res: any) => {
+          console.log(res);
+          for (let appitem of this.application) {
+            for (let appPermission of res.data) {
+              if (appitem.ApplicationId == appPermission.ApplicationId) {
+                appitem.isAddChecked = appPermission.Add;
+                appitem.isEditChecked = appPermission.Edit;
+                appitem.isDeleteChecked = appPermission.Delete;
+                appitem.isViewChecked = appPermission.View;
+                appitem.PermissionManageId = appPermission.PermissionManageId;
+              }
+            }
+            this.util.HideLoading();
+
+          }
+        }, (err) => {
+
+        })
+      } else {
+        // if (res.code == '-2146233088') {
+        //   this.util.DoError();
+        // }
+      }
+
+      // this.util.HideLoading();
+    }, (err) => {
+      console.log("err===>", err);
+      this.util.HideLoading();
+      this.util.Logout();
+    });
+
     this.openModal();
   }
   NewPermission() {
     this.isInsert = true;
     this.permissionItem.name = '';
     this.permissionItem.status = '';
+    this.GetAllApplication();
     this.openModal();
   }
 }

@@ -45,6 +45,7 @@ export class ManagePasswordComponent implements OnInit {
      
     });
   }
+  
   Validate() {
     if (this.passwordData.OldPassword == '' || this.passwordData.OldPassword == undefined) {
 

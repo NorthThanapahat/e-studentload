@@ -1,5 +1,7 @@
 {
     "NotFoundData":"Data not found",
+    "CreatePassword":"Create Password",
+    "passwordDescription":"Example : P@ss1234 Your password has to be at least 8 Characters long and must contain at least one lower case letter, one upper case letter,one digit and one of these special characters ~!@#$%^&**()_" ,
     "Login":{
         "username":"Username or Email",
         "password":"Password",
@@ -23,9 +25,9 @@
             "4": "Audit Log"
         }
     },
-    "Mr":"Mr",
-    "Mrs":"Mrs",
-    "Miss":"Miss",
+    "mr":"Mr",
+    "mrs":"Mrs",
+    "miss":"Miss",
     "Save": "Save",
     "Cancle": "Cancle",
     "buttonInsert": "Add Application",
@@ -40,10 +42,15 @@
     "email": "Email",
     "phone":"Phone",
     "department": "Department",
+    "organization":"Organization",
+    "detail":"Detail",
     "position": "position",
     "externalPhone": "External Phone Number",
     "deleteConfirm":"Do you want to delete ?",
+    "no":"No",
     "Home": {
+        "AddApplication":"Inset Application",
+        "EditApplication":"Edit Application",
         "historyOfLogin": "Login History",
         "SystemName": "System Name",
         "LinkUrl": "Link Url",
@@ -59,12 +66,15 @@
         "email": "Email",
         "department": "Department",
         "position": "Position",
-        "addPerson":"Insert Person"
+        "AddPerson":"Insert Person",
+        "EditPerson":"Edit Person",
+        "UserProfile":"Edit UserProfile"
     },
     "Organization": {
         "addressOrganization": "OrganizationAddress ",
         "addressforDoc": "Address for Sending document",
         "addOrganization": "Insert Organization",
+        "editOrganization": "Edit Organization",
         "organizationName": "Organization Name",
         "tin": "Taxpayer identification number (TIN)",
         "detailOrganization": "DetailOrganization",
@@ -87,6 +97,8 @@
     },
     "Department": {
         "AddDepartmentData": "Insert Department",
+        "EditDepartmentData" : "Edit Department",
+
         "departmentName": "Department Name",
         "organizationName": "Organization Name",
         "detail": "Detail",
@@ -98,10 +110,13 @@
         "groupname":"GroupName",
         "createby":"Create By",
         "detail":"Detail",
+        "details":"GroupDetails",
         "status":"Status",
         "edit":"Edit",
         "delete":"Delete",
         "AddGroupData":"Insert Group",
+        "EditGroupData":"Edit Group",
+
         "groupName":"Group Name",
         "department":"Department",
         "other":"other"

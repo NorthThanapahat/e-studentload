@@ -3,8 +3,9 @@
     <div class="text-white text-center justify-content-center no-padding">
       <h4 class="bg-danger padding">{{'Permission.SetPermission' | translate}}</h4>
     </div>
-    <button class="col-sm-4 btn btn-success margin-left float-right margin-bottom-10" (click)="NewPermission()"
-      data-toggle="modal" data-target="#exampleModalCenter">{{'Permission.CreatePermission' | translate}}</button>
+    <button class="col-sm-4 btn btn-success margin-left float-right margin-bottom-10"
+      *ngIf="data.permissionPermission.Add == '1'" (click)="NewPermission()" data-toggle="modal"
+      data-target="#exampleModalCenter">{{'Permission.CreatePermission' | translate}}</button>
     <div class="clearfix"></div>
     <div class="container no-padding">
       <div class="col-sm-12 font-size-20 no-padding">
@@ -21,13 +22,20 @@
               </tr>
             </thead>
             <tbody class="text-center">
-              <tr *ngFor="let item of data.permission | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
+              <tr
+                *ngFor="let item of data.permission | slice: (data.pageNum-1) * data.pageSize : (data.pageNum-1) * data.pageSize + data.pageSize">
                 <td class="text-center">{{item.PermissionName}}</td>
                 <td class="text-center">{{item.MenuName}}</td>
                 <td class="text-center">{{item.PermissionType}}</td>
-                <td class="text-center">{{item.IsActive}} </td>
-                <td class="text-center link" data-toggle="modal" data-target="#exampleModalCenter" (click)="Edit(item)">
+                <td class="text-center" translate="{{item.IsActive == 1?'Active':'InActive'}}"></td>
+                <td class="text-center link" data-toggle="modal" data-target="#exampleModalCenter"
+                  *ngIf="data.permissionPermission.Edit == '1'" (click)="Edit(item)">
                   <i class="fas fa-edit text-bule-violet-light"></i></td>
+              </tr>
+              <tr *ngIf="data.permission?.length == 0" >
+                <td colspan="5" class="text-center">{{'NotFoundData' | translate}}
+                </td>
+
               </tr>
             </tbody>
           </table>
@@ -38,7 +46,7 @@
             [collectionSize]="data.permission?.length"></ngb-pagination>
         </div>
       </div>
-      
+
       <modal #myModal>
         <modal-header class="col-12 no-padding">
           <h5 class="modal-title col-sm-12 text-center  text-white float-left" id="exampleModalLongTitle">
@@ -58,14 +66,16 @@
                         <label for="inputPassword" class="col-sm-3 col-form-label">
                           {{'Permission.PermissionName' | translate}}</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" [ngClass]="{'is-invalid': err.name}"  name="name" [(ngModel)]="permissionItem.name">
+                          <input type="text" class="form-control" [ngClass]="{'is-invalid': err.name}" name="name"
+                            [(ngModel)]="permissionItem.name">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-3 col-form-label">
                           {{'Permission.PermissionStatus' | translate}}</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="status" [ngClass]="{'is-invalid': err.status}" [(ngModel)]="permissionItem.status">
+                          <select class="form-control" name="status" [ngClass]="{'is-invalid': err.status}"
+                            [(ngModel)]="permissionItem.status">
                             <option value="1">{{'Active' | translate}}</option>
                             <option value="0">{{'InActive' | translate}}</option>
                           </select>
@@ -93,11 +103,22 @@
                             <tr *ngFor="let item of application;let i = index">
                               <th class="text-center" scope="row">{{i+1}}</th>
                               <td class="text-center">{{item.applicationname}}</td>
-                              <td class="text-center"> <input type="checkbox" class="form-check-input" (change)="Check($event,item,'checkAll')" [checked]="item.isViewChecked == '1' && item.isEditChecked == '1' && item.isAddChecked == '1' && item.isDeleteChecked == '1'" name="" id=""></td>
-                              <td class="text-center"> <input type="checkbox" class="form-check-input" (change)="Check($event,item,'view')"  [checked]="item.isViewChecked == '1' ? true:false" name="" id=""></td>
-                              <td class="text-center"> <input type="checkbox" class="form-check-input" (change)="Check($event,item,'add')" [checked]="item.isAddChecked == '1' ? true:false" name="" id=""></td>
-                              <td class="text-center"> <input type="checkbox" class="form-check-input" (change)="Check($event,item,'edit')" [checked]="item.isEditChecked == '1' ? true:false" name="" id=""></td>
-                              <td class="text-center"> <input type="checkbox" class="form-check-input" (change)="Check($event,item,'delete')" [checked]="item.isDeleteChecked == '1' ? true:false" name="" id=""></td>
+                              <td class="text-center"> <input type="checkbox" class="form-check-input"
+                                  (change)="Check($event,item,'checkAll')"
+                                  [checked]="item.isViewChecked == '1' && item.isEditChecked == '1' && item.isAddChecked == '1' && item.isDeleteChecked == '1'"
+                                  name="" id=""></td>
+                              <td class="text-center"> <input type="checkbox" class="form-check-input"
+                                  (change)="Check($event,item,'view')"
+                                  [checked]="item.isViewChecked == '1' ? true:false" name="" id=""></td>
+                              <td class="text-center"> <input type="checkbox" class="form-check-input"
+                                  (change)="Check($event,item,'add')" [checked]="item.isAddChecked == '1' ? true:false"
+                                  name="" id=""></td>
+                              <td class="text-center"> <input type="checkbox" class="form-check-input"
+                                  (change)="Check($event,item,'edit')"
+                                  [checked]="item.isEditChecked == '1' ? true:false" name="" id=""></td>
+                              <td class="text-center"> <input type="checkbox" class="form-check-input"
+                                  (change)="Check($event,item,'delete')"
+                                  [checked]="item.isDeleteChecked == '1' ? true:false" name="" id=""></td>
                             </tr>
                           </tbody>
                         </table>

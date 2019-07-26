@@ -17,34 +17,42 @@ export class ChangePasswordComponent implements OnInit {
     public util: UtilProvider,
     public data: DataProvider) {
     this.data.page = 'change-password';
-
+    this.newPassword = '';
   }
 
   ngOnInit() {
   }
 
   Save() {
-    if (this.oldPassword == this.data.userData.data[0].password) {
-      if (this.newPassword === this.confirmPassword) {
-        let data = `UserId=${this.data.userData.data[0].UserId}&Password=${this.newPassword}`
-        this.api.SendRequestApiWithData(ConfigAPI.UpdatePassword, data).then((res: any) => {
-          if (res.successful)
-            this.util.MessageSuccess(this.data.language);
-        }, (err) => {
-          this.util.MessageError(this.data.language);
-        });
-      } else {
-        if (this.data.language == 'th')
-          this.util.AlertMessage("ผิดพลาด", "ยืนยันรหัสผ่านไม่ถูกต้อง", {});
-        else
-          this.util.AlertMessage("Error", "Confirm Password is Invalid", {});
-      }
-    } else {
+    // if (this.oldPassword == this.data.userData.data[0].password) {
+    //   if (this.newPassword === this.confirmPassword) {
+    if (this.newPassword == '') {
       if (this.data.language == 'th')
-        this.util.AlertMessage("ผิดพลาด", "รหัสไม่ถูกต้อง", {});
+        this.util.AlertMessage("ผิดพลาด", "กรุณากรอกรหัสผ่าน", {});
       else
-        this.util.AlertMessage("Error", "Password Invalid", {});
+        this.util.AlertMessage("Error", "Please input your new password!!!", {});
+    }else{
+      let data = `UserId=${this.data.userData.data[0].UserId}&Password=${this.newPassword}`
+      this.api.SendRequestApiWithData(ConfigAPI.UpdatePassword, data).then((res: any) => {
+        if (res.successful)
+          this.util.MessageSuccess(this.data.language);
+      }, (err) => {
+        this.util.MessageError(this.data.language);
+      });
     }
+    
+    // } else {
+    //   if (this.data.language == 'th')
+    //     this.util.AlertMessage("ผิดพลาด", "ยืนยันรหัสผ่านไม่ถูกต้อง", {});
+    //   else
+    //     this.util.AlertMessage("Error", "Confirm Password is Invalid", {});
+    // }
+    // } else {
+    //   if (this.data.language == 'th')
+    //     this.util.AlertMessage("ผิดพลาด", "รหัสไม่ถูกต้อง", {});
+    //   else
+    //     this.util.AlertMessage("Error", "Password Invalid", {});
+    // }
   }
 
 }

@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SplitPipe } from './share/pipe/split.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http,'../assets/i18n/','.json');

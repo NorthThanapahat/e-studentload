@@ -22,6 +22,7 @@ export class ConfigAPI {
 
     //person page
     public static GetAllPerson = ConfigAPI.Base_API + "getallperson";
+    public static GetPersonDepartment = ConfigAPI.Base_API + "getpersondepartment";
     public static InsertPerson = ConfigAPI.Base_API + "insertperson";
     public static InsertContactPerson = ConfigAPI.Base_API + "insertpersoncontact";
     public static UpdateContactPerson = ConfigAPI.Base_API + "updatepersoncontact";
@@ -47,7 +48,7 @@ export class ConfigAPI {
     public static InsertGroupPerson = ConfigAPI.Base_API + "insertgroupperson";
     public static UpdateGroup = ConfigAPI.Base_API + "updategroup";
     public static UpdateGroupPerson = ConfigAPI.Base_API + "updategroupperson";
-    public static DeleteGroup = ConfigAPI.Base_API + "updategroup";
+    public static DeleteGroup = ConfigAPI.Base_API + "deletegroup";
 
 
     // dashboard
@@ -55,8 +56,9 @@ export class ConfigAPI {
     public static GetReportPerson = ConfigAPI.Base_API + "getreportperson";
     public static GetReportUserLog = ConfigAPI.Base_API + "getreportuserlog";
 
+    public static GetPermissionManage = ConfigAPI.Base_API + "getpermissionmanage";
 
-
+    public static GetGroupPerson = ConfigAPI.Base_API + "getgroupperson";
 
     public static GetPasswordManagement = ConfigAPI.Base_API + "getpasswordmanagement";
     public static UpdatePassword = ConfigAPI.Base_API + "updatepassword";
@@ -72,6 +74,8 @@ export class ConfigAPI {
     public static DeleteNews = ConfigAPI.Base_API + "deletenews";
     
     public static GetAllApplication = ConfigAPI.Base_API + "getallapplication";
+    public static InsertImage = ConfigAPI.Base_API + "insertphotoperson";
+    public static GetImage = ConfigAPI.Base_API + "getphotoperson";
     
 
 }

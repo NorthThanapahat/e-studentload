@@ -9,6 +9,7 @@ export class PasswordManageMentData{
     CreateBy:string = '';
     CreateDate :string = '';
     IsActive:string = '';
+    userID:string = '';
     NewUsername:string = '';
     OldUsername:string = '';
     PasswordId:string = '';

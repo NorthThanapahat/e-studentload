@@ -6,6 +6,7 @@ import { ThailandData } from '../constant/ThailandData';
 import { Router } from '@angular/router';
 import { DataProvider } from './provider/provider';
 import * as moment from 'moment';
+import { BackUpData } from '../model/BackupData';
 
 @Injectable()
 export class UtilProvider {
@@ -14,6 +15,13 @@ export class UtilProvider {
   constructor(private router: Router, private data: DataProvider, private dialog: MatDialog) {
 
   }
+  GoPerson(value,user){
+    this.data.UserItem.id =  value;
+    this.data.UserItem.isUserProfile =  true;
+    this.router.navigateByUrl('person');
+    console.log(value)
+  }
+  
   ConfigDialog(width: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -46,6 +54,17 @@ export class UtilProvider {
     localStorage.setItem("language", 'th');
   }
 
+  SetBackupData(data:BackUpData) {
+    localStorage.setItem('backupdata', btoa(unescape(encodeURIComponent(JSON.stringify(data)))));
+  }
+
+  GetBackupData() {
+    if (localStorage.getItem('backupdata') != null)
+      return JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem('backupdata')))));
+    else
+      return null;
+  }
+
   ShowLoading() {
     this.loading = this.dialog.open(LoadingComponent, {
       panelClass: "background-transperent",
@@ -58,11 +77,11 @@ export class UtilProvider {
   ConvertISODate(date) {
     return moment(date, 'YYYY-MM-DDTHH:mm:ssTZD').format('YYYY-MM-DD HH:mm:ss');
   }
-  ConvertStringToDatePicker(string,format) {
-    return new Date(moment(string,format).format('YYYY-MM-DDTHH:mm:ss'));
+  ConvertStringToDatePicker(string, format) {
+    return new Date(moment(string, format).format('YYYY-MM-DDTHH:mm:ss'));
   }
-  ConvertFormatDate(text,formatString,formatConvertstring){
-    return moment(text,formatString).format(formatConvertstring);
+  ConvertFormatDate(text, formatString, formatConvertstring) {
+    return moment(text, formatString).format(formatConvertstring);
 
   }
   PushItemArray(array: Array<any>, item) {
@@ -106,13 +125,21 @@ export class UtilProvider {
     }
   }
 
+  MessageIncompleteForm(language){
+    if(language == 'th'){
+      this.AlertMessage('เกิดข้อผิดพลาด','กรุณากรอกข้อมูลให้ครบถ้วน',{});
+    }
+    else if(language == 'en'){
+      this.AlertMessage('Error','Please fill up form.',{});
+    }
+  }
   MessageError(language) {
 
     if (language == 'th') {
       this.AlertMessage('เกิดข้อผิดพลาด', 'ไม่สามารถดำเนินการได้ กรุณาตรวจสอบอีกครั้ง', {});
 
     } else if (language == 'en') {
-      this.AlertMessage('Insert Data Incomplete !', 'Cann\'t process . Please try again.', {});
+      this.AlertMessage('Error !', 'Cann\'t process . Please try again.', {});
 
     }
   }

@@ -24,9 +24,9 @@
             <td class="text-center">{{item.GroupDetail}}</td>
             <td class="text-center"></td>
             <td class="text-center">{{item.IsActive}}</td>
-            <td class="text-center link" data-toggle="modal" data-target="#exampleModalCenter" (click)="Edit(item)"><i
+            <td class="text-center link" data-toggle="modal" data-target="#exampleModalCenter"  *ngIf="data.groupPermission.Edit == '1'"  (click)="Edit(item)"><i
                 class="fas fa-edit text-bule-violet-light"></i></td>
-            <td class="text-center link" data-toggle="modal" data-target="#deleteModal" (click)="Delete(item)"><i
+            <td class="text-center link" data-toggle="modal" data-target="#deleteModal"  *ngIf="data.groupPermission.Delete == '1'"   (click)="Delete(item)"><i
                 class="fas fa-trash text-bule-violet-light"></i></td>
           </tr>
 
@@ -39,7 +39,7 @@
   </div>
   <div class="col-sm-2 float-left d-flex justify-content-center">
     <div class="text-center col-sm-12 no-padding">
-      <div class="link text-bule-violet-light" (click)="InsertGroup()" data-toggle="modal"
+      <div class="link text-bule-violet-light" (click)="InsertGroup()" data-toggle="modal" *ngIf="data.groupPermission.Add == '1'" 
         data-target="#exampleModalCenter">
         <i class="fas fa-plus-circle"></i>
         {{'buttonInsert' | translate}}
@@ -82,7 +82,8 @@
         <aside class="col-sm-12 container no-margin-padding">
           <div class="modal-header bg-danger ">
             <h5 class="modal-title col-sm-12 text-center  text-white" id="exampleModalLongTitle">
-              {{'group.AddGroupData' | translate}}
+              <span *ngIf="isInsert">{{'group.AddGroupData' | translate}}</span> 
+              <span *ngIf="!isInsert">{{'group.EditGroupData' | translate}}</span>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -104,6 +105,12 @@
                     <option *ngFor="let item of getDepartment?.data" value="{{item.DepartmentId}}">
                       {{item.DepartmentName}}</option>
                   </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">{{'group.details' | translate}}</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [(ngModel)]="group.GroupDetails" name="groupdetails">
                 </div>
               </div>
               <div class="form-group row">

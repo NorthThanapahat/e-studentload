@@ -5,6 +5,7 @@ export class Group{
     isActive:string = '';
     CreateBy:string = '';
     GroupId:string = '';
+    GroupDetails:string = '';
     GroupMemberId:string = '';
     GroupPerson:Array<any> = [];
 }

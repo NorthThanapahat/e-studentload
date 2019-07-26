@@ -1,10 +1,10 @@
 <div class="full-body ">
   <div class="col-sm-2 d-none d-md-block col-12 no-padding side-menu bule-violet text-center" style="z-index: 999;">
     <div class="full-body text-white margin-bottom-10">
-        <i class="far fa-user-circle fa-5x  padding"></i>
-        <div class="col-12 ">
-          <span class="border-bottom-3-white">{{data.userData.data[0].Fname}} {{data.userData.data[0].Lname}}</span>
-        </div>
+      <i class="far fa-user-circle fa-5x  padding"></i>
+      <div class="col-12 ">
+        <span class="border-bottom-3-white">{{data.userData.data[0].Fname}} {{data.userData.data[0].Lname}}</span>
+      </div>
       <div class="d-flex w-100 bg-white text-bule-violet-light link padding justify-content-center margin-top-30"
         data-toggle="collapse" href="#collapseSideMenu" role="button" aria-expanded="false"
         aria-controls="collapseSideMenu">
@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="d-block d-sm-none col-12">
-      <div [ngClass]="{'  bg-white ': menu == '1',' text-bule-violet-light':menu == '1'}" (click)="DashboardMenu('1')"
+    <div [ngClass]="{'  bg-white ': menu == '1',' text-bule-violet-light':menu == '1'}" (click)="DashboardMenu('1')"
       class="d-flex w-100  bg-violet-less text-white link padding justify-content-center margin-top-5">
       <div class="float-left">
         <b>{{'Dashboard.sidemenu1' | translate}}</b>
@@ -48,15 +48,16 @@
         <b>{{'Dashboard.sidemenu2' | translate}}</b>
       </div>
     </div>
-    <div  [ngClass]="{'  bg-white  text-bule-violet-light': menu == '3'}" (click)="DashboardMenu('3')"
+    <div [ngClass]="{'  bg-white  text-bule-violet-light': menu == '3'}" (click)="DashboardMenu('3')"
       class="d-flex w-100 padding-20 bg-violet-less text-white link  justify-content-center margin-top-5">
       <div class="float-left">
         <b>{{'News.Menu' | translate}}</b>
       </div>
     </div>
   </div>
-  <div [ngClass]="{'col-sm-12': menu == '3'}" class="col-sm-10 col-12 float-right margin-top-20 padding">
-    <div [ngClass]="{'col-sm-12': menu == '3'}" class="col-sm-10 col-12 float-left">
+  <div [ngClass]="{'col-sm-12': submenu == 3.1 && menu == '3'}"
+    class="col-sm-10 col-12 float-right margin-top-20 padding">
+    <div [ngClass]="{'col-sm-12': submenu == 3.1 && menu == '3' }" class="col-sm-10 col-12 float-left">
       <div class="bg-danger row col-sm-12 col-12 text-center text-white padding justify-content-center">
         <h5>{{'Dashboard.title' | translate}}</h5>
       </div>
@@ -118,13 +119,12 @@
           <mat-card-title>รายละเอียด</mat-card-title>
           <mat-card-content>
             <div class="table-responsive">
-              <table>
-                <thead>
+              <table class="table">
+                <thead class="thead-dark">
                   <tr>
                     <th>No.</th>
                     <th>{{ this.isUserLog == true ? 'PersonId':'PersonName'}}</th>
                     <th>CreateDate</th>
-                    <!-- <th>Raw Data</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -133,13 +133,11 @@
                     <td>{{this.isUserLog == true ? item.PersonId : item.Fname+" "+item.Lname}}</td>
                     <td>{{item.CreateDate | date: 'dd-MM-yyyy'}}</td>
                     <!-- <td><small>
-                              <pre>{{item | json}}</pre>
-                            </small>
-                          </td> -->
+                                      <pre>{{item | json}}</pre>
+                                    </small>
+                                  </td> -->
                   </tr>
                 </tbody>
-
-
               </table>
             </div>
           </mat-card-content>
@@ -151,7 +149,7 @@
       <div *ngIf="menu == '3'" class="border margin-top-10 padding">
         <div *ngIf="submenu == 3.1">
           <div class="padding d-table w-100">
-            <div class=" float-right link padding  text-white btn btn-success" (click)="AddNews()">
+            <div class=" float-right link padding  text-white btn btn-success"  *ngIf="data.dashboardPermission.Add == '1'"  (click)="AddNews()">
               <i class="fas fa-plus-circle text-white"></i>
               {{'News.AddNews' | translate}}
             </div>
@@ -173,13 +171,13 @@
                   <th>{{item.StrDate}}</th>
                   <td>{{item.TopicNew}}</td>
                   <td>{{item.DetailNew}}</td>
-                  <td *ngIf="item.IsActive == ''"></td>
+                  <td *ngIf="item.IsActive == ''">{{'News.Pending' | translate}}</td>
                   <td *ngIf="item.IsActive == '2'">{{'News.Complete' | translate}}</td>
                   <td *ngIf="item.IsActive == '0'">{{'News.Pending' | translate}}</td>
                   <td *ngIf="item.IsActive == '1'">{{'News.InProgress' | translate}}</td>
-                  <td><span (click)="EditNews(item)"
+                  <td><span (click)="EditNews(item)"  *ngIf="data.dashboardPermission.Edit == '1'" 
                       class="bg-primary link text-white padding">{{'News.Edit' | translate}}</span></td>
-                  <td><span (click)="DeleteNews(item)" data-toggle="modal" data-target="#deleteModal"
+                  <td><span (click)="DeleteNews(item)"  *ngIf="data.dashboardPermission.Delete == '1'"  data-toggle="modal" data-target="#deleteModal"
                       class="bg-danger link text-white padding">{{'News.Delete' | translate}}</span></td>
                 </tr>
 
