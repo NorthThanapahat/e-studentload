@@ -27,6 +27,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { OrganizationComponent } from './organization/organization.component';
 import { DepartmentComponent } from './department/department.component';
 import { SplitPipe } from 'src/app/share/pipe/split.pipe';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import { NgMarqueeModule } from 'ng-marquee';
 

@@ -146,15 +146,22 @@ export class HomeComponent implements OnInit {
 
   SendGetService(item){
     console.log(item);
-    if(item.ApplicationId == '82' || item.ApplicationId == '83'){
-      this.api.SendRequestApi(`${item.LinkURL}?userAD=${this.data.userData.data[0].UserId}&token=${this.util.GetAccessToken()}`).then((res:any)=>{
+    if(item.ApplicationId == '82' ){
+      this.api.SendRequestApi(`http://192.168.100.11:8080/ESUPTMP/ESUPLogin/ESUADPass.jsp?userAD=${this.data.userData.data[0].UserId}&token=${this.util.GetAccessToken()}`).then((res:any)=>{
+        console.log(res);
+      },(err)=>{
+        console.log(err);
+      });
+    }
+    if(item.ApplicationId == '82' ){
+      this.api.SendRequestApi(`http://192.168.100.11:8080/SLFUSER/jsp/SLFADPass.jsp?userAD=${this.data.userData.data[0].UserId}&token=${this.util.GetAccessToken()}`).then((res:any)=>{
         console.log(res);
       },(err)=>{
         console.log(err);
       });
     }
     if(item.ApplicationId == '84'){
-      this.api.SendRequestApi(`${item.LinkURL}?userAD=${this.data.userData.data[0].UserId}&AppId=${item.ApplicationId}&token=${this.util.GetAccessToken()}`).then((res:any)=>{
+      this.api.SendRequestApi(`https://192.168.43.1:8443/SLFApp/ADPass.jsp?userAD=${this.data.userData.data[0].UserId}&AppId=${item.ApplicationId}&token=${this.util.GetAccessToken()}`).then((res:any)=>{
         console.log(res);
       },(err)=>{
         console.log(err);
